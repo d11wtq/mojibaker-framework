@@ -1,0 +1,539 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8327351212732DBE006D2BA2 /* EDAnyCharacterLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 832734FF12732DBE006D2BA2 /* EDAnyCharacterLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8327351312732DBE006D2BA2 /* EDAnyCharacterLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350012732DBE006D2BA2 /* EDAnyCharacterLexRule.m */; };
+		8327351512732DBE006D2BA2 /* EDCharacterSetLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327350212732DBE006D2BA2 /* EDCharacterSetLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8327351612732DBE006D2BA2 /* EDCharacterSetLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350312732DBE006D2BA2 /* EDCharacterSetLexRule.m */; };
+		8327351812732DBE006D2BA2 /* EDDelimitedStringLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327350512732DBE006D2BA2 /* EDDelimitedStringLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8327351912732DBE006D2BA2 /* EDDelimitedStringLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350612732DBE006D2BA2 /* EDDelimitedStringLexRule.m */; };
+		8327351B12732DBE006D2BA2 /* EDExactStringLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327350812732DBE006D2BA2 /* EDExactStringLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8327351C12732DBE006D2BA2 /* EDExactStringLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350912732DBE006D2BA2 /* EDExactStringLexRule.m */; };
+		8327351E12732DBE006D2BA2 /* EDLexer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327350B12732DBE006D2BA2 /* EDLexer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8327351F12732DBE006D2BA2 /* EDLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350C12732DBE006D2BA2 /* EDLexer.m */; };
+		8327352112732DBE006D2BA2 /* EDLexicalToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327350E12732DBE006D2BA2 /* EDLexicalToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8327352212732DBE006D2BA2 /* EDLexicalToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350F12732DBE006D2BA2 /* EDLexicalToken.m */; };
+		8327352312732DBE006D2BA2 /* EDLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327351012732DBE006D2BA2 /* EDLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8327353B12732E95006D2BA2 /* EDSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EDSupport.framework */; };
+		8327353D12732EAB006D2BA2 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8327352C12732E20006D2BA2 /* GHUnit.framework */; };
+		8327356612732F0D006D2BA2 /* GHUnit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8327352C12732E20006D2BA2 /* GHUnit.framework */; };
+		8327356812732F21006D2BA2 /* EDSupport.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EDSupport.framework */; };
+		8327356C12732F80006D2BA2 /* EDAnyCharacterLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350112732DBE006D2BA2 /* EDAnyCharacterLexRuleTest.m */; };
+		8327356D12732F80006D2BA2 /* EDCharacterSetLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350412732DBE006D2BA2 /* EDCharacterSetLexRuleTest.m */; };
+		8327356E12732F80006D2BA2 /* EDDelimitedStringLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350712732DBE006D2BA2 /* EDDelimitedStringLexRuleTest.m */; };
+		8327356F12732F80006D2BA2 /* EDExactStringLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350A12732DBE006D2BA2 /* EDExactStringLexRuleTest.m */; };
+		8327357012732F80006D2BA2 /* EDLexerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350D12732DBE006D2BA2 /* EDLexerTest.m */; };
+		8327359B127331A9006D2BA2 /* EDTokenDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327359A127331A9006D2BA2 /* EDTokenDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		832735A512733335006D2BA2 /* EDSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 832735A412733335006D2BA2 /* EDSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		832735C7127334B3006D2BA2 /* GHUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327351112732DBE006D2BA2 /* GHUnitTestMain.m */; };
+		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		832735BB1273346F006D2BA2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = EDSupport;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8327356B12732F2F006D2BA2 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8327356812732F21006D2BA2 /* EDSupport.framework in Copy Frameworks */,
+				8327356612732F0D006D2BA2 /* GHUnit.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0867D69BFE84028FC02AAC07 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		0867D6A5FE840307C02AAC07 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		32DBCF5E0370ADEE00C91783 /* EditorSDK_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorSDK_Prefix.pch; sourceTree = "<group>"; };
+		832734FF12732DBE006D2BA2 /* EDAnyCharacterLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDAnyCharacterLexRule.h; sourceTree = "<group>"; };
+		8327350012732DBE006D2BA2 /* EDAnyCharacterLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAnyCharacterLexRule.m; sourceTree = "<group>"; };
+		8327350112732DBE006D2BA2 /* EDAnyCharacterLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDAnyCharacterLexRuleTest.m; sourceTree = "<group>"; };
+		8327350212732DBE006D2BA2 /* EDCharacterSetLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCharacterSetLexRule.h; sourceTree = "<group>"; };
+		8327350312732DBE006D2BA2 /* EDCharacterSetLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCharacterSetLexRule.m; sourceTree = "<group>"; };
+		8327350412732DBE006D2BA2 /* EDCharacterSetLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCharacterSetLexRuleTest.m; sourceTree = "<group>"; };
+		8327350512732DBE006D2BA2 /* EDDelimitedStringLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDDelimitedStringLexRule.h; sourceTree = "<group>"; };
+		8327350612732DBE006D2BA2 /* EDDelimitedStringLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDelimitedStringLexRule.m; sourceTree = "<group>"; };
+		8327350712732DBE006D2BA2 /* EDDelimitedStringLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDDelimitedStringLexRuleTest.m; sourceTree = "<group>"; };
+		8327350812732DBE006D2BA2 /* EDExactStringLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDExactStringLexRule.h; sourceTree = "<group>"; };
+		8327350912732DBE006D2BA2 /* EDExactStringLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDExactStringLexRule.m; sourceTree = "<group>"; };
+		8327350A12732DBE006D2BA2 /* EDExactStringLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDExactStringLexRuleTest.m; sourceTree = "<group>"; };
+		8327350B12732DBE006D2BA2 /* EDLexer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexer.h; sourceTree = "<group>"; };
+		8327350C12732DBE006D2BA2 /* EDLexer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexer.m; sourceTree = "<group>"; };
+		8327350D12732DBE006D2BA2 /* EDLexerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexerTest.m; sourceTree = "<group>"; };
+		8327350E12732DBE006D2BA2 /* EDLexicalToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexicalToken.h; sourceTree = "<group>"; };
+		8327350F12732DBE006D2BA2 /* EDLexicalToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexicalToken.m; sourceTree = "<group>"; };
+		8327351012732DBE006D2BA2 /* EDLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexRule.h; sourceTree = "<group>"; };
+		8327351112732DBE006D2BA2 /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitTestMain.m; sourceTree = "<group>"; };
+		8327352C12732E20006D2BA2 /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnit.framework; sourceTree = "<group>"; };
+		8327353512732E87006D2BA2 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8327353712732E87006D2BA2 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		8327359A127331A9006D2BA2 /* EDTokenDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDTokenDefines.h; sourceTree = "<group>"; };
+		832735A412733335006D2BA2 /* EDSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSupport.h; sourceTree = "<group>"; };
+		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DC2EF5B0486A6940098B216 /* EDSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EDSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8327353312732E87006D2BA2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8327353D12732EAB006D2BA2 /* GHUnit.framework in Frameworks */,
+				8327353B12732E95006D2BA2 /* EDSupport.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF560486A6940098B216 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5B0486A6940098B216 /* EDSupport.framework */,
+				8327353512732E87006D2BA2 /* Tests.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* EditorSDK */ = {
+			isa = PBXGroup;
+			children = (
+				8327356A12732F2E006D2BA2 /* Tests */,
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
+				034768DFFF38A50411DB9C8B /* Products */,
+				8327353712732E87006D2BA2 /* Tests-Info.plist */,
+				832735A412733335006D2BA2 /* EDSupport.h */,
+			);
+			name = EditorSDK;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */,
+				1058C7B2FEA5585E11CA2CBB /* Other Frameworks */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8DC2EF5A0486A6940098B216 /* Info.plist */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				832734FF12732DBE006D2BA2 /* EDAnyCharacterLexRule.h */,
+				8327350012732DBE006D2BA2 /* EDAnyCharacterLexRule.m */,
+				8327350212732DBE006D2BA2 /* EDCharacterSetLexRule.h */,
+				8327350312732DBE006D2BA2 /* EDCharacterSetLexRule.m */,
+				8327350512732DBE006D2BA2 /* EDDelimitedStringLexRule.h */,
+				8327350612732DBE006D2BA2 /* EDDelimitedStringLexRule.m */,
+				8327350812732DBE006D2BA2 /* EDExactStringLexRule.h */,
+				8327350912732DBE006D2BA2 /* EDExactStringLexRule.m */,
+				8327350B12732DBE006D2BA2 /* EDLexer.h */,
+				8327350C12732DBE006D2BA2 /* EDLexer.m */,
+				8327350E12732DBE006D2BA2 /* EDLexicalToken.h */,
+				8327359A127331A9006D2BA2 /* EDTokenDefines.h */,
+				8327350F12732DBE006D2BA2 /* EDLexicalToken.m */,
+				8327351012732DBE006D2BA2 /* EDLexRule.h */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7B0FEA5585E11CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8327352C12732E20006D2BA2 /* GHUnit.framework */,
+				1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7B2FEA5585E11CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0867D6A5FE840307C02AAC07 /* AppKit.framework */,
+				D2F7E79907B2D74100F64583 /* CoreData.framework */,
+				0867D69BFE84028FC02AAC07 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8327351112732DBE006D2BA2 /* GHUnitTestMain.m */,
+				32DBCF5E0370ADEE00C91783 /* EditorSDK_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		8327356A12732F2E006D2BA2 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8327350112732DBE006D2BA2 /* EDAnyCharacterLexRuleTest.m */,
+				8327350412732DBE006D2BA2 /* EDCharacterSetLexRuleTest.m */,
+				8327350712732DBE006D2BA2 /* EDDelimitedStringLexRuleTest.m */,
+				8327350A12732DBE006D2BA2 /* EDExactStringLexRuleTest.m */,
+				8327350D12732DBE006D2BA2 /* EDLexerTest.m */,
+			);
+			name = Tests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8DC2EF500486A6940098B216 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8327351212732DBE006D2BA2 /* EDAnyCharacterLexRule.h in Headers */,
+				8327351512732DBE006D2BA2 /* EDCharacterSetLexRule.h in Headers */,
+				8327351812732DBE006D2BA2 /* EDDelimitedStringLexRule.h in Headers */,
+				8327351B12732DBE006D2BA2 /* EDExactStringLexRule.h in Headers */,
+				8327351E12732DBE006D2BA2 /* EDLexer.h in Headers */,
+				8327352112732DBE006D2BA2 /* EDLexicalToken.h in Headers */,
+				8327352312732DBE006D2BA2 /* EDLexRule.h in Headers */,
+				8327359B127331A9006D2BA2 /* EDTokenDefines.h in Headers */,
+				832735A512733335006D2BA2 /* EDSupport.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8327353412732E87006D2BA2 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8327353A12732E88006D2BA2 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				8327353112732E87006D2BA2 /* Resources */,
+				8327353212732E87006D2BA2 /* Sources */,
+				8327353312732E87006D2BA2 /* Frameworks */,
+				8327356B12732F2F006D2BA2 /* Copy Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				832735BC1273346F006D2BA2 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 8327353512732E87006D2BA2 /* Tests.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8DC2EF4F0486A6940098B216 /* EDSupport */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "EDSupport" */;
+			buildPhases = (
+				8DC2EF500486A6940098B216 /* Headers */,
+				8DC2EF520486A6940098B216 /* Resources */,
+				8DC2EF540486A6940098B216 /* Sources */,
+				8DC2EF560486A6940098B216 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EDSupport;
+			productInstallPath = "$(HOME)/Library/Frameworks";
+			productName = EditorSDK;
+			productReference = 8DC2EF5B0486A6940098B216 /* EDSupport.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "EditorSDK" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* EditorSDK */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DC2EF4F0486A6940098B216 /* EDSupport */,
+				8327353412732E87006D2BA2 /* Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8327353112732E87006D2BA2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF520486A6940098B216 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8327353212732E87006D2BA2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				832735C7127334B3006D2BA2 /* GHUnitTestMain.m in Sources */,
+				8327356C12732F80006D2BA2 /* EDAnyCharacterLexRuleTest.m in Sources */,
+				8327356D12732F80006D2BA2 /* EDCharacterSetLexRuleTest.m in Sources */,
+				8327356E12732F80006D2BA2 /* EDDelimitedStringLexRuleTest.m in Sources */,
+				8327356F12732F80006D2BA2 /* EDExactStringLexRuleTest.m in Sources */,
+				8327357012732F80006D2BA2 /* EDLexerTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DC2EF540486A6940098B216 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8327351312732DBE006D2BA2 /* EDAnyCharacterLexRule.m in Sources */,
+				8327351612732DBE006D2BA2 /* EDCharacterSetLexRule.m in Sources */,
+				8327351912732DBE006D2BA2 /* EDDelimitedStringLexRule.m in Sources */,
+				8327351C12732DBE006D2BA2 /* EDExactStringLexRule.m in Sources */,
+				8327351F12732DBE006D2BA2 /* EDLexer.m in Sources */,
+				8327352212732DBE006D2BA2 /* EDLexicalToken.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		832735BC1273346F006D2BA2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DC2EF4F0486A6940098B216 /* EDSupport */;
+			targetProxy = 832735BB1273346F006D2BA2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB91AE08733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = EditorSDK_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "@rpath";
+				PRODUCT_NAME = EDSupport;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		1DEB91AF08733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = EditorSDK_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				PRODUCT_NAME = EditorSDK;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		1DEB91B208733DA50010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		1DEB91B308733DA50010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		8327353812732E88006D2BA2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+			};
+			name = Debug;
+		};
+		8327353912732E88006D2BA2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "EDSupport" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91AE08733DA50010E9CD /* Debug */,
+				1DEB91AF08733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB91B108733DA50010E9CD /* Build configuration list for PBXProject "EditorSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB91B208733DA50010E9CD /* Debug */,
+				1DEB91B308733DA50010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8327353A12732E88006D2BA2 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8327353812732E88006D2BA2 /* Debug */,
+				8327353912732E88006D2BA2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
