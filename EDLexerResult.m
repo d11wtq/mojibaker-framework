@@ -40,7 +40,7 @@
 		NSUInteger testIndex = (NSUInteger) (minIndex + ((maxIndex - minIndex) / 2));
 		if (testIndex == lastTestedIndex || testIndex == lastTestedIndex - 1) {
 			// If we're comparing the same value, or we've moved backward by a single element
-			startOffset = testIndex + 1;
+			startOffset = testIndex;
 			break;
 		}
 		
@@ -54,6 +54,8 @@
 		
 		lastTestedIndex = testIndex;
 	}
+	
+	NSLog(@"Starting search at index %d", startOffset);
 	
 	EDLexicalToken *closestToken = nil;
 	NSInteger closestLocationDelta = 0;

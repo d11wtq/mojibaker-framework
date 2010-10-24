@@ -35,7 +35,6 @@
 		832738C21273DCF8006D2BA2 /* EDPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 832738C11273DCF8006D2BA2 /* EDPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83273A76127452C9006D2BA2 /* EDLexerResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 83273A74127452C9006D2BA2 /* EDLexerResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83273A77127452C9006D2BA2 /* EDLexerResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273A75127452C9006D2BA2 /* EDLexerResult.m */; };
-		83273A78127452C9006D2BA2 /* EDLexerResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273A75127452C9006D2BA2 /* EDLexerResult.m */; };
 		83273A8F1274599C006D2BA2 /* EDLexerResultTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273A8D1274599C006D2BA2 /* EDLexerResultTest.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
@@ -350,7 +349,6 @@
 				8327356E12732F80006D2BA2 /* EDDelimitedStringLexRuleTest.m in Sources */,
 				8327356F12732F80006D2BA2 /* EDExactStringLexRuleTest.m in Sources */,
 				8327357012732F80006D2BA2 /* EDLexerTest.m in Sources */,
-				83273A78127452C9006D2BA2 /* EDLexerResult.m in Sources */,
 				83273A8F1274599C006D2BA2 /* EDLexerResultTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

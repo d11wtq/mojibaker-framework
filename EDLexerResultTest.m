@@ -28,11 +28,11 @@
 					   [EDLexicalToken tokenWithType:EDDefinerKeywordToken range:NSMakeRange(4, 10)], nil];
 	EDLexerResult *result = [EDLexerResult resultWithTokens:tokens];
 	
-	EDLexicalToken *tok = [result tokenAtRange:NSMakeRange(4, 10)];
+	EDLexicalToken *tok = [result tokenAtRange:NSMakeRange(0, 4)];
 	
-	GHAssertEquals((NSUInteger) EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
-	GHAssertEquals((NSUInteger) 4, (NSUInteger) tok.range.location, @"Token location should be 4");
-	GHAssertEquals((NSUInteger) 10, (NSUInteger) tok.range.length, @"Token length should be 10");
+	GHAssertEquals((NSUInteger) EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
+	GHAssertEquals((NSUInteger) 0, (NSUInteger) tok.range.location, @"Token location should be 0");
+	GHAssertEquals((NSUInteger) 4, (NSUInteger) tok.range.length, @"Token length should be 4");
 }
 
 -(void)testTokenThatBoundsSpecifiedRangeCanBeRequested {
@@ -78,6 +78,21 @@
 	GHAssertEquals((NSUInteger) EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.location, @"Token location should be 6");
 	GHAssertEquals((NSUInteger) 7, (NSUInteger) tok.range.length, @"Token length should be 7");
+}
+
+-(void)testSearchInLongListOfTokens {
+	NSArray *tokens = [NSArray arrayWithObjects:[EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 4)],
+					   [EDLexicalToken tokenWithType:EDString1Token range:NSMakeRange(4, 10)],
+					   [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(14, 5)],
+					   [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(19, 1)],
+					   [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(20, 4)], nil];
+	EDLexerResult *result = [EDLexerResult resultWithTokens:tokens];
+	
+	EDLexicalToken *tok = [result tokenAtRange:NSMakeRange(21, 1)];
+	
+	GHAssertEquals((NSUInteger) EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
+	GHAssertEquals((NSUInteger) 20, (NSUInteger) tok.range.location, @"Token location should be 20");
+	GHAssertEquals((NSUInteger) 4, (NSUInteger) tok.range.length, @"Token length should be 4");
 }
 
 @end
