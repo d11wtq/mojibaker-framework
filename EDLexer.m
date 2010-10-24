@@ -8,6 +8,7 @@
 
 #import "EDLexer.h"
 #import "EDLexicalToken.h"
+#import "EDLexerResult.h"
 #import "EDAnyCharacterLexRule.h"
 
 
@@ -30,29 +31,31 @@
 	[rules addObject:ruleToAdd];
 }
 
--(NSArray *)tokensInString:(NSString *)string {
+-(EDLexerResult *)lexString:(NSString *)string {
 	NSUInteger offset = 0;
 	NSUInteger stringLength = string.length;
 	NSMutableArray *tokens = [NSMutableArray array];
 	
-	if (stringLength == 0) {
-		return tokens;
-	}
-	
-	EDLexicalToken *tok = nil;
-	
-	while (tok = [self lex:string range:NSMakeRange(offset, stringLength - offset)]) {
-		[tokens addObject:tok];
-		offset += tok.range.length;
-		if (offset >= stringLength) {
-			break;
+	if (stringLength != 0) {
+		EDLexicalToken *tok = nil;
+		
+		while (tok = [self nextTokenInString:string range:NSMakeRange(offset, stringLength - offset)]) {
+			[tokens addObject:tok];
+			offset += tok.range.length;
+			if (offset >= stringLength) {
+				break;
+			}
 		}
 	}
 	
-	return tokens;
+	return [EDLexerResult resultWithTokens:tokens];
 }
 
--(EDLexicalToken *)lex:(NSString *)string range:(NSRange)range {
+-(NSArray *)tokensInString:(NSString *)string {
+	return [self lexString:string].tokens;
+}
+
+-(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range {
 	EDLexicalToken *bestToken = nil;
 	
 	for (id<EDLexRule> rule in rules) {

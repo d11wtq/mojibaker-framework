@@ -10,6 +10,7 @@
 #import "EDPlugin.h"
 #import "EDTokenDefines.h"
 #import "EDLexer.h"
+#import "EDLexerResult.h"
 #import "EDLexRule.h"
 #import "EDLexicalToken.h"
 #import "EDAnyCharacterLexRule.h"

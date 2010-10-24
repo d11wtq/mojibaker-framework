@@ -10,6 +10,7 @@
 #import "EDLexRule.h"
 
 @class EDLexicalToken;
+@class EDLexerResult;
 
 @interface EDLexer : NSObject {
 	NSMutableArray *rules;
@@ -20,7 +21,8 @@
 
 -(void)addRule:(id<EDLexRule>)ruleToAdd;
 
+-(EDLexerResult *)lexString:(NSString *)string;
 -(NSArray *)tokensInString:(NSString *)string;
--(EDLexicalToken *)lex:(NSString *)string range:(NSRange)range;
+-(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range;
 
 @end
