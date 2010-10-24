@@ -32,6 +32,7 @@
 		8327359B127331A9006D2BA2 /* EDTokenDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327359A127331A9006D2BA2 /* EDTokenDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		832735A512733335006D2BA2 /* EDSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 832735A412733335006D2BA2 /* EDSupport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		832735C7127334B3006D2BA2 /* GHUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327351112732DBE006D2BA2 /* GHUnitTestMain.m */; };
+		832738C21273DCF8006D2BA2 /* EDPlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 832738C11273DCF8006D2BA2 /* EDPlugin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -91,6 +92,7 @@
 		8327353712732E87006D2BA2 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		8327359A127331A9006D2BA2 /* EDTokenDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDTokenDefines.h; sourceTree = "<group>"; };
 		832735A412733335006D2BA2 /* EDSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDSupport.h; sourceTree = "<group>"; };
+		832738C11273DCF8006D2BA2 /* EDPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDPlugin.h; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* EDSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EDSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -176,6 +178,7 @@
 				8327359A127331A9006D2BA2 /* EDTokenDefines.h */,
 				8327350F12732DBE006D2BA2 /* EDLexicalToken.m */,
 				8327351012732DBE006D2BA2 /* EDLexRule.h */,
+				832738C11273DCF8006D2BA2 /* EDPlugin.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				8327352312732DBE006D2BA2 /* EDLexRule.h in Headers */,
 				8327359B127331A9006D2BA2 /* EDTokenDefines.h in Headers */,
 				832735A512733335006D2BA2 /* EDSupport.h in Headers */,
+				832738C21273DCF8006D2BA2 /* EDPlugin.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

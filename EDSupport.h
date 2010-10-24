@@ -7,6 +7,7 @@
  *
  */
 
+#import "EDPlugin.h"
 #import "EDTokenDefines.h"
 #import "EDLexer.h"
 #import "EDLexRule.h"
