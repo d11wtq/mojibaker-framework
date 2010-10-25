@@ -36,6 +36,9 @@
 		83273A76127452C9006D2BA2 /* EDLexerResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 83273A74127452C9006D2BA2 /* EDLexerResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83273A77127452C9006D2BA2 /* EDLexerResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273A75127452C9006D2BA2 /* EDLexerResult.m */; };
 		83273A8F1274599C006D2BA2 /* EDLexerResultTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273A8D1274599C006D2BA2 /* EDLexerResultTest.m */; };
+		83273B6112757368006D2BA2 /* EDWordListLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 83273B5F12757368006D2BA2 /* EDWordListLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		83273B6212757368006D2BA2 /* EDWordListLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273B6012757368006D2BA2 /* EDWordListLexRule.m */; };
+		83273B6512757680006D2BA2 /* EDWordListLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273B6412757680006D2BA2 /* EDWordListLexRuleTest.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 		8DC2EF570486A6940098B216 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7B1FEA5585E11CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
@@ -99,6 +102,9 @@
 		83273A74127452C9006D2BA2 /* EDLexerResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexerResult.h; sourceTree = "<group>"; };
 		83273A75127452C9006D2BA2 /* EDLexerResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexerResult.m; sourceTree = "<group>"; };
 		83273A8D1274599C006D2BA2 /* EDLexerResultTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexerResultTest.m; sourceTree = "<group>"; };
+		83273B5F12757368006D2BA2 /* EDWordListLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDWordListLexRule.h; sourceTree = "<group>"; };
+		83273B6012757368006D2BA2 /* EDWordListLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDWordListLexRule.m; sourceTree = "<group>"; };
+		83273B6412757680006D2BA2 /* EDWordListLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDWordListLexRuleTest.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* EDSupport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EDSupport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -170,14 +176,7 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				832734FF12732DBE006D2BA2 /* EDAnyCharacterLexRule.h */,
-				8327350012732DBE006D2BA2 /* EDAnyCharacterLexRule.m */,
-				8327350212732DBE006D2BA2 /* EDCharacterSetLexRule.h */,
-				8327350312732DBE006D2BA2 /* EDCharacterSetLexRule.m */,
-				8327350512732DBE006D2BA2 /* EDDelimitedStringLexRule.h */,
-				8327350612732DBE006D2BA2 /* EDDelimitedStringLexRule.m */,
-				8327350812732DBE006D2BA2 /* EDExactStringLexRule.h */,
-				8327350912732DBE006D2BA2 /* EDExactStringLexRule.m */,
+				83273B6312757372006D2BA2 /* Lex Rules */,
 				8327350B12732DBE006D2BA2 /* EDLexer.h */,
 				8327350C12732DBE006D2BA2 /* EDLexer.m */,
 				8327350E12732DBE006D2BA2 /* EDLexicalToken.h */,
@@ -228,8 +227,26 @@
 				8327350A12732DBE006D2BA2 /* EDExactStringLexRuleTest.m */,
 				8327350D12732DBE006D2BA2 /* EDLexerTest.m */,
 				83273A8D1274599C006D2BA2 /* EDLexerResultTest.m */,
+				83273B6412757680006D2BA2 /* EDWordListLexRuleTest.m */,
 			);
 			name = Tests;
+			sourceTree = "<group>";
+		};
+		83273B6312757372006D2BA2 /* Lex Rules */ = {
+			isa = PBXGroup;
+			children = (
+				832734FF12732DBE006D2BA2 /* EDAnyCharacterLexRule.h */,
+				8327350012732DBE006D2BA2 /* EDAnyCharacterLexRule.m */,
+				8327350212732DBE006D2BA2 /* EDCharacterSetLexRule.h */,
+				8327350312732DBE006D2BA2 /* EDCharacterSetLexRule.m */,
+				8327350512732DBE006D2BA2 /* EDDelimitedStringLexRule.h */,
+				8327350612732DBE006D2BA2 /* EDDelimitedStringLexRule.m */,
+				8327350812732DBE006D2BA2 /* EDExactStringLexRule.h */,
+				8327350912732DBE006D2BA2 /* EDExactStringLexRule.m */,
+				83273B5F12757368006D2BA2 /* EDWordListLexRule.h */,
+				83273B6012757368006D2BA2 /* EDWordListLexRule.m */,
+			);
+			name = "Lex Rules";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +267,7 @@
 				832735A512733335006D2BA2 /* EDSupport.h in Headers */,
 				832738C21273DCF8006D2BA2 /* EDPlugin.h in Headers */,
 				83273A76127452C9006D2BA2 /* EDLexerResult.h in Headers */,
+				83273B6112757368006D2BA2 /* EDWordListLexRule.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +368,7 @@
 				8327356F12732F80006D2BA2 /* EDExactStringLexRuleTest.m in Sources */,
 				8327357012732F80006D2BA2 /* EDLexerTest.m in Sources */,
 				83273A8F1274599C006D2BA2 /* EDLexerResultTest.m in Sources */,
+				83273B6512757680006D2BA2 /* EDWordListLexRuleTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +383,7 @@
 				8327351F12732DBE006D2BA2 /* EDLexer.m in Sources */,
 				8327352212732DBE006D2BA2 /* EDLexicalToken.m in Sources */,
 				83273A77127452C9006D2BA2 /* EDLexerResult.m in Sources */,
+				83273B6212757368006D2BA2 /* EDWordListLexRule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

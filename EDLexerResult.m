@@ -32,7 +32,7 @@
 	
 	// Binary search for last token that ends before given range
 	NSUInteger minIndex = 0;
-	NSUInteger maxIndex = tokens.count;
+	NSUInteger maxIndex = tokens.count - 1;
 	NSUInteger lastTestedIndex = -1;
 	NSUInteger startOffset = 0;
 	
@@ -54,8 +54,6 @@
 		
 		lastTestedIndex = testIndex;
 	}
-	
-	NSLog(@"Starting search at index %d", startOffset);
 	
 	EDLexicalToken *closestToken = nil;
 	NSInteger closestLocationDelta = 0;

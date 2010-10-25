@@ -15,5 +15,6 @@
 #import "EDLexicalToken.h"
 #import "EDAnyCharacterLexRule.h"
 #import "EDExactStringLexRule.h"
+#import "EDWordListLexRule.h"
 #import "EDCharacterSetLexRule.h"
 #import "EDDelimitedStringLexRule.h"
