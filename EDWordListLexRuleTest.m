@@ -35,4 +35,15 @@
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.length, @"Token length should be 6");
 }
 
+-(void)testReturnsLongestTokenIfMultipleMatch {
+	NSArray *words = [NSArray arrayWithObjects:@"foo", @"bar", @"zap", @"zapper", nil];
+	id<EDLexRule> rule = [EDWordListLexRule ruleWithList:words tokenType:EDKeywordToken caseInsensitive:NO];
+	NSString *source = @"hello zapper, how are you?";
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6)];
+	
+	GHAssertEquals((NSUInteger) EDKeywordToken, (NSUInteger) tok.type, @"Token type should be EDKeywordToken");
+	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.location, @"Token location should be 6");
+	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.length, @"Token length should be 6");
+}
+
 @end
