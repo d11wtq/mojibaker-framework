@@ -25,6 +25,7 @@
 -(void)addString:(NSString *)stringToAdd;
 -(BOOL)containsString:(NSString *)stringToFind;
 -(EDRadixNode *)prefixSearch:(NSString *)prefix;
+-(NSUInteger)substringLengthMatchedFromString:(NSString *)haystack;
 
 -(NSArray *)entries;
 

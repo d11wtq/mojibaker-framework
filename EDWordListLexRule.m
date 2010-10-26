@@ -8,6 +8,7 @@
 
 #import "EDWordListLexRule.h"
 #import	"EDLexicalToken.h"
+#import "EDRadixNode.h"
 
 @implementation EDWordListLexRule
 
@@ -17,7 +18,10 @@
 
 -(id)initWithList:(NSArray *)wordList tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
 	if (self = [self init]) {
-		list = [[wordList sortedArrayUsingSelector:@selector(compare:)] retain];
+		radixTree = [[EDRadixNode alloc] init];
+		for (NSString *string in wordList) {
+			[radixTree addString:string];
+		}
 		tokenType = theTokenType;
 		caseInsensitive = isCaseInsensitive;
 	}
@@ -26,64 +30,16 @@
 }
 
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range {
-	__block NSString *bestMatch = nil;
-	
-	NSUInteger charIdx = 0;
-	NSUInteger strLen = range.length;
-	
-	NSUInteger lowerBound = 0;
-	NSUInteger upperBound = list.count - 1;
-	
-	for (; charIdx < strLen; ++charIdx) {
-		unichar sourceChar = [string characterAtIndex:range.location + charIdx];
-		
-		NSComparator nthCharComparator = ^(id obj, id ignored) {
-			if (charIdx >= [obj length]) {
-				return (NSComparisonResult)NSOrderedAscending;
-			} else {
-				unichar testChar = [obj characterAtIndex:charIdx];
-				if (testChar > sourceChar) {
-					return (NSComparisonResult)NSOrderedDescending;
-				} else if (testChar < sourceChar) {
-					return (NSComparisonResult)NSOrderedAscending;
-				} else {
-					NSUInteger len = [obj length];
-					if (len == charIdx + 1) {
-						if (!bestMatch || bestMatch.length < len) {
-							bestMatch = obj;
-						}
-					}
-					return (NSComparisonResult)NSOrderedSame;
-				}
-			}
-		};
-		
-		@try {
-			lowerBound = [list indexOfObject:string
-										  inSortedRange:NSMakeRange(lowerBound, upperBound - lowerBound + 1)
-												options:NSBinarySearchingFirstEqual
-										usingComparator:nthCharComparator];
-			if (lowerBound >= 0) {
-				upperBound = [list indexOfObject:string
-								   inSortedRange:NSMakeRange(lowerBound, upperBound - lowerBound + 1)
-										 options:NSBinarySearchingLastEqual
-								 usingComparator:nthCharComparator];
-			}
-		}
-		@catch (NSException *ex) {
-			break;
-		}
-	}
-	
-	if (bestMatch != nil) {
-		return [EDLexicalToken tokenWithType:tokenType range:NSMakeRange(range.location, bestMatch.length)];
+	NSUInteger matchedLength;
+	if (matchedLength = [radixTree substringLengthMatchedFromString:[string substringWithRange:range]]) {
+		return [EDLexicalToken tokenWithType:tokenType range:NSMakeRange(range.location, matchedLength)];
 	} else {
 		return nil;
 	}
 }
 
 -(void)dealloc {
-	[list release];
+	[radixTree release];
 	[super dealloc];
 }
 

@@ -9,8 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
 
+@class EDRadixNode;
+
 @interface EDWordListLexRule : NSObject <EDLexRule> {
-	NSArray *list;
+	EDRadixNode *radixTree;
 	NSUInteger tokenType;
 	BOOL caseInsensitive;
 }

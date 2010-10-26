@@ -178,6 +178,21 @@
 	return success ? resultTree : nil;
 }
 
+-(NSUInteger)substringLengthMatchedFromString:(NSString *)haystack {
+	NSUInteger matchedLength = 0;
+	for (EDRadixNode *n in children) {
+		if ([haystack hasPrefix:n.value]) {
+			NSUInteger nodeMatchedLength;
+			if (nodeMatchedLength = [n substringLengthMatchedFromString:[haystack substringFromIndex:n.value.length]]) {
+				matchedLength += n.value.length + nodeMatchedLength;
+			} else if (n.isWordEnd) {
+				matchedLength += n.value.length;
+			}
+		}
+	}
+	return matchedLength;
+}
+
 -(BOOL)shallowCopyResultsFromChildrenPrefixSearch:(NSString *)prefix intoTree:(EDRadixNode *)tree {
 	/*
 	 If any children contain a match, shallow copy the result's children (i.e. avoid the root node) into the tree.

@@ -130,4 +130,20 @@
 	[tree release];
 }
 
+-(void)testMatchedPortionOfStringCanBeReturned {
+	EDRadixNode *tree = [[EDRadixNode alloc] init];
+	[tree addString:@"inform"];
+	[tree addString:@"information"];
+	[tree addString:@"informative"];
+	[tree addString:@"infedelity"];
+	[tree addString:@"instance"];
+	[tree addString:@"inspect"];
+	
+	GHAssertEquals((NSUInteger) 6, [tree substringLengthMatchedFromString:@"informs"], @"Matched length should be 6 (inform)");
+	GHAssertEquals((NSUInteger) 0, [tree substringLengthMatchedFromString:@"in"], @"Matched length should be 0");
+	GHAssertEquals((NSUInteger) 7, [tree substringLengthMatchedFromString:@"inspector"], @"Matched length should be 7 (inspect)");
+	
+	[tree release];
+}
+
 @end
