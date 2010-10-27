@@ -44,9 +44,14 @@
 		83273E461276E2CC006D2BA2 /* EDRadixNodeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273E451276E2CC006D2BA2 /* EDRadixNodeTest.m */; };
 		83273E471276E4AE006D2BA2 /* EDRadixNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273E411276E2B1006D2BA2 /* EDRadixNode.m */; };
 		835E870E1278399D00AE51E3 /* EDEmbeddedLanguageLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E870D1278399D00AE51E3 /* EDEmbeddedLanguageLexRuleTest.m */; };
-		83D66FB4127825400088AC05 /* EDEmbeddedLanguageLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */; };
+		835E882312785EA000AE51E3 /* EDPatternLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 835E882112785EA000AE51E3 /* EDPatternLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		835E882412785EA000AE51E3 /* EDPatternLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E882212785EA000AE51E3 /* EDPatternLexRule.m */; };
+		835E883A12785F6000AE51E3 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 835E883812785F6000AE51E3 /* RegexKitLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		835E883B12785F6000AE51E3 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E883912785F6000AE51E3 /* RegexKitLite.m */; };
+		835E884C1278623500AE51E3 /* EDPatternLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */; };
+		83D66FB4127825400088AC05 /* EDEmbeddedLanguageLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83D66FB5127825400088AC05 /* EDEmbeddedLanguageLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D66FB3127825400088AC05 /* EDEmbeddedLanguageLexRule.m */; };
-		83D66FB81278270C0088AC05 /* EDLexerStates.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB61278270C0088AC05 /* EDLexerStates.h */; };
+		83D66FB81278270C0088AC05 /* EDLexerStates.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB61278270C0088AC05 /* EDLexerStates.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83D66FB91278270C0088AC05 /* EDLexerStates.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D66FB71278270C0088AC05 /* EDLexerStates.m */; };
 		83D66FBC12782AFB0088AC05 /* EDLexerStatesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D66FBB12782AFB0088AC05 /* EDLexerStatesTest.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
@@ -119,6 +124,11 @@
 		83273E411276E2B1006D2BA2 /* EDRadixNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDRadixNode.m; sourceTree = "<group>"; };
 		83273E451276E2CC006D2BA2 /* EDRadixNodeTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDRadixNodeTest.m; sourceTree = "<group>"; };
 		835E870D1278399D00AE51E3 /* EDEmbeddedLanguageLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDEmbeddedLanguageLexRuleTest.m; sourceTree = "<group>"; };
+		835E882112785EA000AE51E3 /* EDPatternLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDPatternLexRule.h; sourceTree = "<group>"; };
+		835E882212785EA000AE51E3 /* EDPatternLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDPatternLexRule.m; sourceTree = "<group>"; };
+		835E883812785F6000AE51E3 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		835E883912785F6000AE51E3 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDPatternLexRuleTest.m; sourceTree = "<group>"; };
 		83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDEmbeddedLanguageLexRule.h; sourceTree = "<group>"; };
 		83D66FB3127825400088AC05 /* EDEmbeddedLanguageLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDEmbeddedLanguageLexRule.m; sourceTree = "<group>"; };
 		83D66FB61278270C0088AC05 /* EDLexerStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexerStates.h; sourceTree = "<group>"; };
@@ -237,6 +247,8 @@
 			children = (
 				8327351112732DBE006D2BA2 /* GHUnitTestMain.m */,
 				32DBCF5E0370ADEE00C91783 /* EditorSDK_Prefix.pch */,
+				835E883812785F6000AE51E3 /* RegexKitLite.h */,
+				835E883912785F6000AE51E3 /* RegexKitLite.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -254,6 +266,7 @@
 				83273E451276E2CC006D2BA2 /* EDRadixNodeTest.m */,
 				83D66FBB12782AFB0088AC05 /* EDLexerStatesTest.m */,
 				835E870D1278399D00AE51E3 /* EDEmbeddedLanguageLexRuleTest.m */,
+				835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -273,6 +286,8 @@
 				83273B6012757368006D2BA2 /* EDWordListLexRule.m */,
 				83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */,
 				83D66FB3127825400088AC05 /* EDEmbeddedLanguageLexRule.m */,
+				835E882112785EA000AE51E3 /* EDPatternLexRule.h */,
+				835E882212785EA000AE51E3 /* EDPatternLexRule.m */,
 			);
 			name = "Lex Rules";
 			sourceTree = "<group>";
@@ -299,6 +314,8 @@
 				83273E421276E2B1006D2BA2 /* EDRadixNode.h in Headers */,
 				83D66FB4127825400088AC05 /* EDEmbeddedLanguageLexRule.h in Headers */,
 				83D66FB81278270C0088AC05 /* EDLexerStates.h in Headers */,
+				835E882312785EA000AE51E3 /* EDPatternLexRule.h in Headers */,
+				835E883A12785F6000AE51E3 /* RegexKitLite.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +421,7 @@
 				83273E461276E2CC006D2BA2 /* EDRadixNodeTest.m in Sources */,
 				83D66FBC12782AFB0088AC05 /* EDLexerStatesTest.m in Sources */,
 				835E870E1278399D00AE51E3 /* EDEmbeddedLanguageLexRuleTest.m in Sources */,
+				835E884C1278623500AE51E3 /* EDPatternLexRuleTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +440,8 @@
 				83273E431276E2B1006D2BA2 /* EDRadixNode.m in Sources */,
 				83D66FB5127825400088AC05 /* EDEmbeddedLanguageLexRule.m in Sources */,
 				83D66FB91278270C0088AC05 /* EDLexerStates.m in Sources */,
+				835E882412785EA000AE51E3 /* EDPatternLexRule.m in Sources */,
+				835E883B12785F6000AE51E3 /* RegexKitLite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +487,7 @@
 				GCC_PREFIX_HEADER = EditorSDK_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@rpath";
+				OTHER_LDFLAGS = "-licucore";
 				PRODUCT_NAME = EDSupport;
 				WRAPPER_EXTENSION = framework;
 			};

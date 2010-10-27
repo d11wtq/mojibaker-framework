@@ -7,6 +7,7 @@
  *
  */
 
+#import "RegexKitLite.h"
 #import "EDPlugin.h"
 #import "EDTokenDefines.h"
 #import "EDLexer.h"
@@ -20,3 +21,4 @@
 #import "EDCharacterSetLexRule.h"
 #import "EDDelimitedStringLexRule.h"
 #import "EDEmbeddedLanguageLexRule.h"
+#import "EDPatternLexRule.h"
