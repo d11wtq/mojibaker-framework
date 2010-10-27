@@ -70,7 +70,7 @@
 
 -(void)testComplexEmbeddedLexing {
 	EDLexer *lexer = [EDLexer lexer];
-	[lexer addRule:[EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDDefinerKeywordToken]];
+	[lexer addRule:[EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token]];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDDefinerKeywordToken]];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"zip" tokenType:EDKeywordToken]];
 	
@@ -84,18 +84,19 @@
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Location should be 4");
 	GHAssertEquals((NSUInteger) 38, tok.range.length, @"Length should be 38");
 	
-	/*GHAssertNotNil(tok.sublexedResult, @"A sublexed result should be included");
+	GHAssertNotNil(tok.sublexedResult, @"A sublexed result should be included");
 	
 	EDLexicalToken *embeddedTok1 = [tok.sublexedResult tokenAtRange:NSMakeRange(7, 3)];
-	EDLexicalToken *embeddedTok2 = [tok.sublexedResult tokenAtRange:NSMakeRange(11, 3)];
+	EDLexicalToken *embeddedTok2 = [tok.sublexedResult tokenAtRange:NSMakeRange(11, 24)];
+	EDLexicalToken *embeddedTok3 = [tok.sublexedResult tokenAtRange:NSMakeRange(36, 3)];
 	
 	GHAssertNotNil(embeddedTok1, @"Token should exist at range (7,3)");
-	GHAssertNotNil(embeddedTok2, @"Token should exist at range (11,3)");
+	GHAssertNotNil(embeddedTok2, @"Token should exist at range (11,24)");
+	GHAssertNotNil(embeddedTok3, @"Token should exist at range (36,3)");
 	
-	GHAssertEquals((NSUInteger) EDDefinerKeywordToken, embeddedTok1.type,
-				   @"Sublexed result should include definer keyword at (7,3)");
-	GHAssertEquals((NSUInteger) EDKeywordToken, embeddedTok2.type,
-				   @"Sublexed result should include keyword at 11,3)");*/
+	GHAssertEquals(EDDefinerKeywordToken, embeddedTok1.type, @"Sublexed result should include definer keyword at (7,3)");
+	GHAssertEquals(EDString1Token, embeddedTok2.type, @"Sublexed result should include string at (11,24)");
+	GHAssertEquals(EDKeywordToken, embeddedTok3.type, @"Sublexed result should include keyword at (36,3)");
 }
 
 @end
