@@ -11,17 +11,17 @@
 
 @implementation EDDelimitedStringLexRule
 
-+(id)ruleWithStart:(NSString *)startString end:(NSString *)endString tokenType:(NSUInteger)theTokenType {
++(id)ruleWithStart:(NSString *)startString end:(NSString *)endString tokenType:(EDLexicalTokenType)theTokenType {
 	return [self ruleWithStart:startString end:endString escape:@"\\" tokenType:theTokenType];
 }
 
 +(id)ruleWithStart:(NSString *)startString end:(NSString *)endString escape:(NSString *)escapeString
-		 tokenType:(NSUInteger)theTokenType {
+		 tokenType:(EDLexicalTokenType)theTokenType {
 	return [[[self alloc] initWithStart:startString end:endString escape:escapeString tokenType:theTokenType] autorelease];
 }
 
 -(id)initWithStart:(NSString *)startString end:(NSString *)endString escape:(NSString *)escapeString
-		 tokenType:(NSUInteger)theTokenType {
+		 tokenType:(EDLexicalTokenType)theTokenType {
 	if (self = [self init]) {
 		start = [startString copy];
 		end = [endString copy];

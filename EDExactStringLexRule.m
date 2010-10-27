@@ -11,15 +11,15 @@
 
 @implementation EDExactStringLexRule
 
-+(id)ruleWithString:(NSString *)string tokenType:(NSUInteger)theTokenType {
++(id)ruleWithString:(NSString *)string tokenType:(EDLexicalTokenType)theTokenType {
 	return [[[self alloc] initWithString:string tokenType:theTokenType caseInsensitive:NO] autorelease];
 }
 
-+(id)ruleWithString:(NSString *)string tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
++(id)ruleWithString:(NSString *)string tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
 	return [[[self alloc] initWithString:string tokenType:theTokenType caseInsensitive:isCaseInsensitive] autorelease];
 }
 
--(id)initWithString:(NSString *)string tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
+-(id)initWithString:(NSString *)string tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
 	if (self = [self init]) {
 		needleString = isCaseInsensitive
 			? [[string lowercaseString] copy]

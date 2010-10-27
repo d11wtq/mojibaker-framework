@@ -11,7 +11,7 @@
 
 @implementation EDAnyCharacterLexRule
 
-+(id)ruleWithTokenType:(NSUInteger)theTokenType {
++(id)ruleWithTokenType:(EDLexicalTokenType)theTokenType {
 	return [[[self alloc] initWithTokenType:theTokenType] autorelease];
 }
 
@@ -27,7 +27,7 @@
 	return self;
 }
 
--(id)initWithTokenType:(NSUInteger)theTokenType {
+-(id)initWithTokenType:(EDLexicalTokenType)theTokenType {
 	if (self = [self init]) {
 		tokenType = theTokenType;
 	}

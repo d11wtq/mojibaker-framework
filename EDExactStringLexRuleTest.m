@@ -29,7 +29,7 @@
 	NSString *source = @"test class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5)];
 	
-	GHAssertEquals((NSUInteger) EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
+	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
 	GHAssertEquals((NSUInteger) 5, tok.range.location, @"Matched token range should always be range searched");
 	GHAssertEquals((NSUInteger) 5, tok.range.length, @"Matched token range should have same length as keyword");
 }
@@ -40,7 +40,7 @@
 	NSString *source = @"test Class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5)];
 	
-	GHAssertEquals((NSUInteger) EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
+	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
 	GHAssertEquals((NSUInteger) 5, tok.range.location, @"Matched token range should always be range searched");
 	GHAssertEquals((NSUInteger) 5, tok.range.length, @"Matched token range should have same length as keyword");
 }

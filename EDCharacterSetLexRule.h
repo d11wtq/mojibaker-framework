@@ -8,14 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
+#import "EDTokenDefines.h"
 
 @interface EDCharacterSetLexRule : NSObject <EDLexRule> {
 	NSCharacterSet *permittedCharacterSet;
-	NSUInteger tokenType;
+	EDLexicalTokenType tokenType;
 }
 
-+(id)ruleWithCharacterSet:(NSCharacterSet *)characterSet tokenType:(NSUInteger)theTokenType;
++(id)ruleWithCharacterSet:(NSCharacterSet *)characterSet tokenType:(EDLexicalTokenType)theTokenType;
 
--(id)initWithCharacterSet:(NSCharacterSet *)characterSet tokenType:(NSUInteger)theTokenType;
+-(id)initWithCharacterSet:(NSCharacterSet *)characterSet tokenType:(EDLexicalTokenType)theTokenType;
 
 @end

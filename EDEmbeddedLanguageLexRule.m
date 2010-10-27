@@ -19,12 +19,12 @@
 }
 
 +(id)ruleWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer
-		 tokenType:(NSUInteger)theTokenType {
+		 tokenType:(EDLexicalTokenType)theTokenType {
 	return [[[self alloc] initWithStart:startString end:endString lexer:embeddedLexer tokenType:theTokenType] autorelease];
 }
 
 -(id)initWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer
-		 tokenType:(NSUInteger)theTokenType {
+		 tokenType:(EDLexicalTokenType)theTokenType {
 	if (self = [self init]) {
 		start = [startString copy];
 		end = [endString copy];

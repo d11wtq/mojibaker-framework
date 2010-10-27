@@ -12,11 +12,11 @@
 
 @implementation EDWordListLexRule
 
-+(id)ruleWithList:(NSArray *)wordList tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
++(id)ruleWithList:(NSArray *)wordList tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
 	return [[[self alloc] initWithList:wordList tokenType:theTokenType caseInsensitive:isCaseInsensitive] autorelease];
 }
 
--(id)initWithList:(NSArray *)wordList tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
+-(id)initWithList:(NSArray *)wordList tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
 	if (self = [self init]) {
 		radixTree = [[EDRadixNode alloc] init];
 		for (NSString *string in wordList) {

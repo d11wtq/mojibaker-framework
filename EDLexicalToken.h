@@ -13,18 +13,18 @@
 @class EDLexerResult;
 
 @interface EDLexicalToken : NSObject {
-	NSUInteger type;
+	EDLexicalTokenType type;
 	NSRange range;
 	EDLexerResult *sublexedResult;
 }
 
-@property (readonly) NSUInteger type;
+@property (readonly) EDLexicalTokenType type;
 @property (readonly) NSRange range;
 @property (readonly) EDLexerResult *sublexedResult;
 
--(id)initWithType:(NSUInteger)theType range:(NSRange)theRange;
--(id)initWithType:(NSUInteger)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result;
-+(id)tokenWithType:(NSUInteger)theType range:(NSRange)theRange;
-+(id)tokenWithType:(NSUInteger)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result;
+-(id)initWithType:(EDLexicalTokenType)theType range:(NSRange)theRange;
+-(id)initWithType:(EDLexicalTokenType)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result;
++(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange;
++(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result;
 
 @end

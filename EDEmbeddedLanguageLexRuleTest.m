@@ -40,7 +40,7 @@
 	
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4)];
 	
-	GHAssertEquals((NSUInteger) EDEmbeddedLanguageToken, tok.type, @"Type should be EDEmbeddedLanguageToken");
+	GHAssertEquals(EDEmbeddedLanguageToken, tok.type, @"Type should be EDEmbeddedLanguageToken");
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Location should be 4");
 	GHAssertEquals((NSUInteger) 13, tok.range.length, @"Length should be 13");
 }
@@ -64,10 +64,8 @@
 	GHAssertNotNil(embeddedTok1, @"Token should exist at range (7,3)");
 	GHAssertNotNil(embeddedTok2, @"Token should exist at range (11,3)");
 	
-	GHAssertEquals((NSUInteger) EDDefinerKeywordToken, embeddedTok1.type,
-				   @"Sublexed result should include definer keyword at (7,3)");
-	GHAssertEquals((NSUInteger) EDKeywordToken, embeddedTok2.type,
-				   @"Sublexed result should include keyword at 11,3)");
+	GHAssertEquals(EDDefinerKeywordToken, embeddedTok1.type, @"Sublexed result should include definer keyword at (7,3)");
+	GHAssertEquals(EDKeywordToken, embeddedTok2.type, @"Sublexed result should include keyword at 11,3)");
 }
 
 -(void)testComplexEmbeddedLexing {
@@ -82,7 +80,7 @@
 	
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4)];
 	
-	GHAssertEquals((NSUInteger) EDEmbeddedLanguageToken, tok.type, @"Type should be EDEmbeddedLanguageToken");
+	GHAssertEquals(EDEmbeddedLanguageToken, tok.type, @"Type should be EDEmbeddedLanguageToken");
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Location should be 4");
 	GHAssertEquals((NSUInteger) 38, tok.range.length, @"Length should be 38");
 	

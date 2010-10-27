@@ -29,8 +29,7 @@
 	NSString *source = @"test \t\t\r\n class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4)];
 	
-	GHAssertNotNil(tok, @"WTF?");
-	GHAssertEquals((NSUInteger) EDWhitespaceToken, tok.type, @"Token type should be EDWhitespaceToken");
+	GHAssertEquals(EDWhitespaceToken, tok.type, @"Token type should be EDWhitespaceToken");
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Matched token range should always be range searched");
 	GHAssertEquals((NSUInteger) 6, tok.range.length, @"Matched token range should include all characters");
 }

@@ -30,7 +30,7 @@
 	
 	EDLexicalToken *tok = [result tokenAtRange:NSMakeRange(0, 4)];
 	
-	GHAssertEquals((NSUInteger) EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
+	GHAssertEquals(EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 0, (NSUInteger) tok.range.location, @"Token location should be 0");
 	GHAssertEquals((NSUInteger) 4, (NSUInteger) tok.range.length, @"Token length should be 4");
 }
@@ -42,7 +42,7 @@
 	
 	EDLexicalToken *tok = [result tokenAtRange:NSMakeRange(6, 2)];
 	
-	GHAssertEquals((NSUInteger) EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
+	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
 	GHAssertEquals((NSUInteger) 4, (NSUInteger) tok.range.location, @"Token location should be 4");
 	GHAssertEquals((NSUInteger) 10, (NSUInteger) tok.range.length, @"Token length should be 10");
 }
@@ -75,7 +75,7 @@
 	
 	EDLexicalToken *tok = [result tokenAtRange:NSMakeRange(7, 1)];
 	
-	GHAssertEquals((NSUInteger) EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
+	GHAssertEquals(EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.location, @"Token location should be 6");
 	GHAssertEquals((NSUInteger) 7, (NSUInteger) tok.range.length, @"Token length should be 7");
 }
@@ -90,7 +90,7 @@
 	
 	EDLexicalToken *tok = [result tokenAtRange:NSMakeRange(21, 1)];
 	
-	GHAssertEquals((NSUInteger) EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
+	GHAssertEquals(EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 20, (NSUInteger) tok.range.location, @"Token location should be 20");
 	GHAssertEquals((NSUInteger) 4, (NSUInteger) tok.range.length, @"Token length should be 4");
 }

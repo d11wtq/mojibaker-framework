@@ -8,16 +8,17 @@
 
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
+#import "EDTokenDefines.h"
 
 @class EDRadixNode;
 
 @interface EDWordListLexRule : NSObject <EDLexRule> {
 	EDRadixNode *radixTree;
-	NSUInteger tokenType;
+	EDLexicalTokenType tokenType;
 	BOOL caseInsensitive;
 }
 
-+(id)ruleWithList:(NSArray *)wordList tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
--(id)initWithList:(NSArray *)wordList tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
++(id)ruleWithList:(NSArray *)wordList tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
+-(id)initWithList:(NSArray *)wordList tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
 
 @end

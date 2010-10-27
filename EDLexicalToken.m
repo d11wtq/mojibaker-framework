@@ -15,15 +15,15 @@
 @synthesize range;
 @synthesize sublexedResult;
 
-+(id)tokenWithType:(NSUInteger)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result {
++(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result {
 	return [[[self alloc] initWithType:theType range:theRange sublexedResult:result] autorelease];
 }
 
-+(id)tokenWithType:(NSUInteger)theType range:(NSRange)theRange {
++(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange {
 	return [[[self alloc] initWithType:theType range:theRange] autorelease];
 }
 
--(id)initWithType:(NSUInteger)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result {
+-(id)initWithType:(EDLexicalTokenType)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result {
 	if (self = [self init]) {
 		type = theType;
 		range = theRange;
@@ -33,7 +33,7 @@
 	return self;
 }
 
--(id)initWithType:(NSUInteger)theType range:(NSRange)theRange {
+-(id)initWithType:(EDLexicalTokenType)theType range:(NSRange)theRange {
 	return [self initWithType:theType range:theRange sublexedResult:nil];
 }
 

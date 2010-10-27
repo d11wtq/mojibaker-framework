@@ -8,20 +8,21 @@
 
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
+#import "EDTokenDefines.h"
 
 @interface EDDelimitedStringLexRule : NSObject <EDLexRule> {
 	NSString *start;
 	NSString *end;
 	NSString *escape;
-	NSUInteger tokenType;
+	EDLexicalTokenType tokenType;
 }
 
-+(id)ruleWithStart:(NSString *)startString end:(NSString *)endString tokenType:(NSUInteger)theTokenType;
++(id)ruleWithStart:(NSString *)startString end:(NSString *)endString tokenType:(EDLexicalTokenType)theTokenType;
 
 +(id)ruleWithStart:(NSString *)startString end:(NSString *)endString escape:(NSString *)escapeString
-		 tokenType:(NSUInteger)theTokenType;
+		 tokenType:(EDLexicalTokenType)theTokenType;
 
 -(id)initWithStart:(NSString *)startString end:(NSString *)endString escape:(NSString *)escapeString
-		 tokenType:(NSUInteger)theTokenType;
+		 tokenType:(EDLexicalTokenType)theTokenType;
 
 @end

@@ -8,15 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
+#import "EDTokenDefines.h"
 
 @interface EDExactStringLexRule : NSObject <EDLexRule> {
 	NSString *needleString;
-	NSUInteger tokenType;
+	EDLexicalTokenType tokenType;
 	BOOL caseInsensitive;
 }
 
-+(id)ruleWithString:(NSString *)string tokenType:(NSUInteger)theTokenType;
-+(id)ruleWithString:(NSString *)string tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
--(id)initWithString:(NSString *)string tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
++(id)ruleWithString:(NSString *)string tokenType:(EDLexicalTokenType)theTokenType;
++(id)ruleWithString:(NSString *)string tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
+-(id)initWithString:(NSString *)string tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
 
 @end
