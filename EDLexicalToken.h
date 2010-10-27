@@ -10,15 +10,21 @@
 
 #include "EDTokenDefines.h"
 
+@class EDLexerResult;
+
 @interface EDLexicalToken : NSObject {
 	NSUInteger type;
 	NSRange range;
+	EDLexerResult *sublexedResult;
 }
 
 @property (readonly) NSUInteger type;
 @property (readonly) NSRange range;
+@property (readonly) EDLexerResult *sublexedResult;
 
 -(id)initWithType:(NSUInteger)theType range:(NSRange)theRange;
+-(id)initWithType:(NSUInteger)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result;
 +(id)tokenWithType:(NSUInteger)theType range:(NSRange)theRange;
++(id)tokenWithType:(NSUInteger)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result;
 
 @end

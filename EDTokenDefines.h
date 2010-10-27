@@ -7,6 +7,8 @@
  *
  */
 
+// FIXME: This should be an enum (and WTF? A negative unsigned int??)
+
 #define EDUnmatchedCharacterToken -1
 #define EDWhitespaceToken 0
 #define EDDefinerKeywordToken 1
@@ -18,3 +20,4 @@
 #define EDSingleLineComment2Token 7
 #define EDMultilineComment1Token 8
 #define EDMultilineComment2Token 9
+#define EDEmbeddedLanguageToken 10

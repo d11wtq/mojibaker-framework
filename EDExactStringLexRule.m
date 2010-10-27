@@ -11,6 +11,10 @@
 
 @implementation EDExactStringLexRule
 
++(id)ruleWithString:(NSString *)string tokenType:(NSUInteger)theTokenType {
+	return [[[self alloc] initWithString:string tokenType:theTokenType caseInsensitive:NO] autorelease];
+}
+
 +(id)ruleWithString:(NSString *)string tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
 	return [[[self alloc] initWithString:string tokenType:theTokenType caseInsensitive:isCaseInsensitive] autorelease];
 }

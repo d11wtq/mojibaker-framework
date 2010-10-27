@@ -15,6 +15,7 @@
 	BOOL caseInsensitive;
 }
 
++(id)ruleWithString:(NSString *)string tokenType:(NSUInteger)theTokenType;
 +(id)ruleWithString:(NSString *)string tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
 -(id)initWithString:(NSString *)string tokenType:(NSUInteger)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
 

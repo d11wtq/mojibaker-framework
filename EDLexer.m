@@ -7,6 +7,7 @@
 //
 
 #import "EDLexer.h"
+#import "EDLexerStates.h"
 #import "EDLexicalToken.h"
 #import "EDLexerResult.h"
 #import "EDAnyCharacterLexRule.h"
@@ -31,18 +32,18 @@
 	[rules addObject:ruleToAdd];
 }
 
--(EDLexerResult *)lexString:(NSString *)string {
-	NSUInteger offset = 0;
-	NSUInteger stringLength = string.length;
+-(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range {
+	NSUInteger offset = range.location;
+	NSUInteger endOffset = range.location + range.length;
 	NSMutableArray *tokens = [NSMutableArray array];
 	
-	if (stringLength != 0) {
+	if (range.length != 0) {
 		EDLexicalToken *tok = nil;
 		
-		while (tok = [self nextTokenInString:string range:NSMakeRange(offset, stringLength - offset)]) {
+		while (tok = [self nextTokenInString:string range:NSMakeRange(offset, endOffset - offset)]) {
 			[tokens addObject:tok];
 			offset += tok.range.length;
-			if (offset >= stringLength) {
+			if (offset >= endOffset) {
 				break;
 			}
 		}
@@ -51,8 +52,8 @@
 	return [EDLexerResult resultWithTokens:tokens];
 }
 
--(NSArray *)tokensInString:(NSString *)string {
-	return [self lexString:string].tokens;
+-(EDLexerResult *)lexString:(NSString *)string {
+	return [self lexString:string range:NSMakeRange(0, string.length)];
 }
 
 -(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range {

@@ -7,24 +7,39 @@
 //
 
 #import "EDLexicalToken.h"
-
+#import "EDLexerResult.h"
 
 @implementation EDLexicalToken
 
 @synthesize type;
 @synthesize range;
+@synthesize sublexedResult;
+
++(id)tokenWithType:(NSUInteger)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result {
+	return [[[self alloc] initWithType:theType range:theRange sublexedResult:result] autorelease];
+}
 
 +(id)tokenWithType:(NSUInteger)theType range:(NSRange)theRange {
 	return [[[self alloc] initWithType:theType range:theRange] autorelease];
 }
 
--(id)initWithType:(NSUInteger)theType range:(NSRange)theRange {
+-(id)initWithType:(NSUInteger)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result {
 	if (self = [self init]) {
 		type = theType;
 		range = theRange;
+		sublexedResult = [result retain];
 	}
 	
 	return self;
+}
+
+-(id)initWithType:(NSUInteger)theType range:(NSRange)theRange {
+	return [self initWithType:theType range:theRange sublexedResult:nil];
+}
+
+-(void)dealloc {
+	[sublexedResult release];
+	[super dealloc];
 }
 
 @end

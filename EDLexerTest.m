@@ -68,23 +68,4 @@
 	GHAssertEquals((NSUInteger) 8, tok.range.length, @"Token should have a length of 8");
 }
 
--(void)testTokensInStringProvidesConvenienceMethod {
-	NSString *source = @"abc";
-	EDLexer *lexer = [EDLexer lexer];
-	EDLexerResult *result = [lexer lexString:source];
-	NSArray *tokens = [lexer tokensInString:source];
-	
-	GHAssertEquals(result.tokens.count, tokens.count, @"Both arrays should be the same size");
-	
-	int i, count;
-	for (i = 0, count = result.tokens.count; i < count; ++i) {
-		EDLexicalToken *resultToken = [result.tokens objectAtIndex:i];
-		EDLexicalToken *convenienceToken = [tokens objectAtIndex:i];
-		
-		GHAssertEquals(resultToken.type, convenienceToken.type, @"Both tokens should be the same type");
-		GHAssertEquals(resultToken.range.location, convenienceToken.range.location, @"Both tokens should be at the same location");
-		GHAssertEquals(resultToken.range.length, convenienceToken.range.length, @"Both tokens should have the same length");
-	}
-}
-
 @end

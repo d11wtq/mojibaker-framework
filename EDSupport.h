@@ -19,3 +19,4 @@
 #import "EDWordListLexRule.h"
 #import "EDCharacterSetLexRule.h"
 #import "EDDelimitedStringLexRule.h"
+#import "EDEmbeddedLanguageLexRule.h"

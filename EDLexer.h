@@ -21,8 +21,9 @@
 
 -(void)addRule:(id<EDLexRule>)ruleToAdd;
 
+-(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range;
 -(EDLexerResult *)lexString:(NSString *)string;
--(NSArray *)tokensInString:(NSString *)string;
+
 -(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range;
 
 @end
