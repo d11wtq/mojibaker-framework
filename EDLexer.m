@@ -68,7 +68,6 @@
 	for (id<EDLexRule> rule in rules) {
 		EDLexicalToken *tok = nil;
 		if (tok = [rule lexInString:string range:range]) {
-			return tok;
 			if (bestToken == nil || tok.range.length > bestToken.range.length) {
 				bestToken = tok;
 			}
