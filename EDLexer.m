@@ -11,6 +11,7 @@
 #import "EDLexicalToken.h"
 #import "EDLexerResult.h"
 #import "EDAnyCharacterLexRule.h"
+#import "EDCharacterSetLexRule.h"
 
 
 @implementation EDLexer
@@ -23,6 +24,8 @@
 	if (self = [super init]) {
 		rules = [[NSMutableArray alloc] init];
 		defaultRule = [[EDAnyCharacterLexRule alloc] init];
+		whiteSpaceRule = [[EDCharacterSetLexRule alloc] initWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] tokenType:EDWhitespaceToken];
+		
 	}
 	
 	return self;
@@ -42,6 +45,9 @@
 		
 		while (tok = [self nextTokenInString:string range:NSMakeRange(offset, endOffset - offset)]) {
 			[tokens addObject:tok];
+			for (EDLexicalToken *child in tok.sublexedResult.tokens) {
+				[tokens addObject:child];
+			}
 			offset += tok.range.length;
 			if (offset >= endOffset) {
 				break;
@@ -62,6 +68,7 @@
 	for (id<EDLexRule> rule in rules) {
 		EDLexicalToken *tok = nil;
 		if (tok = [rule lexInString:string range:range]) {
+			return tok;
 			if (bestToken == nil || tok.range.length > bestToken.range.length) {
 				bestToken = tok;
 			}
@@ -69,7 +76,9 @@
 	}
 	
 	if (bestToken == nil) {
-		bestToken = [defaultRule lexInString:string range:range];
+		if (!(bestToken = [whiteSpaceRule lexInString:string range:range])) {
+			bestToken = [defaultRule lexInString:string range:range];
+		}
 	}
 	
 	return bestToken;
@@ -77,6 +86,7 @@
 
 -(void)dealloc {
 	[rules release];
+	[whiteSpaceRule release];
 	[defaultRule release];
 	[super dealloc];
 }

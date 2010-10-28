@@ -14,6 +14,7 @@
 
 @interface EDLexer : NSObject {
 	NSMutableArray *rules;
+	id<EDLexRule> whiteSpaceRule;
 	id<EDLexRule> defaultRule;
 }
 
