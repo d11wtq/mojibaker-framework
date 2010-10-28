@@ -27,4 +27,6 @@
 +(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange;
 +(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result;
 
+-(void)moveBy:(NSInteger)delta;
+
 @end

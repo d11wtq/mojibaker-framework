@@ -14,13 +14,15 @@
 
 @interface EDLexer : NSObject {
 	NSMutableArray *rules;
-	id<EDLexRule> whiteSpaceRule;
-	id<EDLexRule> defaultRule;
+	NSArray *lastResortRules;
 }
 
 +(id)lexer;
 
 -(void)addRule:(id<EDLexRule>)ruleToAdd;
+
+-(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range
+			 changeInLength:(NSInteger)delta previousResult:(EDLexerResult *)previousResult;
 
 -(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range;
 -(EDLexerResult *)lexString:(NSString *)string;

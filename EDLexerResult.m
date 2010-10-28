@@ -55,6 +55,10 @@
 		lastTestedIndex = testIndex;
 	}
 	
+	if (startOffset > 0) {
+		startOffset--; // Rounding errors can mean it sticks one away from the correct position
+	}
+	
 	EDLexicalToken *closestToken = nil;
 	NSInteger closestLocationDelta = 0;
 	NSInteger closestOverlapDelta = 0;

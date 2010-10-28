@@ -95,4 +95,18 @@
 	GHAssertEquals((NSUInteger) 4, (NSUInteger) tok.range.length, @"Token length should be 4");
 }
 
+-(void)testWeirdBugWhereFirstElementIsNotFound {
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 6)];
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(6, 1)];
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(7, 6)];
+	EDLexicalToken *t4 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(13, 1)];
+	EDLexicalToken *t5 = [EDLexicalToken tokenWithType:EDDefinerKeywordToken range:NSMakeRange(14, 8)];
+	
+	EDLexerResult *result = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, t2, t3, t4, t5, nil]];
+	
+	EDLexicalToken *tok = [result tokenAtRange:NSMakeRange(0, 6)];
+	
+	GHAssertNotNil(tok, @"Token should be found");
+}
+
 @end

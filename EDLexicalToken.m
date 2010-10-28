@@ -37,6 +37,10 @@
 	return [self initWithType:theType range:theRange sublexedResult:nil];
 }
 
+-(void)moveBy:(NSInteger)delta {
+	range.location += delta;
+}
+
 -(void)dealloc {
 	[sublexedResult release];
 	[super dealloc];
