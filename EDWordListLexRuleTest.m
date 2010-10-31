@@ -19,7 +19,7 @@
 	NSArray *words = [NSArray arrayWithObjects:@"foo", @"bar", @"zip", @"zap", nil];
 	EDLexRule * rule = [EDWordListLexRule ruleWithList:words tokenType:EDKeywordToken caseInsensitive:NO];
 	NSString *source = @"nothing to see here";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
 	
 	GHAssertNil(tok, @"nil should be returned since no match exists");
 }
@@ -28,7 +28,7 @@
 	NSArray *words = [NSArray arrayWithObjects:@"foo", @"bar", @"zip", @"zapper", nil];
 	EDLexRule * rule = [EDWordListLexRule ruleWithList:words tokenType:EDKeywordToken caseInsensitive:NO];
 	NSString *source = @"hello zapper, how are you?";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6) states:nil];
 	
 	GHAssertEquals(EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.location, @"Token location should be 6");
@@ -39,7 +39,7 @@
 	NSArray *words = [NSArray arrayWithObjects:@"foo", @"bar", @"zap", @"zapper", nil];
 	EDLexRule * rule = [EDWordListLexRule ruleWithList:words tokenType:EDKeywordToken caseInsensitive:NO];
 	NSString *source = @"hello zapper, how are you?";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6) states:nil];
 	
 	GHAssertEquals(EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.location, @"Token location should be 6");

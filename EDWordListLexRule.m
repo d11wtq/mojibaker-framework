@@ -29,7 +29,7 @@
 	return self;
 }
 
--(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range {
+-(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
 	NSUInteger matchedLength;
 	if (matchedLength = [radixTree substringLengthMatchedFromString:[string substringWithRange:range]]) {
 		return [EDLexicalToken tokenWithType:tokenType range:NSMakeRange(range.location, matchedLength)];

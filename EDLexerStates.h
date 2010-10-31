@@ -33,6 +33,7 @@
 
 -(void)pushState:(NSUInteger)newStateId;
 -(void)popState;
+-(void)rewindToState:(NSUInteger)stateId;
 -(NSUInteger)currentState;
 -(BOOL)includesState:(NSUInteger)stateId;
 

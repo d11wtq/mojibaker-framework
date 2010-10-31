@@ -17,7 +17,7 @@
 
 -(void)testFindsSingleCharactersByDefault {
 	NSString *source = @"***";
-	EDLexer *lexer = [EDLexer lexer];
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
 	EDLexerResult *result = [lexer lexString:source];
 	
 	GHAssertEquals((NSUInteger) 3, [result.tokens count], @"3 tokens should be found");
@@ -33,7 +33,7 @@
 
 -(void)testFindsTokensSpecifiedByRules {
 	NSString *source = @"-function-";
-	EDLexer *lexer = [EDLexer lexer];
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDDefinerKeywordToken caseInsensitive:NO]];
 	
 	EDLexerResult *result = [lexer lexString:source];
@@ -53,7 +53,7 @@
 
 -(void)testUsesTheLongestMatchIfAmbiguous {
 	NSString *source = @"function";
-	EDLexer *lexer = [EDLexer lexer];
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"func" tokenType:EDDefinerKeywordToken caseInsensitive:NO]];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDDefinerKeywordToken caseInsensitive:NO]];
 	
@@ -69,8 +69,10 @@
 }
 
 -(void)testCanExecuteRulesConstrainedToAKnownState {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	
 	NSString *source = @"function";
-	EDLexer *lexer = [EDLexer lexer];
+	EDLexer *lexer = [EDLexer lexerWithStates:states];
 	
 	NSUInteger s1 = [lexer.states stateNamed:@"s1"];
 	
@@ -96,11 +98,15 @@
 	tok = [result tokenAtRange:NSMakeRange(0, 8)];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is s1");
+	
+	[states release];
 }
 
 -(void)testCanExecuteRulesConstrainedToInclusiveStates {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	
 	NSString *source = @"function";
-	EDLexer *lexer = [EDLexer lexer];
+	EDLexer *lexer = [EDLexer lexerWithStates:states];
 	
 	NSUInteger s1 = [lexer.states stateNamed:@"s1"];
 	
@@ -126,10 +132,12 @@
 	tok = [result tokenAtRange:NSMakeRange(0, 8)];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is s1");
+	
+	[states release];
 }
 
 -(void)testCanProcessOnlyChangedRegionsBasedOnPreviousResult {
-	EDLexer *lexer = [EDLexer lexer];
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"public" tokenType:EDKeywordToken]];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"static" tokenType:EDKeywordToken]];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDDefinerKeywordToken]];

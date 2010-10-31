@@ -17,7 +17,6 @@
 	if (self = [super init]) {
 		stateNames = [[NSMutableDictionary alloc] init];
 		highestStateId = 0;
-		isChanged = NO;
 		[self reset];
 	}
 	
@@ -61,6 +60,8 @@
 	
 	stackPosition = stackLength;
 	currentState = newCurrentState;
+	
+	isChanged = YES;
 }
 
 -(void)pushState:(NSUInteger)newStateId {
@@ -71,6 +72,8 @@
 		stack[stackPosition++] = currentState;
 		currentState = newStateId;
 	}
+	
+	isChanged = YES;
 }
 
 -(void)popState {
@@ -79,6 +82,19 @@
 					format:@"Cannot pop state as nothing current on stack"];
 	} else {
 		currentState = stack[--stackPosition];
+	}
+	
+	isChanged = YES;
+}
+
+-(void)rewindToState:(NSUInteger)stateId {
+	NSUInteger i = 0;
+	for (; i < stackPosition; ++i) {
+		if (currentState == stateId) {
+			break;
+		}
+		
+		[self popState];
 	}
 }
 

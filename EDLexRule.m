@@ -7,7 +7,8 @@
 //
 
 #import "EDLexRule.h"
-
+#import "EDLexicalToken.h"
+#import "EDLexerStates.h"
 
 @implementation EDLexRule
 
@@ -23,7 +24,7 @@
 	return self;
 }
 
--(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range {
+-(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
 	return nil;
 }
 

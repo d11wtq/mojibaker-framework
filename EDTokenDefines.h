@@ -7,21 +7,6 @@
  *
  */
 
-// FIXME: This should be an enum (and WTF? A negative unsigned int??)
-
-/*#define EDUnmatchedCharacterToken -1
-#define EDWhitespaceToken 0
-#define EDDefinerKeywordToken 1
-#define EDKeywordToken 2
-#define EDString1Token 3
-#define EDString2Token 4
-#define EDString3Token 5
-#define EDSingleLineComment1Token 6
-#define EDSingleLineComment2Token 7
-#define EDMultilineComment1Token 8
-#define EDMultilineComment2Token 9
-#define EDEmbeddedLanguageToken 10*/
-
 typedef enum _EDLexicalTokenType {
 	EDUnmatchedCharacterToken,
 	EDWhitespaceToken,
@@ -40,5 +25,5 @@ typedef enum _EDLexicalTokenType {
 	EDVariableToken,
 	EDVariable2Token,
 	EDVariable3Token,
-	EDEmbeddedLanguageToken
+	EDEmbeddedLanguageDelimiterToken
 } EDLexicalTokenType;

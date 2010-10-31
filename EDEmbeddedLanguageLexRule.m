@@ -14,58 +14,41 @@
 
 @implementation EDEmbeddedLanguageLexRule
 
-+(id)ruleWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer {
-	return [[[self alloc] initWithStart:startString end:endString lexer:embeddedLexer tokenType:EDEmbeddedLanguageToken] autorelease];
-}
-
 +(id)ruleWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer
-		 tokenType:(EDLexicalTokenType)theTokenType {
-	return [[[self alloc] initWithStart:startString end:endString lexer:embeddedLexer tokenType:theTokenType] autorelease];
+		usingState:(NSUInteger)stateId {
+	return [[[self alloc] initWithStart:startString end:endString lexer:embeddedLexer usingState:stateId] autorelease];
 }
 
--(id)initWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer
-		 tokenType:(EDLexicalTokenType)theTokenType {
+-(id)initWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer usingState:(NSUInteger)stateId {
 	if (self = [self init]) {
 		start = [startString copy];
 		end = [endString copy];
-		tokenType = theTokenType;
 		lexer = [embeddedLexer retain];
+		embeddedState = stateId;
+		inclusiveState = stateId;
 	}
 	
 	return self;
 }
 
--(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range {
-	if (range.length < start.length) {
-		return nil;
-	}
-	
+-(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
 	EDLexicalToken *tok = nil;
 	
-	if ([[string substringWithRange:NSMakeRange(range.location, start.length)] isEqualToString:start]) {
-		NSUInteger offset = range.location;
-		NSUInteger endOffset = range.location + range.length;
-		NSMutableArray *tokens = [NSMutableArray array];
-		
-		while (tok = [lexer nextTokenInString:string range:NSMakeRange(offset, endOffset - offset)]) {
-			[tokens addObject:tok];
-			offset += tok.range.length;
-			if (offset >= endOffset) {
-				break;
-			}
-			
-			if (offset + end.length < endOffset) {
-				if ([[string substringWithRange:NSMakeRange(offset, end.length)] isEqualToString:end]) {
-					// End of embedded block found
-					offset += end.length;
-					break;
-				}
-			}
+	if ([states includesState:embeddedState] && states.currentState > 0) {
+		NSRange endRange = NSMakeRange(range.location, end.length);
+		if (endRange.length <= range.length && [[string substringWithRange:endRange] isEqualToString:end]) {
+			tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:endRange];
+			[states rewindToState:embeddedState];
+			[states popState];
+		} else {
+			tok = [lexer nextTokenInString:string range:range];
 		}
-		
-		tok = [EDLexicalToken tokenWithType:tokenType
-									  range:NSMakeRange(range.location, range.length - (endOffset - offset))
-							 sublexedResult:[EDLexerResult resultWithTokens:tokens]];
+	} else {
+		NSRange startRange = NSMakeRange(range.location, start.length);
+		if (startRange.length <= range.length && [[string substringWithRange:startRange] isEqualToString:start]) {
+			tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:startRange];
+			[states pushState:embeddedState];
+		}
 	}
 	
 	return tok;

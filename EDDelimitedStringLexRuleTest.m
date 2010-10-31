@@ -18,14 +18,14 @@
 -(void)testReturnsNilIfRangeDoesNotStartWithStartSequence {
 	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"test \"strings\"";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
 	GHAssertNil(tok, @"Nil should be return since '\"' not in range");
 }
 
 -(void)testReturnsTokenIfStartSequenceIsStartOfRange {
 	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"string\" b";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
 	
 	GHAssertEquals(EDString1Token, tok.type, @"Type should be EDString1Token");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -35,7 +35,7 @@
 -(void)testFindsOnlyUntilFirstOccurenceOfEndSequence {
 	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"string 1\" \"string 2\" b";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
 	
 	GHAssertEquals(EDString1Token, tok.type, @"Type should be EDString1Token");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -45,7 +45,7 @@
 -(void)testCanIncludeEndSequenceIfEscaped {
 	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"string \\\"escaped\\\"\" b";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
 	
 	GHAssertEquals(EDString1Token, tok.type, @"Type should be EDString1Token");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -55,7 +55,7 @@
 -(void)testDoesNotTreatEscapedEscapesAsFunctionalEscapes {
 	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"string \\\\\"escaped\\\"\" b";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
 	
 	GHAssertEquals(EDString1Token, tok.type, @"Type should be EDString1Token");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -65,7 +65,7 @@
 -(void)testMissingEndSequenceMakesTokenContinueToEnd {
 	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"unterminated string";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
 	
 	GHAssertEquals(EDString1Token, tok.type, @"Type should be EDString1Token");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -75,7 +75,7 @@
 -(void)testEscapeSequenceAtEndOfToken {
 	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"unterminated string\\";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
 	
 	GHAssertEquals(EDString1Token, tok.type, @"Type should be EDString1Token");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -85,7 +85,7 @@
 -(void)testEscapeSequenceDisabled {
 	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:nil tokenType:EDString1Token];
 	NSString *source = @"a \"unterminated string\\\" foo\" bar";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
 	
 	GHAssertEquals(EDString1Token, tok.type, @"Type should be EDString1Token");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -95,7 +95,7 @@
 -(void)testEscapeSequenceSetToCustomSequence {
 	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"aaa" tokenType:EDString1Token];
 	NSString *source = @"a \"unterminated string aaa\" fooaaaaaa\" bar";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
 	
 	GHAssertEquals(EDString1Token, tok.type, @"Type should be EDString1Token");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");

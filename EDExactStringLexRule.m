@@ -32,7 +32,7 @@
 	return self;
 }
 
--(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range {
+-(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
 	if (range.length < needleString.length) {
 		return nil;
 	}

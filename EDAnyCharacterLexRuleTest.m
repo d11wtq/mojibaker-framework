@@ -22,7 +22,7 @@
 	NSUInteger i;
 	NSUInteger len = source.length;
 	for (i = 0; i < len; ++i) {
-		EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(i, len - i)];
+		EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(i, len - i) states:nil];
 		GHAssertEquals(EDUnmatchedCharacterToken, tok.type, @"Type should be EDUnmatchedCharacterToken");
 		GHAssertEquals((NSUInteger) i, tok.range.location, @"Location should be start of range");
 		GHAssertEquals((NSUInteger) 1, tok.range.length, @"Length should be 1");
@@ -33,7 +33,7 @@
 	EDLexRule * rule = [EDAnyCharacterLexRule ruleWithTokenType:EDWhitespaceToken];
 	NSString *source = @" ";
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, 1)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, 1) states:nil];
 	GHAssertEquals(EDWhitespaceToken, tok.type, @"Type should be EDWhitespaceToken");
 }
 

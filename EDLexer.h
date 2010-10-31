@@ -22,7 +22,8 @@
 
 @property (nonatomic, retain) EDLexerStates *states;
 
-+(id)lexer;
++(id)lexerWithStates:(EDLexerStates *)stateMachine;
+-(id)initWithStates:(EDLexerStates *)stateMachine;
 
 -(void)addRule:(EDLexRule *)ruleToAdd;
 

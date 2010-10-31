@@ -15,14 +15,13 @@
 @interface EDEmbeddedLanguageLexRule : EDLexRule {
 	NSString *start;
 	NSString *end;
-	EDLexicalTokenType tokenType;
 	EDLexer *lexer;
+	NSUInteger embeddedState;
 }
 
-+(id)ruleWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer;
 +(id)ruleWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer
-		 tokenType:(EDLexicalTokenType)theTokenType;
+		usingState:(NSUInteger)stateId;
 -(id)initWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer
-		 tokenType:(EDLexicalTokenType)theTokenType;
+		usingState:(NSUInteger)stateId;
 
 @end

@@ -19,7 +19,7 @@
 	EDLexRule * rule = [EDExactStringLexRule ruleWithString:@"class"
 													   tokenType:EDDefinerKeywordToken caseInsensitive:NO];
 	NSString *source = @"test class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
 	GHAssertNil(tok, @"Nil should be return since 'class' is not in range");
 }
 
@@ -27,7 +27,7 @@
 	EDLexRule * rule = [EDExactStringLexRule ruleWithString:@"class"
 													   tokenType:EDDefinerKeywordToken caseInsensitive:NO];
 	NSString *source = @"test class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) states:nil];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
 	GHAssertEquals((NSUInteger) 5, tok.range.location, @"Matched token range should always be range searched");
@@ -38,7 +38,7 @@
 	EDLexRule * rule = [EDExactStringLexRule ruleWithString:@"class"
 													   tokenType:EDDefinerKeywordToken caseInsensitive:YES];
 	NSString *source = @"test Class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) states:nil];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
 	GHAssertEquals((NSUInteger) 5, tok.range.location, @"Matched token range should always be range searched");
@@ -49,7 +49,7 @@
 	EDLexRule * rule = [EDExactStringLexRule ruleWithString:@"class"
 													   tokenType:EDDefinerKeywordToken caseInsensitive:NO];
 	NSString *source = @"test Class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) states:nil];
 	GHAssertNil(tok, @"Nil should be return since 'Class' is not the same as 'class'");
 }
 

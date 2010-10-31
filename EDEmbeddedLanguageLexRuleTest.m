@@ -16,87 +16,109 @@
 @implementation EDEmbeddedLanguageLexRuleTest
 
 -(void)testReturnsNilIfNoMatchInRange {
-	EDLexer *lexer = [EDLexer lexer];
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	EDLexer *lexer = [EDLexer lexerWithStates:states];
+	
+	NSUInteger s1 = [states stateNamed:@"s1"];
+	
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDKeywordToken]];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"bar" tokenType:EDKeywordToken]];
 	
-	EDLexRule * rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer];
+	EDLexRule *rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
 	
 	NSString *source = @"abc <% foo bar %> def";
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:states];
 	
 	GHAssertNil(tok, @"Nil should be returned since match does not fall in range");
+	
+	[states release];
 }
 
--(void)testReturnsEmbeddedTokenIfFoundAtRange {
-	EDLexer *lexer = [EDLexer lexer];
+-(void)testReturnsEmbeddedTokenDelimiterIfFoundAtRange {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	
+	NSUInteger s1 = [states stateNamed:@"s1"];
+	
+	EDLexer *lexer = [EDLexer lexerWithStates:states];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDKeywordToken]];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"bar" tokenType:EDKeywordToken]];
 	
-	EDLexRule * rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer];
+	EDLexRule * rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
 	
 	NSString *source = @"abc <% foo bar %> def";
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4)];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4) states:states];
 	
-	GHAssertEquals(EDEmbeddedLanguageToken, tok.type, @"Type should be EDEmbeddedLanguageToken");
+	GHAssertEquals(EDEmbeddedLanguageDelimiterToken, tok.type, @"Type should be EDEmbeddedLanguageDelimiterToken");
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Location should be 4");
-	GHAssertEquals((NSUInteger) 13, tok.range.length, @"Length should be 13");
+	GHAssertEquals((NSUInteger) 2, tok.range.length, @"Length should be 2");
+	
+	[states release];
+}
+
+-(void)testPushesIntoEmbeddedStateAfterStartingDelimiter {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	
+	NSUInteger s1 = [states stateNamed:@"s1"];
+	
+	EDLexer *lexer = [EDLexer lexerWithStates:states];
+	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDKeywordToken]];
+	[lexer addRule:[EDExactStringLexRule ruleWithString:@"bar" tokenType:EDKeywordToken]];
+	
+	EDLexRule *rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
+	
+	NSString *source = @"abc <% foo bar %> def";
+	
+	[rule lexInString:source range:NSMakeRange(4, source.length - 4) states:states];
+	
+	GHAssertEquals(s1, states.currentState, @"State should be changed");
+	
+	[states release];
 }
 
 -(void)testIncludesResultFromSublexedRange {
-	EDLexer *lexer = [EDLexer lexer];
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	
+	NSUInteger s1 = [states stateNamed:@"s1"];
+	
+	EDLexer *lexer = [EDLexer lexerWithStates:states];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDDefinerKeywordToken]];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"zip" tokenType:EDKeywordToken]];
 	
-	EDLexRule * rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer];
+	EDLexRule *rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
 	
 	NSString *source = @"abc <% foo zip %> def";
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4)];
+	[states pushState:s1];
 	
-	GHAssertNotNil(tok.sublexedResult, @"A sublexed result should be included");
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(7, source.length - 7) states:states];
 	
-	EDLexicalToken *embeddedTok1 = [tok.sublexedResult tokenAtRange:NSMakeRange(7, 3)];
-	EDLexicalToken *embeddedTok2 = [tok.sublexedResult tokenAtRange:NSMakeRange(11, 3)];
+	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token should be type EDDefinerKeywordToken");
 	
-	GHAssertNotNil(embeddedTok1, @"Token should exist at range (7,3)");
-	GHAssertNotNil(embeddedTok2, @"Token should exist at range (11,3)");
-	
-	GHAssertEquals(EDDefinerKeywordToken, embeddedTok1.type, @"Sublexed result should include definer keyword at (7,3)");
-	GHAssertEquals(EDKeywordToken, embeddedTok2.type, @"Sublexed result should include keyword at 11,3)");
+	[states release];
 }
 
--(void)testComplexEmbeddedLexing {
-	EDLexer *lexer = [EDLexer lexer];
-	[lexer addRule:[EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token]];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDDefinerKeywordToken]];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"zip" tokenType:EDKeywordToken]];
+-(void)testPopsBackOutOfEmbeddedStateAfterFindingEndingDelimiter {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
 	
-	EDLexRule * rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer];
+	NSUInteger s1 = [states stateNamed:@"s1"];
 	
-	NSString *source = @"abc <% foo \"this is not the end %>\" zip %> def";
+	EDLexer *lexer = [EDLexer lexerWithStates:states];
+	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDKeywordToken]];
+	[lexer addRule:[EDExactStringLexRule ruleWithString:@"bar" tokenType:EDKeywordToken]];
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4)];
+	EDLexRule *rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
 	
-	GHAssertEquals(EDEmbeddedLanguageToken, tok.type, @"Type should be EDEmbeddedLanguageToken");
-	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Location should be 4");
-	GHAssertEquals((NSUInteger) 38, tok.range.length, @"Length should be 38");
+	NSString *source = @"abc <% foo bar %> def";
 	
-	GHAssertNotNil(tok.sublexedResult, @"A sublexed result should be included");
+	[states pushState:s1];
 	
-	EDLexicalToken *embeddedTok1 = [tok.sublexedResult tokenAtRange:NSMakeRange(7, 3)];
-	EDLexicalToken *embeddedTok2 = [tok.sublexedResult tokenAtRange:NSMakeRange(11, 24)];
-	EDLexicalToken *embeddedTok3 = [tok.sublexedResult tokenAtRange:NSMakeRange(36, 3)];
+	[rule lexInString:source range:NSMakeRange(15, source.length - 15) states:states];
 	
-	GHAssertNotNil(embeddedTok1, @"Token should exist at range (7,3)");
-	GHAssertNotNil(embeddedTok2, @"Token should exist at range (11,24)");
-	GHAssertNotNil(embeddedTok3, @"Token should exist at range (36,3)");
+	GHAssertEquals((NSUInteger) 0, states.currentState, @"State should be reset");
 	
-	GHAssertEquals(EDDefinerKeywordToken, embeddedTok1.type, @"Sublexed result should include definer keyword at (7,3)");
-	GHAssertEquals(EDString1Token, embeddedTok2.type, @"Sublexed result should include string at (11,24)");
-	GHAssertEquals(EDKeywordToken, embeddedTok3.type, @"Sublexed result should include keyword at (36,3)");
+	[states release];
 }
 
 @end

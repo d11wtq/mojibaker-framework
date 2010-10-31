@@ -25,7 +25,7 @@
 	return self;
 }
 
--(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range {
+-(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
 	NSRange matchedRange = [string rangeOfRegex:pattern inRange:range];
 	
 	if (matchedRange.location != range.location) {
