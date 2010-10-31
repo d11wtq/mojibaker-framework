@@ -65,6 +65,7 @@
 	
 	// Lex, moving all the old tokens by the delta and comparing to see if we've got a match
 	EDLexicalToken *newTok = nil;
+	EDLexerStatesInfo stackInfo = states.stackInfo;
 	while (newTok = [self nextTokenInString:string range:NSMakeRange(offset, endOffset - offset)]) {
 		if (oldTok
 			&& oldTok.range.location == newTok.range.location
@@ -79,9 +80,12 @@
 			break;
 		}
 		
+		newTok.stackInfo = stackInfo;
 		[tokens addObject:newTok];
-		for (EDLexicalToken *child in newTok.sublexedResult.tokens) {
-			[tokens addObject:child];
+		
+		if (states.isChanged) {
+			stackInfo = states.stackInfo;
+			states.isChanged = NO;
 		}
 		
 		offset += newTok.range.length;
@@ -109,11 +113,17 @@
 	if (range.length != 0) {
 		EDLexicalToken *tok = nil;
 		
+		EDLexerStatesInfo stackInfo = states.stackInfo;
+		
 		while (tok = [self nextTokenInString:string range:NSMakeRange(offset, endOffset - offset)]) {
+			tok.stackInfo = stackInfo;
 			[tokens addObject:tok];
-			for (EDLexicalToken *child in tok.sublexedResult.tokens) {
-				[tokens addObject:child];
+			
+			if (states.isChanged) {
+				stackInfo = states.stackInfo;
+				states.isChanged = NO;
 			}
+			
 			offset += tok.range.length;
 			if (offset >= endOffset) {
 				break;
@@ -144,8 +154,12 @@
 		
 		EDLexicalToken *tok = nil;
 		if (tok = [rule lexInString:string range:range states:states]) {
-			if (bestToken == nil || tok.range.length > bestToken.range.length) {
+			if (rule.isDefinite || bestToken == nil || tok.range.length > bestToken.range.length) {
 				bestToken = tok;
+			}
+			
+			if (rule.isDefinite) {
+				break;
 			}
 		}
 	}

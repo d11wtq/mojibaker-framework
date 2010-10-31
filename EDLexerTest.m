@@ -51,11 +51,16 @@
 	GHAssertEquals(EDUnmatchedCharacterToken, t3.type, @"Third token should be EDUnmatchedCharacterToken");
 }
 
--(void)testUsesTheLongestMatchIfAmbiguous {
+-(void)testUsesTheLongestMatchIfNotDefiniteAndAmbiguous {
 	NSString *source = @"function";
 	EDLexer *lexer = [EDLexer lexerWithStates:nil];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"func" tokenType:EDDefinerKeywordToken caseInsensitive:NO]];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDDefinerKeywordToken caseInsensitive:NO]];
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"func" tokenType:EDDefinerKeywordToken caseInsensitive:NO];
+	r1.isDefinite = NO;
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"function" tokenType:EDDefinerKeywordToken caseInsensitive:NO];
+	r2.isDefinite = NO;
+	
+	[lexer addRule:r1];
+	[lexer addRule:r2];
 	
 	EDLexerResult *result = [lexer lexString:source];
 	

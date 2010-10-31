@@ -13,37 +13,24 @@
 
 @synthesize type;
 @synthesize range;
-@synthesize sublexedResult;
-
-+(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result {
-	return [[[self alloc] initWithType:theType range:theRange sublexedResult:result] autorelease];
-}
+@synthesize stackInfo;
 
 +(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange {
 	return [[[self alloc] initWithType:theType range:theRange] autorelease];
 }
 
--(id)initWithType:(EDLexicalTokenType)theType range:(NSRange)theRange sublexedResult:(EDLexerResult *)result {
+-(id)initWithType:(EDLexicalTokenType)theType range:(NSRange)theRange {
 	if (self = [self init]) {
 		type = theType;
 		range = theRange;
-		sublexedResult = [result retain];
+		// FIXME: What to assign to stackInfo by default?
 	}
 	
 	return self;
 }
 
--(id)initWithType:(EDLexicalTokenType)theType range:(NSRange)theRange {
-	return [self initWithType:theType range:theRange sublexedResult:nil];
-}
-
 -(void)moveBy:(NSInteger)delta {
 	range.location += delta;
-}
-
--(void)dealloc {
-	[sublexedResult release];
-	[super dealloc];
 }
 
 @end

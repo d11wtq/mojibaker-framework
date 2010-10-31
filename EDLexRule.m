@@ -12,11 +12,13 @@
 
 @implementation EDLexRule
 
+@synthesize isDefinite;
 @synthesize exclusiveState;
 @synthesize inclusiveState;
 
 -(id)init {
 	if (self = [super init]) {
+		isDefinite = YES;
 		exclusiveState = -1;
 		inclusiveState = -1;
 	}

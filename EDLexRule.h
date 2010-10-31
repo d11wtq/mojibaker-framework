@@ -12,10 +12,12 @@
 @class EDLexerStates;
 
 @interface EDLexRule : NSObject {
+	BOOL isDefinite;
 	NSInteger exclusiveState;
 	NSInteger inclusiveState;
 }
 
+@property (nonatomic) BOOL isDefinite;
 @property (nonatomic) NSInteger exclusiveState;
 @property (nonatomic) NSInteger inclusiveState;
 

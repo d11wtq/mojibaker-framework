@@ -9,8 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import "EDLexer.h"
 
+@class EDLexerStates;
+
 @protocol EDPlugin <NSObject>
 
--(EDLexer *)lexer;
+-(EDLexer *)lexerWithStates:(EDLexerStates *)states;
 
 @end
