@@ -96,6 +96,8 @@
 		} while (oldTok && oldTok.range.location < newTok.range.location + newTok.range.length);
 	}
 	
+	[states reset];
+	
 	return [EDLexerResult resultWithTokens:tokens];
 }
 
@@ -118,6 +120,8 @@
 			}
 		}
 	}
+	
+	[states reset];
 	
 	return [EDLexerResult resultWithTokens:tokens];
 }

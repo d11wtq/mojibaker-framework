@@ -102,6 +102,24 @@
 	[states release];
 }
 
+-(void)testStackCanBeDescribed {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	NSUInteger s1 = [states stateNamed:@"foo"];
+	NSUInteger s2 = [states stateNamed:@"bar"];
+	
+	[states pushState:s1];
+	[states pushState:s2];
+	
+	EDLexerStatesInfo stackInfo = states.stackInfo;
+	
+	GHAssertEquals((NSUInteger) 2, stackInfo.stackSize, @"Stack size should be 2");
+	GHAssertEquals((NSUInteger) 0, stackInfo.stack[0], @"First stack entry should be initial state");
+	GHAssertEquals(s1, stackInfo.stack[1], @"Second stack entry should be s1");
+	GHAssertEquals(s2, stackInfo.currentState, @"Current state should be s2");
+	
+	[states release];
+}
+
 -(void)testCanBeReset {
 	EDLexerStates *states = [[EDLexerStates alloc] init];
 	NSUInteger s1 = [states stateNamed:@"foo"];

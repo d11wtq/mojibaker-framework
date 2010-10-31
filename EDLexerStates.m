@@ -11,10 +11,13 @@
 
 @implementation EDLexerStates
 
+@synthesize isChanged;
+
 -(id)init {
 	if (self = [super init]) {
 		stateNames = [[NSMutableDictionary alloc] init];
 		highestStateId = 0;
+		isChanged = NO;
 		[self reset];
 	}
 	
@@ -28,6 +31,21 @@
 		[stateNames setObject:num forKey:stateName];
 	}
 	return [num unsignedIntValue];
+}
+
+-(EDLexerStatesInfo)stackInfo {
+	NSUInteger infoStack[stackPosition];
+	NSUInteger i = 0;
+	for (; i < stackPosition; ++i) {
+		infoStack[i] = stack[i];
+	}
+	
+	EDLexerStatesInfo info;
+	info.stack = infoStack;
+	info.stackSize = stackPosition;
+	info.currentState = currentState;
+	
+	return info;
 }
 
 -(void)setStack:(NSUInteger *)newStack length:(NSUInteger)stackLength currentState:(NSUInteger)newCurrentState {
@@ -71,6 +89,7 @@
 -(void)reset {
 	currentState = 0;
 	stackPosition = 0;
+	isChanged = NO;
 }
 
 -(void)dealloc {

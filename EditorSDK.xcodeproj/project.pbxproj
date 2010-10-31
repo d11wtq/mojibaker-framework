@@ -19,7 +19,6 @@
 		8327351F12732DBE006D2BA2 /* EDLexer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350C12732DBE006D2BA2 /* EDLexer.m */; };
 		8327352112732DBE006D2BA2 /* EDLexicalToken.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327350E12732DBE006D2BA2 /* EDLexicalToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8327352212732DBE006D2BA2 /* EDLexicalToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350F12732DBE006D2BA2 /* EDLexicalToken.m */; };
-		8327352312732DBE006D2BA2 /* EDLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327351012732DBE006D2BA2 /* EDLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8327353B12732E95006D2BA2 /* EDSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* EDSupport.framework */; };
 		8327353D12732EAB006D2BA2 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8327352C12732E20006D2BA2 /* GHUnit.framework */; };
 		8327356612732F0D006D2BA2 /* GHUnit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 8327352C12732E20006D2BA2 /* GHUnit.framework */; };
@@ -49,8 +48,9 @@
 		835E883A12785F6000AE51E3 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 835E883812785F6000AE51E3 /* RegexKitLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		835E883B12785F6000AE51E3 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E883912785F6000AE51E3 /* RegexKitLite.m */; };
 		835E884C1278623500AE51E3 /* EDPatternLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */; };
-		8363A53A127D4FF50087020F /* EDLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8363A538127D4FF50087020F /* EDLexRule.h */; };
+		8363A53A127D4FF50087020F /* EDLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8363A538127D4FF50087020F /* EDLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8363A53B127D4FF50087020F /* EDLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363A539127D4FF50087020F /* EDLexRule.m */; };
+		8363A577127D54C50087020F /* EDLexerStatesInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 8363A576127D54C50087020F /* EDLexerStatesInfo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83D66FB4127825400088AC05 /* EDEmbeddedLanguageLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83D66FB5127825400088AC05 /* EDEmbeddedLanguageLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D66FB3127825400088AC05 /* EDEmbeddedLanguageLexRule.m */; };
 		83D66FB81278270C0088AC05 /* EDLexerStates.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB61278270C0088AC05 /* EDLexerStates.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -108,7 +108,6 @@
 		8327350D12732DBE006D2BA2 /* EDLexerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexerTest.m; sourceTree = "<group>"; };
 		8327350E12732DBE006D2BA2 /* EDLexicalToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexicalToken.h; sourceTree = "<group>"; };
 		8327350F12732DBE006D2BA2 /* EDLexicalToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexicalToken.m; sourceTree = "<group>"; };
-		8327351012732DBE006D2BA2 /* EDLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexRule.h; sourceTree = "<group>"; };
 		8327351112732DBE006D2BA2 /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitTestMain.m; sourceTree = "<group>"; };
 		8327352C12732E20006D2BA2 /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GHUnit.framework; sourceTree = "<group>"; };
 		8327353512732E87006D2BA2 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,6 +132,7 @@
 		835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDPatternLexRuleTest.m; sourceTree = "<group>"; };
 		8363A538127D4FF50087020F /* EDLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexRule.h; sourceTree = "<group>"; };
 		8363A539127D4FF50087020F /* EDLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexRule.m; sourceTree = "<group>"; };
+		8363A576127D54C50087020F /* EDLexerStatesInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexerStatesInfo.h; sourceTree = "<group>"; };
 		83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDEmbeddedLanguageLexRule.h; sourceTree = "<group>"; };
 		83D66FB3127825400088AC05 /* EDEmbeddedLanguageLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDEmbeddedLanguageLexRule.m; sourceTree = "<group>"; };
 		83D66FB61278270C0088AC05 /* EDLexerStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexerStates.h; sourceTree = "<group>"; };
@@ -217,7 +217,6 @@
 				8327350E12732DBE006D2BA2 /* EDLexicalToken.h */,
 				8327350F12732DBE006D2BA2 /* EDLexicalToken.m */,
 				8327359A127331A9006D2BA2 /* EDTokenDefines.h */,
-				8327351012732DBE006D2BA2 /* EDLexRule.h */,
 				832738C11273DCF8006D2BA2 /* EDPlugin.h */,
 				83273A74127452C9006D2BA2 /* EDLexerResult.h */,
 				83273A75127452C9006D2BA2 /* EDLexerResult.m */,
@@ -225,6 +224,7 @@
 				83273E411276E2B1006D2BA2 /* EDRadixNode.m */,
 				83D66FB61278270C0088AC05 /* EDLexerStates.h */,
 				83D66FB71278270C0088AC05 /* EDLexerStates.m */,
+				8363A576127D54C50087020F /* EDLexerStatesInfo.h */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -311,7 +311,6 @@
 				8327351B12732DBE006D2BA2 /* EDExactStringLexRule.h in Headers */,
 				8327351E12732DBE006D2BA2 /* EDLexer.h in Headers */,
 				8327352112732DBE006D2BA2 /* EDLexicalToken.h in Headers */,
-				8327352312732DBE006D2BA2 /* EDLexRule.h in Headers */,
 				8327359B127331A9006D2BA2 /* EDTokenDefines.h in Headers */,
 				832735A512733335006D2BA2 /* EDSupport.h in Headers */,
 				832738C21273DCF8006D2BA2 /* EDPlugin.h in Headers */,
@@ -323,6 +322,7 @@
 				835E882312785EA000AE51E3 /* EDPatternLexRule.h in Headers */,
 				835E883A12785F6000AE51E3 /* RegexKitLite.h in Headers */,
 				8363A53A127D4FF50087020F /* EDLexRule.h in Headers */,
+				8363A577127D54C50087020F /* EDLexerStatesInfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

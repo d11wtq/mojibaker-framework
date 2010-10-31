@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "EDLexerStatesInfo.h"
 
 #define EDLexerStatesStackSize 100
 
@@ -16,12 +17,17 @@
 	NSUInteger stack[EDLexerStatesStackSize];
 	NSUInteger stackPosition;
 	NSMutableDictionary *stateNames;
+	BOOL isChanged;
 }
+
+@property (nonatomic) BOOL isChanged;
 
 /*!
  * Returns the ID of the state name stateName, or generates one if needed.
  */
 -(NSUInteger)stateNamed:(NSString *)stateName;
+
+-(EDLexerStatesInfo)stackInfo;
 
 -(void)setStack:(NSUInteger *)newStack length:(NSUInteger)stackLength currentState:(NSUInteger)newCurrentState;
 
