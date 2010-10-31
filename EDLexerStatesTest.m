@@ -120,6 +120,23 @@
 	[states release];
 }
 
+-(void)testInclusiveStatesCanBeFound {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	NSUInteger s1 = [states stateNamed:@"foo"];
+	NSUInteger s2 = [states stateNamed:@"bar"];
+	NSUInteger s3 = [states stateNamed:@"zip"];
+	
+	[states pushState:s1];
+	[states pushState:s2];
+	
+	GHAssertTrue([states includesState:0], @"The initial state should always be inclusive");
+	GHAssertTrue([states includesState:s1], @"The state s1 should be included");
+	GHAssertTrue([states includesState:s2], @"The state s2 should be included");
+	GHAssertFalse([states includesState:s3], @"The state s3 should not be included");
+	
+	[states release];
+}
+
 -(void)testCanBeReset {
 	EDLexerStates *states = [[EDLexerStates alloc] init];
 	NSUInteger s1 = [states stateNamed:@"foo"];

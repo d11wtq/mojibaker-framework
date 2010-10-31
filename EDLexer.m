@@ -134,7 +134,11 @@
 	EDLexicalToken *bestToken = nil;
 	
 	for (EDLexRule * rule in rules) {
-		if (rule.exclusiveState != states.currentState) {
+		if (rule.exclusiveState > -1 && rule.exclusiveState != states.currentState) {
+			continue;
+		}
+		
+		if (rule.inclusiveState > -1 && ![states includesState:rule.inclusiveState]) {
 			continue;
 		}
 		

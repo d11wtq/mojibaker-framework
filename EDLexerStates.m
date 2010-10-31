@@ -86,6 +86,21 @@
 	return currentState;
 }
 
+-(BOOL)includesState:(NSUInteger)stateId {
+	BOOL included = (currentState == stateId || stackPosition == 0);
+	if (!included) {
+		NSUInteger i = 0;
+		for (; i < stackPosition; ++i) {
+			if (stack[i] == stateId) {
+				included = YES;
+				break;
+			}
+		}
+	}
+	
+	return included;
+}
+
 -(void)reset {
 	currentState = 0;
 	stackPosition = 0;

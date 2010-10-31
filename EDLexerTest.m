@@ -98,6 +98,36 @@
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is s1");
 }
 
+-(void)testCanExecuteRulesConstrainedToInclusiveStates {
+	NSString *source = @"function";
+	EDLexer *lexer = [EDLexer lexer];
+	
+	NSUInteger s1 = [lexer.states stateNamed:@"s1"];
+	
+	EDLexRule * r1 = [EDExactStringLexRule ruleWithString:@"function" tokenType:EDDefinerKeywordToken caseInsensitive:NO];
+	r1.inclusiveState = s1;
+	
+	[lexer addRule:r1];
+	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDKeywordToken caseInsensitive:NO]];
+	
+	EDLexerResult *result;
+	EDLexicalToken *tok;
+	
+	result = [lexer lexString:source];
+	tok = [result tokenAtRange:NSMakeRange(0, 8)];
+	
+	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is still the initial state");
+	
+	NSUInteger stack[] = {0};
+	
+	[lexer.states setStack:stack length:1 currentState:s1];
+	
+	result = [lexer lexString:source];
+	tok = [result tokenAtRange:NSMakeRange(0, 8)];
+	
+	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is s1");
+}
+
 -(void)testCanProcessOnlyChangedRegionsBasedOnPreviousResult {
 	EDLexer *lexer = [EDLexer lexer];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"public" tokenType:EDKeywordToken]];

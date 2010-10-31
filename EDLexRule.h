@@ -10,10 +10,12 @@
 #import "EDLexicalToken.h"
 
 @interface EDLexRule : NSObject {
-	NSUInteger exclusiveState;
+	NSInteger exclusiveState;
+	NSInteger inclusiveState;
 }
 
-@property (nonatomic) NSUInteger exclusiveState;
+@property (nonatomic) NSInteger exclusiveState;
+@property (nonatomic) NSInteger inclusiveState;
 
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range;
 

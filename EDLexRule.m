@@ -12,10 +12,12 @@
 @implementation EDLexRule
 
 @synthesize exclusiveState;
+@synthesize inclusiveState;
 
 -(id)init {
 	if (self = [super init]) {
-		exclusiveState = 0;
+		exclusiveState = -1;
+		inclusiveState = -1;
 	}
 	
 	return self;

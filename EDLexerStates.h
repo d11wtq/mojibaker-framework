@@ -34,6 +34,7 @@
 -(void)pushState:(NSUInteger)newStateId;
 -(void)popState;
 -(NSUInteger)currentState;
+-(BOOL)includesState:(NSUInteger)stateId;
 
 -(void)reset;
 
