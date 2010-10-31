@@ -10,7 +10,7 @@
 #import "EDLexRule.h"
 #import "EDTokenDefines.h"
 
-@interface EDCharacterSetLexRule : NSObject <EDLexRule> {
+@interface EDCharacterSetLexRule : EDLexRule {
 	NSCharacterSet *permittedCharacterSet;
 	EDLexicalTokenType tokenType;
 }

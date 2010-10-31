@@ -16,7 +16,7 @@
 @implementation EDAnyCharacterLexRuleTest
 
 -(void)testAlwaysMatchesFirstCharacterInRange {
-	id<EDLexRule> rule = [EDAnyCharacterLexRule rule];
+	EDLexRule * rule = [EDAnyCharacterLexRule rule];
 	NSString *source = @"test";
 	
 	NSUInteger i;
@@ -30,7 +30,7 @@
 }
 
 -(void)testTypeCanBeChanged {
-	id<EDLexRule> rule = [EDAnyCharacterLexRule ruleWithTokenType:EDWhitespaceToken];
+	EDLexRule * rule = [EDAnyCharacterLexRule ruleWithTokenType:EDWhitespaceToken];
 	NSString *source = @" ";
 	
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, 1)];

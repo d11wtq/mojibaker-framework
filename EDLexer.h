@@ -8,18 +8,23 @@
 
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
+#import "EDLexerStates.h"
 
 @class EDLexicalToken;
 @class EDLexerResult;
+@class EDLexerStates;
 
 @interface EDLexer : NSObject {
 	NSMutableArray *rules;
 	NSArray *lastResortRules;
+	EDLexerStates *states;
 }
+
+@property (nonatomic, retain) EDLexerStates *states;
 
 +(id)lexer;
 
--(void)addRule:(id<EDLexRule>)ruleToAdd;
+-(void)addRule:(EDLexRule *)ruleToAdd;
 
 -(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range
 			 changeInLength:(NSInteger)delta previousResult:(EDLexerResult *)previousResult;

@@ -85,6 +85,23 @@
 	[states release];
 }
 
+-(void)testStackCanBeReapplied {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	NSUInteger s1 = [states stateNamed:@"foo"];
+	NSUInteger s2 = [states stateNamed:@"bar"];
+	
+	[states pushState:s1];
+	[states pushState:s2];
+	
+	NSUInteger stack[] = {0};
+	
+	[states setStack:stack length:1 currentState:s1];
+	
+	GHAssertEquals(s1, states.currentState, @"State machine should be reset to the s1 state");
+	
+	[states release];
+}
+
 -(void)testCanBeReset {
 	EDLexerStates *states = [[EDLexerStates alloc] init];
 	NSUInteger s1 = [states stateNamed:@"foo"];

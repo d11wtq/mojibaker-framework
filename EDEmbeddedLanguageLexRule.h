@@ -12,7 +12,7 @@
 
 @class EDLexer;
 
-@interface EDEmbeddedLanguageLexRule : NSObject <EDLexRule> {
+@interface EDEmbeddedLanguageLexRule : EDLexRule {
 	NSString *start;
 	NSString *end;
 	EDLexicalTokenType tokenType;

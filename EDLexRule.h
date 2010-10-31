@@ -1,20 +1,20 @@
 //
 //  EDLexRule.h
-//  Editor
+//  EditorSDK
 //
-//  Created by Chris Corbyn on 22/10/10.
+//  Created by Chris Corbyn on 31/10/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
+#import "EDLexicalToken.h"
 
-@class EDLexicalToken;
+@interface EDLexRule : NSObject {
+	NSUInteger exclusiveState;
+}
 
-@protocol EDLexRule <NSObject>
+@property (nonatomic) NSUInteger exclusiveState;
 
-/*!
- * Return the next token found in the string, or nil if not found.
- */
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range;
 
 @end

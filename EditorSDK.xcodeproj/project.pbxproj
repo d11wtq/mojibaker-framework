@@ -49,6 +49,8 @@
 		835E883A12785F6000AE51E3 /* RegexKitLite.h in Headers */ = {isa = PBXBuildFile; fileRef = 835E883812785F6000AE51E3 /* RegexKitLite.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		835E883B12785F6000AE51E3 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E883912785F6000AE51E3 /* RegexKitLite.m */; };
 		835E884C1278623500AE51E3 /* EDPatternLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */; };
+		8363A53A127D4FF50087020F /* EDLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8363A538127D4FF50087020F /* EDLexRule.h */; };
+		8363A53B127D4FF50087020F /* EDLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363A539127D4FF50087020F /* EDLexRule.m */; };
 		83D66FB4127825400088AC05 /* EDEmbeddedLanguageLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83D66FB5127825400088AC05 /* EDEmbeddedLanguageLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D66FB3127825400088AC05 /* EDEmbeddedLanguageLexRule.m */; };
 		83D66FB81278270C0088AC05 /* EDLexerStates.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB61278270C0088AC05 /* EDLexerStates.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -129,6 +131,8 @@
 		835E883812785F6000AE51E3 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		835E883912785F6000AE51E3 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDPatternLexRuleTest.m; sourceTree = "<group>"; };
+		8363A538127D4FF50087020F /* EDLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexRule.h; sourceTree = "<group>"; };
+		8363A539127D4FF50087020F /* EDLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexRule.m; sourceTree = "<group>"; };
 		83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDEmbeddedLanguageLexRule.h; sourceTree = "<group>"; };
 		83D66FB3127825400088AC05 /* EDEmbeddedLanguageLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDEmbeddedLanguageLexRule.m; sourceTree = "<group>"; };
 		83D66FB61278270C0088AC05 /* EDLexerStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexerStates.h; sourceTree = "<group>"; };
@@ -205,6 +209,8 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8363A538127D4FF50087020F /* EDLexRule.h */,
+				8363A539127D4FF50087020F /* EDLexRule.m */,
 				83273B6312757372006D2BA2 /* Lex Rules */,
 				8327350B12732DBE006D2BA2 /* EDLexer.h */,
 				8327350C12732DBE006D2BA2 /* EDLexer.m */,
@@ -316,6 +322,7 @@
 				83D66FB81278270C0088AC05 /* EDLexerStates.h in Headers */,
 				835E882312785EA000AE51E3 /* EDPatternLexRule.h in Headers */,
 				835E883A12785F6000AE51E3 /* RegexKitLite.h in Headers */,
+				8363A53A127D4FF50087020F /* EDLexRule.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +449,7 @@
 				83D66FB91278270C0088AC05 /* EDLexerStates.m in Sources */,
 				835E882412785EA000AE51E3 /* EDPatternLexRule.m in Sources */,
 				835E883B12785F6000AE51E3 /* RegexKitLite.m in Sources */,
+				8363A53B127D4FF50087020F /* EDLexRule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

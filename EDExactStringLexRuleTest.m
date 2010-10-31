@@ -16,7 +16,7 @@
 @implementation EDExactStringLexRuleTest
 
 -(void)testReturnsNilIfKeywordIsNotAtStartOfRange {
-	id<EDLexRule> rule = [EDExactStringLexRule ruleWithString:@"class"
+	EDLexRule * rule = [EDExactStringLexRule ruleWithString:@"class"
 													   tokenType:EDDefinerKeywordToken caseInsensitive:NO];
 	NSString *source = @"test class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length)];
@@ -24,7 +24,7 @@
 }
 
 -(void)testReturnsTokenIfKeywordIsAtStartOfRange {
-	id<EDLexRule> rule = [EDExactStringLexRule ruleWithString:@"class"
+	EDLexRule * rule = [EDExactStringLexRule ruleWithString:@"class"
 													   tokenType:EDDefinerKeywordToken caseInsensitive:NO];
 	NSString *source = @"test class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5)];
@@ -35,7 +35,7 @@
 }
 
 -(void)testReturnsTokenIfKeywordIsAtStartOfRangeInCaseInsensitiveMode {
-	id<EDLexRule> rule = [EDExactStringLexRule ruleWithString:@"class"
+	EDLexRule * rule = [EDExactStringLexRule ruleWithString:@"class"
 													   tokenType:EDDefinerKeywordToken caseInsensitive:YES];
 	NSString *source = @"test Class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5)];
@@ -46,7 +46,7 @@
 }
 
 -(void)testReturnsNilIfKeywordAtRangeDoesNotMatchCase {
-	id<EDLexRule> rule = [EDExactStringLexRule ruleWithString:@"class"
+	EDLexRule * rule = [EDExactStringLexRule ruleWithString:@"class"
 													   tokenType:EDDefinerKeywordToken caseInsensitive:NO];
 	NSString *source = @"test Class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5)];

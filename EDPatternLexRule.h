@@ -10,7 +10,7 @@
 #import "EDLexRule.h"
 #import "EDTokenDefines.h"
 
-@interface EDPatternLexRule : NSObject <EDLexRule> {
+@interface EDPatternLexRule : EDLexRule {
 	NSString *pattern;
 	EDLexicalTokenType tokenType;
 }

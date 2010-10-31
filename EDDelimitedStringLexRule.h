@@ -10,7 +10,7 @@
 #import "EDLexRule.h"
 #import "EDTokenDefines.h"
 
-@interface EDDelimitedStringLexRule : NSObject <EDLexRule> {
+@interface EDDelimitedStringLexRule : EDLexRule {
 	NSString *start;
 	NSString *end;
 	NSString *escape;

@@ -10,7 +10,7 @@
 #import "EDLexRule.h"
 #import "EDTokenDefines.h"
 
-@interface EDExactStringLexRule : NSObject <EDLexRule> {
+@interface EDExactStringLexRule : EDLexRule {
 	NSString *needleString;
 	EDLexicalTokenType tokenType;
 	BOOL caseInsensitive;

@@ -12,7 +12,7 @@
 
 @class EDRadixNode;
 
-@interface EDWordListLexRule : NSObject <EDLexRule> {
+@interface EDWordListLexRule : EDLexRule {
 	EDRadixNode *radixTree;
 	EDLexicalTokenType tokenType;
 	BOOL caseInsensitive;

@@ -16,7 +16,7 @@
 @implementation EDCharacterSetLexRuleTest
 
 -(void)testReturnsNilIfPermittedCharactersNotAtStartOfRange {
-	id<EDLexRule> rule = [EDCharacterSetLexRule ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
+	EDLexRule * rule = [EDCharacterSetLexRule ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
 														   tokenType:EDWhitespaceToken];
 	NSString *source = @"test \t\t\n class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length)];
@@ -24,7 +24,7 @@
 }
 
 -(void)testReturnsTokenIfCharactersAtStartOfRange {
-	id<EDLexRule> rule = [EDCharacterSetLexRule ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
+	EDLexRule * rule = [EDCharacterSetLexRule ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
 														   tokenType:EDWhitespaceToken];
 	NSString *source = @"test \t\t\r\n class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4)];

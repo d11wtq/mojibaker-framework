@@ -16,14 +16,14 @@
 @implementation EDDelimitedStringLexRuleTest
 
 -(void)testReturnsNilIfRangeDoesNotStartWithStartSequence {
-	id<EDLexRule> rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
+	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"test \"strings\"";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length)];
 	GHAssertNil(tok, @"Nil should be return since '\"' not in range");
 }
 
 -(void)testReturnsTokenIfStartSequenceIsStartOfRange {
-	id<EDLexRule> rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
+	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"string\" b";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
 	
@@ -33,7 +33,7 @@
 }
 
 -(void)testFindsOnlyUntilFirstOccurenceOfEndSequence {
-	id<EDLexRule> rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
+	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"string 1\" \"string 2\" b";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
 	
@@ -43,7 +43,7 @@
 }
 
 -(void)testCanIncludeEndSequenceIfEscaped {
-	id<EDLexRule> rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
+	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"string \\\"escaped\\\"\" b";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
 	
@@ -53,7 +53,7 @@
 }
 
 -(void)testDoesNotTreatEscapedEscapesAsFunctionalEscapes {
-	id<EDLexRule> rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
+	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"string \\\\\"escaped\\\"\" b";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
 	
@@ -63,7 +63,7 @@
 }
 
 -(void)testMissingEndSequenceMakesTokenContinueToEnd {
-	id<EDLexRule> rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
+	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"unterminated string";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
 	
@@ -73,7 +73,7 @@
 }
 
 -(void)testEscapeSequenceAtEndOfToken {
-	id<EDLexRule> rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
+	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" tokenType:EDString1Token];
 	NSString *source = @"a \"unterminated string\\";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
 	
@@ -83,7 +83,7 @@
 }
 
 -(void)testEscapeSequenceDisabled {
-	id<EDLexRule> rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:nil tokenType:EDString1Token];
+	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:nil tokenType:EDString1Token];
 	NSString *source = @"a \"unterminated string\\\" foo\" bar";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
 	
@@ -93,7 +93,7 @@
 }
 
 -(void)testEscapeSequenceSetToCustomSequence {
-	id<EDLexRule> rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"aaa" tokenType:EDString1Token];
+	EDLexRule * rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"aaa" tokenType:EDString1Token];
 	NSString *source = @"a \"unterminated string aaa\" fooaaaaaa\" bar";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2)];
 	

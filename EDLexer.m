@@ -17,26 +17,28 @@
 
 @implementation EDLexer
 
+@synthesize states;
+
 +(id)lexer {
 	return [[[self alloc] init] autorelease];
 }
 
 -(id)init {
 	if (self = [super init]) {
+		states = [[EDLexerStates alloc] init];
 		rules = [[NSMutableArray alloc] init];
-		id<EDLexRule> whiteSpaceRule = [EDCharacterSetLexRule
+		EDLexRule * whiteSpaceRule = [EDCharacterSetLexRule
 										ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
 										tokenType:EDWhitespaceToken];
 		lastResortRules = [[NSMutableArray alloc] initWithObjects:whiteSpaceRule,
 						   [EDPatternLexRule ruleWithPattern:@"^\\w+" tokenType:EDUnmatchedCharacterToken],
 						   [EDAnyCharacterLexRule rule], nil];
-		
 	}
 	
 	return self;
 }
 
--(void)addRule:(id<EDLexRule>)ruleToAdd {
+-(void)addRule:(EDLexRule *)ruleToAdd {
 	[rules addObject:ruleToAdd];
 }
 
@@ -127,7 +129,11 @@
 -(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range {
 	EDLexicalToken *bestToken = nil;
 	
-	for (id<EDLexRule> rule in rules) {
+	for (EDLexRule * rule in rules) {
+		if (rule.exclusiveState != states.currentState) {
+			continue;
+		}
+		
 		EDLexicalToken *tok = nil;
 		if (tok = [rule lexInString:string range:range]) {
 			if (bestToken == nil || tok.range.length > bestToken.range.length) {
@@ -137,7 +143,7 @@
 	}
 	
 	if (bestToken == nil) {
-		for (id<EDLexRule> rule in lastResortRules) {
+		for (EDLexRule * rule in lastResortRules) {
 			EDLexicalToken *tok = nil;
 			if (tok = [rule lexInString:string range:range]) {
 				bestToken = tok;
@@ -150,6 +156,7 @@
 }
 
 -(void)dealloc {
+	[states release];
 	[rules release];
 	[lastResortRules release];
 	[super dealloc];

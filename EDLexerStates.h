@@ -23,6 +23,8 @@
  */
 -(NSUInteger)stateNamed:(NSString *)stateName;
 
+-(void)setStack:(NSUInteger *)newStack length:(NSUInteger)stackLength currentState:(NSUInteger)newCurrentState;
+
 -(void)pushState:(NSUInteger)newStateId;
 -(void)popState;
 -(NSUInteger)currentState;

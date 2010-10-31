@@ -16,7 +16,7 @@
 @implementation EDPatternLexRuleTest
 
 -(void)testReturnsNilIfPatternNotFoundAtRange {
-	id<EDLexRule> rule = [EDPatternLexRule ruleWithPattern:@"^\\$[a-z]+" tokenType:EDVariableToken];
+	EDLexRule * rule = [EDPatternLexRule ruleWithPattern:@"^\\$[a-z]+" tokenType:EDVariableToken];
 	NSString *source = @"foo $test";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length)];
 	
@@ -24,7 +24,7 @@
 }
 
 -(void)testReturnsTokenIfPatternMatchesAtRange {
-	id<EDLexRule> rule = [EDPatternLexRule ruleWithPattern:@"^\\$[a-z]+" tokenType:EDVariableToken];
+	EDLexRule * rule = [EDPatternLexRule ruleWithPattern:@"^\\$[a-z]+" tokenType:EDVariableToken];
 	NSString *source = @"foo $test";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4)];
 	
