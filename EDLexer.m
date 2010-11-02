@@ -73,8 +73,7 @@
 	
 	EDLexerStatesInfo stackInfo = existingToken.stackInfo;
 	
-	[states setStack:stackInfo.stack length:stackInfo.stackSize currentState:stackInfo.currentState];
-	[states setIsChanged:NO];
+	[states applyStackInfo:stackInfo];
 	
 	EDLexicalToken *newToken = nil;
 	
@@ -171,7 +170,7 @@
 		
 		EDLexicalToken *tok = nil;
 		if (tok = [rule lexInString:string range:range states:states]) {
-			if (rule.isDefinite || bestToken == nil || tok.range.length > bestToken.range.length) {
+			if (bestToken == nil || tok.range.length > bestToken.range.length) {
 				bestToken = tok;
 			}
 			

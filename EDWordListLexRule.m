@@ -24,6 +24,7 @@
 		}
 		tokenType = theTokenType;
 		caseInsensitive = isCaseInsensitive;
+		isDefinite = NO;
 	}
 	
 	return self;

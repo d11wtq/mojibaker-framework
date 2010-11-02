@@ -28,8 +28,6 @@
 -(void)stackInfo:(EDLexerStatesInfo *)stackInfo;
 -(void)applyStackInfo:(EDLexerStatesInfo)stackInfo;
 
--(void)setStack:(NSUInteger *)newStack length:(NSUInteger)stackLength currentState:(NSUInteger)newCurrentState;
-
 -(void)pushState:(NSUInteger)newStateId;
 -(void)popState;
 -(void)rewindToState:(NSUInteger)stateId;

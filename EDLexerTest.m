@@ -95,9 +95,13 @@
 	
 	GHAssertEquals(EDKeywordToken, tok.type, @"Second rule should be used since state is not s1");
 	
-	NSUInteger stack[] = {0};
 	
-	[lexer.states setStack:stack length:1 currentState:s1];
+	EDLexerStatesInfo stackInfo;
+	stackInfo.stack[0] = 0;
+	stackInfo.stackSize = 1;
+	stackInfo.currentState = s1;
+	
+	[lexer.states applyStackInfo:stackInfo];
 	
 	result = [lexer lexString:source];
 	tok = [result tokenAtRange:NSMakeRange(0, 8)];
@@ -129,9 +133,12 @@
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is still the initial state");
 	
-	NSUInteger stack[] = {0};
+	EDLexerStatesInfo stackInfo;
+	stackInfo.stack[0] = 0;
+	stackInfo.stackSize = 1;
+	stackInfo.currentState = s1;
 	
-	[lexer.states setStack:stack length:1 currentState:s1];
+	[lexer.states applyStackInfo:stackInfo];
 	
 	result = [lexer lexString:source];
 	tok = [result tokenAtRange:NSMakeRange(0, 8)];

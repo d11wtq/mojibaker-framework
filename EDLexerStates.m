@@ -55,25 +55,6 @@
 	
 	stackPosition = stackInfo.stackSize;
 	currentState = stackInfo.currentState;
-	
-	isChanged = YES;
-}
-
--(void)setStack:(NSUInteger *)newStack length:(NSUInteger)stackLength currentState:(NSUInteger)newCurrentState {
-	if (stackLength > EDLexerStatesStackSize) {
-		[NSException raise:@"StackOverflowException"
-					format:@"New stack size exceeds maximum size %d", EDLexerStatesStackSize];
-	}
-	
-	NSUInteger i = 0;
-	for (; i < stackLength; ++i) {
-		stack[i] = newStack[i];
-	}
-	
-	stackPosition = stackLength;
-	currentState = newCurrentState;
-	
-	isChanged = YES;
 }
 
 -(void)pushState:(NSUInteger)newStateId {
