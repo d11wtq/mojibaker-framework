@@ -33,4 +33,8 @@
 	range.location += delta;
 }
 
+-(BOOL)isEqualToToken:(EDLexicalToken *)token {
+	return token && (range.location == token.range.location && range.length == token.range.length && type == token.type);
+}
+
 @end

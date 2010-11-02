@@ -31,7 +31,7 @@
 									  ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
 									  tokenType:EDWhitespaceToken];
 		lastResortRules = [[NSMutableArray alloc] initWithObjects:whiteSpaceRule,
-						   [EDPatternLexRule ruleWithPattern:@"^\\w+" tokenType:EDUnmatchedCharacterToken],
+						   [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+" tokenType:EDUnmatchedCharacterToken],
 						   [EDAnyCharacterLexRule rule], nil];
 	}
 	
@@ -42,7 +42,157 @@
 	[rules addObject:ruleToAdd];
 }
 
+-(EDLexerResult *)lexString:(NSString *)string editedRange:(NSRange)editedRange changeInLength:(NSInteger)delta
+			 previousResult:(EDLexerResult *)previousResult {
+	NSMutableArray *tokens = [NSMutableArray array];
+	if (string.length == 0) {
+		return [EDLexerResult resultWithTokens:tokens];
+	}
+	
+	NSUInteger editedRangeEnd = editedRange.location + editedRange.length;
+	
+	NSRange nextRange = NSMakeRange(editedRange.location, 0);
+	if (nextRange.location > 0) {
+		nextRange.location--;
+	}
+	
+	EDLexicalToken *existingToken = [previousResult tokenAtRange:nextRange];
+	
+	EDLexerStatesInfo stackInfo = existingToken.stackInfo;
+	
+	[states setStack:stackInfo.stack length:stackInfo.stackSize currentState:stackInfo.currentState];
+	[states setIsChanged:NO];
+	
+	nextRange.location = existingToken.range.location;
+	nextRange.length = string.length - nextRange.location;
+	
+	NSEnumerator *previousResultEnumerator = [previousResult.tokens objectEnumerator];
+	
+	while (existingToken = [previousResultEnumerator nextObject]) {
+		if (existingToken.range.location < nextRange.location) {
+			[tokens addObject:existingToken];
+		} else {
+			break;
+		}
+	}
+	
+	EDLexicalToken *newToken = nil;
+	
+	BOOL copyRemaining = NO;
+	while (newToken = [self nextTokenInString:string range:nextRange]) {
+		if (states.isChanged) {
+			stackInfo = states.stackInfo;
+			states.isChanged = NO;
+		}
+		
+		newToken.stackInfo = stackInfo;
+		
+		if (existingToken && !NSEqualRanges(existingToken.range, editedRange) && [newToken isEqualToToken:existingToken]) {
+			[tokens addObject:existingToken];
+			if (existingToken.range.location >= editedRangeEnd) {
+				copyRemaining = YES;
+				break;
+			}
+		} else {
+			[tokens addObject:newToken];
+		}
+		
+		nextRange.location += newToken.range.length;
+		nextRange.length -= newToken.range.length;
+		
+		if (nextRange.length <= 0) {
+			break;
+		}
+		
+		while (existingToken && existingToken.range.location < nextRange.location) {
+			existingToken = [previousResultEnumerator nextObject];
+			[existingToken moveBy:delta];
+		}
+	}
+	
+	if (copyRemaining) {
+		while (existingToken = [previousResultEnumerator nextObject]) {
+			[existingToken moveBy:delta];
+			if (existingToken.range.location >= string.length) {
+				break;
+			}
+			[tokens addObject:existingToken];
+		}
+	}
+	
+	[states reset];
+	
+	return [EDLexerResult resultWithTokens:tokens];
+}
+
 -(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range
+			 changeInLength:(NSInteger)delta previousResult:(EDLexerResult *)previousResult {
+	NSMutableArray *tokens = [NSMutableArray array];
+	
+	EDLexicalToken *unchangedTok = nil;
+	NSEnumerator *previousResultEnumerator = [previousResult.tokens objectEnumerator];
+	while (unchangedTok = [previousResultEnumerator nextObject]) {
+		if (unchangedTok.range.location < range.location) {
+			[tokens addObject:unchangedTok];
+		} else {
+			break;
+		}
+	}
+	
+	EDLexerStatesInfo stackInfo = states.stackInfo;
+	NSRange nextRange = range;
+	EDLexicalToken *newTok = nil;
+	BOOL canReusePreviousTokens = NO;
+	while (!canReusePreviousTokens && (newTok = [self nextTokenInString:string range:nextRange])) {
+		NSLog(@"oldTok = (%d,%d); newTok = (%d,%d)",
+			  unchangedTok.range.location, unchangedTok.range.length,
+			  newTok.range.location, newTok.range.length);
+		if (states.isChanged) {
+			stackInfo = states.stackInfo;
+			states.isChanged = NO;
+		}
+		
+		newTok.stackInfo = stackInfo;
+		
+		if ([newTok isEqualToToken:unchangedTok]) {
+			[tokens addObject:unchangedTok];
+		} else {
+			[unchangedTok moveBy:delta];
+			if ([newTok isEqualToToken:unchangedTok]) {
+				[tokens addObject:unchangedTok];
+				canReusePreviousTokens = YES;
+				break;
+			}
+			NSLog(@"Collecting newTok!");
+			[tokens addObject:newTok];
+		}
+		
+		nextRange.length -= newTok.range.length;
+		nextRange.location += newTok.range.length;
+		
+		if (nextRange.length <= 0) {
+			break;
+		}
+		
+		while (unchangedTok && (unchangedTok.range.location + delta) < nextRange.location) {
+			unchangedTok = [previousResultEnumerator nextObject];
+			NSLog(@"Iterated to oldTok = (%d,%d)", unchangedTok.range.location, unchangedTok.range.length);
+		}
+	}
+	
+	if (canReusePreviousTokens) {
+		while (unchangedTok = [previousResultEnumerator nextObject]) {
+			[unchangedTok moveBy:delta];
+			[tokens addObject:unchangedTok];
+		}
+	}
+	
+	[states reset];
+	
+	return [EDLexerResult resultWithTokens:tokens];
+}
+
+/*-(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range
 			 changeInLength:(NSInteger)delta previousResult:(EDLexerResult *)previousResult {
 	
 	NSUInteger offset = range.location;
@@ -82,6 +232,7 @@
 		
 		newTok.stackInfo = stackInfo;
 		[tokens addObject:newTok];
+		NSLog(@"Adding newTok at (%d,%d)", newTok.range.location, newTok.range.length);
 		
 		if (states.isChanged) {
 			stackInfo = states.stackInfo;
@@ -94,16 +245,19 @@
 		}
 		
 		// Shift forward within the old result until we reach the current point
-		do {
-			if (oldTok = [enumerator nextObject])
-				[oldTok moveBy:delta];
-		} while (oldTok && oldTok.range.location < newTok.range.location + newTok.range.length);
+		while (oldTok = [enumerator nextObject]) {
+			[oldTok moveBy:delta];
+			if (oldTok.range.location < (newTok.range.location + newTok.range.length)) {
+				continue;
+			}
+			break;
+		}
 	}
 	
 	[states reset];
 	
 	return [EDLexerResult resultWithTokens:tokens];
-}
+}*/
 
 -(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range {
 	NSUInteger offset = range.location;

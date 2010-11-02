@@ -12,6 +12,7 @@
 #include "EDLexerStatesInfo.h"
 
 @class EDLexerResult;
+@class EDLexicalToken;
 
 @interface EDLexicalToken : NSObject {
 	EDLexicalTokenType type;
@@ -27,5 +28,7 @@
 +(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange;
 
 -(void)moveBy:(NSInteger)delta;
+
+-(BOOL)isEqualToToken:(EDLexicalToken *)token;
 
 @end
