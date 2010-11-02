@@ -20,7 +20,7 @@
 	EDLexerStates *states;
 }
 
-@property (nonatomic, retain) EDLexerStates *states;
+@property (readonly) EDLexerStates *states;
 
 +(id)lexerWithStates:(EDLexerStates *)stateMachine;
 -(id)initWithStates:(EDLexerStates *)stateMachine;

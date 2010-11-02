@@ -71,9 +71,13 @@
 		}
 	}
 	
-	EDLexerStatesInfo stackInfo = existingToken.stackInfo;
+	EDLexerStatesInfo stackInfo;
+	[states stackInfo:&stackInfo];
 	
-	[states applyStackInfo:stackInfo];
+	if (existingToken) {
+		stackInfo = existingToken.stackInfo;
+		[states applyStackInfo:stackInfo];
+	}
 	
 	EDLexicalToken *newToken = nil;
 	
@@ -125,35 +129,10 @@
 }
 
 -(EDLexerResult *)lexString:(NSString *)string {
-	NSUInteger offset = 0;
-	NSUInteger endOffset = string.length;
-	NSMutableArray *tokens = [NSMutableArray array];
-	
-	if (endOffset != 0) {
-		EDLexicalToken *tok = nil;
-		
-		EDLexerStatesInfo stackInfo;
-		[states stackInfo:&stackInfo];
-		
-		while (tok = [self nextTokenInString:string range:NSMakeRange(offset, endOffset - offset)]) {
-			tok.stackInfo = stackInfo;
-			[tokens addObject:tok];
-			
-			if (states.isChanged) {
-				[states stackInfo:&stackInfo];
-				states.isChanged = NO;
-			}
-			
-			offset += tok.range.length;
-			if (offset >= endOffset) {
-				break;
-			}
-		}
-	}
-	
-	[states reset];
-	
-	return [EDLexerResult resultWithTokens:tokens];
+	return [self lexString:string
+			   editedRange:NSMakeRange(0, string.length)
+			changeInLength:string.length
+			previousResult:[EDLexerResult resultWithTokens:[NSArray array]]];
 }
 
 -(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range {
