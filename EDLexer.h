@@ -30,10 +30,6 @@
 -(EDLexerResult *)lexString:(NSString *)string editedRange:(NSRange)editedRange changeInLength:(NSInteger)delta
 			 previousResult:(EDLexerResult *)previousResult;
 
--(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range
-			 changeInLength:(NSInteger)delta previousResult:(EDLexerResult *)previousResult;
-
--(EDLexerResult *)lexString:(NSString *)string range:(NSRange)range;
 -(EDLexerResult *)lexString:(NSString *)string;
 
 -(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range;

@@ -32,19 +32,31 @@
 	return [num unsignedIntValue];
 }
 
--(EDLexerStatesInfo)stackInfo {
-	NSUInteger infoStack[stackPosition];
-	NSUInteger i = 0;
+-(void)stackInfo:(EDLexerStatesInfo *)stackInfo {
+	int i = 0;
 	for (; i < stackPosition; ++i) {
-		infoStack[i] = stack[i];
+		stackInfo->stack[i] = stack[i];
 	}
 	
-	EDLexerStatesInfo info;
-	info.stack = infoStack;
-	info.stackSize = stackPosition;
-	info.currentState = currentState;
+	stackInfo->stackSize = stackPosition;
+	stackInfo->currentState = currentState;
+}
+
+-(void)applyStackInfo:(EDLexerStatesInfo)stackInfo {
+	if (stackInfo.stackSize > EDLexerStatesStackSize) {
+		[NSException raise:@"StackOverflowException"
+					format:@"New stack size exceeds maximum size %d", EDLexerStatesStackSize];
+	}
 	
-	return info;
+	NSUInteger i = 0;
+	for (; i < stackInfo.stackSize; ++i) {
+		stack[i] = stackInfo.stack[i];
+	}
+	
+	stackPosition = stackInfo.stackSize;
+	currentState = stackInfo.currentState;
+	
+	isChanged = YES;
 }
 
 -(void)setStack:(NSUInteger *)newStack length:(NSUInteger)stackLength currentState:(NSUInteger)newCurrentState {
@@ -77,13 +89,15 @@
 }
 
 -(void)popState {
+	NSLog(@"Popping, currentState = %d", currentState);
+	int i = 0;
+	for (; i < stackPosition; ++i) NSLog(@"stack[%d] = %d", i, stack[i]);
 	if (stackPosition <= 0) {
 		[NSException raise:@"StackUnderflowException"
 					format:@"Cannot pop state as nothing current on stack"];
 	} else {
 		currentState = stack[--stackPosition];
 	}
-	
 	isChanged = YES;
 }
 

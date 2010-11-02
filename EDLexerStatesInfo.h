@@ -7,8 +7,10 @@
  *
  */
 
+#define EDLexerStatesStackSize 100
+
 typedef struct _EDLexerStatesInfo {
-	NSUInteger *stack;
+	NSUInteger stack[EDLexerStatesStackSize];
 	NSUInteger stackSize;
 	NSUInteger currentState;
 } EDLexerStatesInfo;

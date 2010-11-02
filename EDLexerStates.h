@@ -9,8 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "EDLexerStatesInfo.h"
 
-#define EDLexerStatesStackSize 100
-
 @interface EDLexerStates : NSObject {
 	NSUInteger currentState;
 	NSUInteger highestStateId;
@@ -27,7 +25,8 @@
  */
 -(NSUInteger)stateNamed:(NSString *)stateName;
 
--(EDLexerStatesInfo)stackInfo;
+-(void)stackInfo:(EDLexerStatesInfo *)stackInfo;
+-(void)applyStackInfo:(EDLexerStatesInfo)stackInfo;
 
 -(void)setStack:(NSUInteger *)newStack length:(NSUInteger)stackLength currentState:(NSUInteger)newCurrentState;
 

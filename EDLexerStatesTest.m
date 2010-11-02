@@ -85,23 +85,6 @@
 	[states release];
 }
 
--(void)testStackCanBeReapplied {
-	EDLexerStates *states = [[EDLexerStates alloc] init];
-	NSUInteger s1 = [states stateNamed:@"foo"];
-	NSUInteger s2 = [states stateNamed:@"bar"];
-	
-	[states pushState:s1];
-	[states pushState:s2];
-	
-	NSUInteger stack[] = {0};
-	
-	[states setStack:stack length:1 currentState:s1];
-	
-	GHAssertEquals(s1, states.currentState, @"State machine should be reset to the s1 state");
-	
-	[states release];
-}
-
 -(void)testStackCanBeDescribed {
 	EDLexerStates *states = [[EDLexerStates alloc] init];
 	NSUInteger s1 = [states stateNamed:@"foo"];
@@ -110,12 +93,33 @@
 	[states pushState:s1];
 	[states pushState:s2];
 	
-	EDLexerStatesInfo stackInfo = states.stackInfo;
+	EDLexerStatesInfo stackInfo;
+	[states stackInfo:&stackInfo];
 	
 	GHAssertEquals((NSUInteger) 2, stackInfo.stackSize, @"Stack size should be 2");
 	GHAssertEquals((NSUInteger) 0, stackInfo.stack[0], @"First stack entry should be initial state");
 	GHAssertEquals(s1, stackInfo.stack[1], @"Second stack entry should be s1");
 	GHAssertEquals(s2, stackInfo.currentState, @"Current state should be s2");
+	
+	[states release];
+}
+
+-(void)testStackCanBeReapplied {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	NSUInteger s1 = [states stateNamed:@"foo"];
+	NSUInteger s2 = [states stateNamed:@"bar"];
+	
+	[states pushState:s1];
+	[states pushState:s2];
+	
+	EDLexerStatesInfo stackInfo;
+	stackInfo.stack[0] = 0;
+	stackInfo.stackSize = 1;
+	stackInfo.currentState = s1;
+	
+	[states applyStackInfo:stackInfo];
+	
+	GHAssertEquals(s1, states.currentState, @"State machine should be reset to the s1 state");
 	
 	[states release];
 }

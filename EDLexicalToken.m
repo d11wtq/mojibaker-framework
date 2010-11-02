@@ -9,6 +9,24 @@
 #import "EDLexicalToken.h"
 #import "EDLexerResult.h"
 
+// FIXME: Move me to a EDLexerFunctions.h include
+BOOL EDStacksEqual(EDLexerStatesInfo s1, EDLexerStatesInfo s2) {
+	BOOL result = NO;
+	
+	if (s1.currentState == s2.currentState && s1.stackSize == s2.stackSize) {
+		result = YES;
+		int i = 0;
+		for (; i < s1.stackSize; ++i) {
+			if (s1.stack[i] != s2.stack[i]) {
+				result = NO;
+				break;
+			}
+		}
+	}
+	
+	return result;
+}
+
 @implementation EDLexicalToken
 
 @synthesize type;
@@ -23,7 +41,10 @@
 	if (self = [self init]) {
 		type = theType;
 		range = theRange;
-		// FIXME: What to assign to stackInfo by default?
+		stackInfo = (EDLexerStatesInfo) {
+			.stackSize = 0,
+			.currentState = 0
+		};
 	}
 	
 	return self;
@@ -34,7 +55,11 @@
 }
 
 -(BOOL)isEqualToToken:(EDLexicalToken *)token {
-	return token && (range.location == token.range.location && range.length == token.range.length && type == token.type);
+	return token
+		&& (range.location == token.range.location
+			&& range.length == token.range.length
+			&& type == token.type
+			&& EDStacksEqual(stackInfo, token.stackInfo));
 }
 
 @end
