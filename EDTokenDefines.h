@@ -8,7 +8,7 @@
  */
 
 typedef enum _EDLexicalTokenType {
-	EDUnmatchedCharacterToken,
+	EDUnmatchedToken,
 	EDWhitespaceToken,
 	EDDefinerKeywordToken,
 	EDKeywordToken,

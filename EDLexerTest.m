@@ -25,7 +25,7 @@
 	NSUInteger i;
 	for (i = 0; i < 3; ++i) {
 		EDLexicalToken *tok = [result.tokens objectAtIndex:i];
-		GHAssertEquals(EDUnmatchedCharacterToken, tok.type, @"Type should be EDUnmatchedCharacterToken");
+		GHAssertEquals(EDUnmatchedToken, tok.type, @"Type should be EDUnmatchedToken");
 		GHAssertEquals((NSUInteger) i, tok.range.location, @"Range location should match char location");
 		GHAssertEquals((NSUInteger) 1, tok.range.length, @"Range length should always be 1");
 	}
@@ -44,11 +44,11 @@
 	EDLexicalToken *t2 = [result.tokens objectAtIndex:1];
 	EDLexicalToken *t3 = [result.tokens objectAtIndex:2];
 	
-	GHAssertEquals(EDUnmatchedCharacterToken, t1.type, @"First token should be EDUnmatchedCharacterToken");
+	GHAssertEquals(EDUnmatchedToken, t1.type, @"First token should be EDUnmatchedToken");
 	GHAssertEquals(EDDefinerKeywordToken, t2.type, @"Second token should be EDDefinerKeywordToken");
 	GHAssertEquals((NSUInteger) 1, t2.range.location, @"Second token should be at offset 1");
 	GHAssertEquals((NSUInteger) 8, t2.range.length, @"Second token should have a length of 8");
-	GHAssertEquals(EDUnmatchedCharacterToken, t3.type, @"Third token should be EDUnmatchedCharacterToken");
+	GHAssertEquals(EDUnmatchedToken, t3.type, @"Third token should be EDUnmatchedToken");
 }
 
 -(void)testUsesTheLongestMatchIfNotDefiniteAndAmbiguous {
@@ -146,6 +146,78 @@
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is s1");
 	
 	[states release];
+}
+
+-(void)testDoesNotDuplicateTokensGivenEnoughInformationAboutInsertions {
+	NSString *editedString = @"function foo_bar test";
+	NSRange editedRange = {12, 1};
+	NSInteger changeInLength = 1;
+	
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8)]; // 'function'
+	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1)]; // ' '
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 6)]; // 'foobar'
+	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(15, 1)]; // ' '
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(16, 4)]; // 'test'
+	
+	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
+	
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
+	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDKeywordToken]];
+	[lexer addRule:[EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+" tokenType:EDVariableToken]];
+	
+	EDLexerResult *newResult = [lexer lexString:editedString editedRange:editedRange changeInLength:changeInLength previousResult:previousResult];
+	
+	GHAssertEquals(t1, [newResult.tokens objectAtIndex:0], @"First token should be the same instance as previously");
+	GHAssertEquals(wst1, [newResult.tokens objectAtIndex:1], @"Second token should be the same instance as previously");
+	GHAssertNotEquals(t2, [newResult.tokens objectAtIndex:2], @"Third token should NOT be the same instance as previously");
+	GHAssertEquals(wst2, [newResult.tokens objectAtIndex:3], @"Fourth token should be the same instance as previously");
+	GHAssertEquals(t3, [newResult.tokens objectAtIndex:4], @"Fifth token should be the same instance as previously");
+	
+	EDLexicalToken *newT2 = [newResult.tokens objectAtIndex:2];
+	
+	GHAssertEquals(EDVariableToken, newT2.type, @"New token should be EDVariableToken");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(9, 7), newT2.range), @"New token range should be (9,7)");
+	
+	GHAssertTrue(NSEqualRanges(NSMakeRange(0, 8), t1.range), @"First token should not have moved");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(8, 1), wst1.range), @"Second token should not have moved");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(16, 1), wst2.range), @"Fourth token should have moved by 1");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(17, 4), t3.range), @"Fifth token should have moved by 1");
+}
+
+-(void)testDoesNotDuplicateTokensGivenEnoughInformationAboutDeletions {
+	NSString *editedString = @"function foobar test";
+	NSRange editedRange = {12, 0};
+	NSInteger changeInLength = -1;
+	
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8)]; // 'function'
+	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1)]; // ' '
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 7)]; // 'foo_bar'
+	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(16, 1)]; // ' '
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(17, 4)]; // 'test'
+	
+	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
+	
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
+	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDKeywordToken]];
+	[lexer addRule:[EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+" tokenType:EDVariableToken]];
+	
+	EDLexerResult *newResult = [lexer lexString:editedString editedRange:editedRange changeInLength:changeInLength previousResult:previousResult];
+	
+	GHAssertEquals(t1, [newResult.tokens objectAtIndex:0], @"First token should be the same instance as previously");
+	GHAssertEquals(wst1, [newResult.tokens objectAtIndex:1], @"Second token should be the same instance as previously");
+	GHAssertNotEquals(t2, [newResult.tokens objectAtIndex:2], @"Third token should NOT be the same instance as previously");
+	GHAssertEquals(wst2, [newResult.tokens objectAtIndex:3], @"Fourth token should be the same instance as previously");
+	GHAssertEquals(t3, [newResult.tokens objectAtIndex:4], @"Fifth token should be the same instance as previously");
+	
+	EDLexicalToken *newT2 = [newResult.tokens objectAtIndex:2];
+	
+	GHAssertEquals(EDVariableToken, newT2.type, @"New token should be EDVariableToken");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(9, 6), newT2.range), @"New token range should be (9,7)");
+	
+	GHAssertTrue(NSEqualRanges(NSMakeRange(0, 8), t1.range), @"First token should not have moved");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(8, 1), wst1.range), @"Second token should not have moved");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(15, 1), wst2.range), @"Fourth token should have moved by -1");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(16, 4), t3.range), @"Fifth token should have moved by -1");
 }
 
 @end

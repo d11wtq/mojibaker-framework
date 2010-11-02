@@ -21,7 +21,7 @@
 
 -(id)init {
 	if (self = [super init]) {
-		tokenType = EDUnmatchedCharacterToken;
+		tokenType = EDUnmatchedToken;
 	}
 	
 	return self;

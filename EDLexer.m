@@ -31,7 +31,7 @@
 									  ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
 									  tokenType:EDWhitespaceToken];
 		lastResortRules = [[NSMutableArray alloc] initWithObjects:whiteSpaceRule,
-						   [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+" tokenType:EDUnmatchedCharacterToken],
+						   [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+" tokenType:EDUnmatchedToken],
 						   [EDAnyCharacterLexRule rule], nil];
 	}
 	

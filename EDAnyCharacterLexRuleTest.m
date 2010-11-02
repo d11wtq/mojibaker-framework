@@ -23,7 +23,7 @@
 	NSUInteger len = source.length;
 	for (i = 0; i < len; ++i) {
 		EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(i, len - i) states:nil];
-		GHAssertEquals(EDUnmatchedCharacterToken, tok.type, @"Type should be EDUnmatchedCharacterToken");
+		GHAssertEquals(EDUnmatchedToken, tok.type, @"Type should be EDUnmatchedToken");
 		GHAssertEquals((NSUInteger) i, tok.range.location, @"Location should be start of range");
 		GHAssertEquals((NSUInteger) 1, tok.range.length, @"Length should be 1");
 	}
