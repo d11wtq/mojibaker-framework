@@ -27,10 +27,10 @@
 
 -(void)addRule:(EDLexRule *)ruleToAdd;
 
--(EDLexerResult *)lexString:(NSString *)string editedRange:(NSRange)editedRange changeInLength:(NSInteger)delta
-			 previousResult:(EDLexerResult *)previousResult;
+-(void)lexString:(NSString *)string editedRange:(NSRange)editedRange changeInLength:(NSInteger)delta
+  previousResult:(EDLexerResult *)previousResult intoResult:(EDLexerResult *)result;
 
--(EDLexerResult *)lexString:(NSString *)string;
+-(void)lexString:(NSString *)string intoResult:(EDLexerResult *)result;
 
 -(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range;
 

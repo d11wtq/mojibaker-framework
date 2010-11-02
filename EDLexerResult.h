@@ -11,14 +11,16 @@
 @class EDLexicalToken;
 
 @interface EDLexerResult : NSObject {
-	NSArray *tokens;
+	NSMutableArray *tokens;
 }
 
++(id)result;
 +(id)resultWithTokens:(NSArray *)foundTokens;
-
 -(id)initWithTokens:(NSArray *)foundTokens;
 
 @property (readonly) NSArray *tokens;
+
+-(void)addToken:(EDLexicalToken *)token;
 
 -(EDLexicalToken *)tokenAtRange:(NSRange)range;
 

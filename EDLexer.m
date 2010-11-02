@@ -42,11 +42,11 @@
 	[rules addObject:ruleToAdd];
 }
 
--(EDLexerResult *)lexString:(NSString *)string editedRange:(NSRange)editedRange changeInLength:(NSInteger)delta
-			 previousResult:(EDLexerResult *)previousResult {
-	NSMutableArray *tokens = [NSMutableArray array];
+-(void)lexString:(NSString *)string editedRange:(NSRange)editedRange changeInLength:(NSInteger)delta
+			previousResult:(EDLexerResult *)previousResult intoResult:(EDLexerResult *)result {
+	
 	if (string.length == 0) {
-		return [EDLexerResult resultWithTokens:tokens];
+		return;
 	}
 	
 	NSUInteger editedRangeEnd = editedRange.location + editedRange.length;
@@ -65,7 +65,7 @@
 	
 	while (existingToken = [previousResultEnumerator nextObject]) {
 		if (existingToken.range.location < nextRange.location) {
-			[tokens addObject:existingToken];
+			[result addToken:existingToken];
 		} else {
 			break;
 		}
@@ -91,13 +91,13 @@
 		}
 		
 		if (existingToken && !NSEqualRanges(existingToken.range, editedRange) && [newToken isEqualToToken:existingToken]) {
-			[tokens addObject:existingToken];
+			[result addToken:existingToken];
 			if (existingToken.range.location >= editedRangeEnd) {
 				copyRemaining = YES;
 				break;
 			}
 		} else {
-			[tokens addObject:newToken];
+			[result addToken:newToken];
 		}
 		
 		nextRange.location += newToken.range.length;
@@ -119,20 +119,19 @@
 			if (existingToken.range.location >= string.length) {
 				break;
 			}
-			[tokens addObject:existingToken];
+			[result addToken:existingToken];
 		}
 	}
 	
 	[states reset];
-	
-	return [EDLexerResult resultWithTokens:tokens];
 }
 
--(EDLexerResult *)lexString:(NSString *)string {
-	return [self lexString:string
-			   editedRange:NSMakeRange(0, string.length)
-			changeInLength:string.length
-			previousResult:[EDLexerResult resultWithTokens:[NSArray array]]];
+-(void)lexString:(NSString *)string intoResult:(EDLexerResult *)result {
+	[self lexString:string
+		editedRange:NSMakeRange(0, string.length)
+	 changeInLength:string.length
+	 previousResult:[EDLexerResult resultWithTokens:[NSArray array]]
+		 intoResult:result];
 }
 
 -(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range {

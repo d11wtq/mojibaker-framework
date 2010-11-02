@@ -20,7 +20,7 @@
 					   [EDLexicalToken tokenWithType:EDDefinerKeywordToken range:NSMakeRange(4, 10)], nil];
 	EDLexerResult *result = [EDLexerResult resultWithTokens:tokens];
 	
-	GHAssertEquals(tokens, result.tokens, @"Arrays should be the same object");
+	GHAssertEqualObjects(tokens, result.tokens, @"Arrays should be the same");
 }
 
 -(void)testTokenAtSpecificRangeCanBeRequested {

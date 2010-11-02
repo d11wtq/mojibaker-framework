@@ -13,16 +13,32 @@
 
 @synthesize tokens;
 
++(id)result {
+	return [[[self alloc] init] autorelease];
+}
+
 +(id)resultWithTokens:(NSArray *)foundTokens {
 	return [[[self alloc] initWithTokens:foundTokens] autorelease];
 }
 
--(id)initWithTokens:(NSArray *)foundTokens {
-	if (self = [self init]) {
-		tokens = [foundTokens retain];
+-(id)init {
+	if (self = [super init]) {
+		tokens = [[NSMutableArray alloc] init];
 	}
 	
 	return self;
+}
+
+-(id)initWithTokens:(NSArray *)foundTokens {
+	if (self = [self init]) {
+		[tokens addObjectsFromArray:foundTokens];
+	}
+	
+	return self;
+}
+
+-(void)addToken:(EDLexicalToken *)token {
+	[tokens addObject:token];
 }
 
 -(EDLexicalToken *)tokenAtRange:(NSRange)range {

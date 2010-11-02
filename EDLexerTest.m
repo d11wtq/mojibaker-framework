@@ -18,7 +18,8 @@
 -(void)testFindsSingleCharactersByDefault {
 	NSString *source = @"***";
 	EDLexer *lexer = [EDLexer lexerWithStates:nil];
-	EDLexerResult *result = [lexer lexString:source];
+	EDLexerResult *result = [EDLexerResult result];
+	[lexer lexString:source intoResult:result];
 	
 	GHAssertEquals((NSUInteger) 3, [result.tokens count], @"3 tokens should be found");
 	
@@ -36,7 +37,8 @@
 	EDLexer *lexer = [EDLexer lexerWithStates:nil];
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDDefinerKeywordToken caseInsensitive:NO]];
 	
-	EDLexerResult *result = [lexer lexString:source];
+	EDLexerResult *result = [EDLexerResult result];
+	[lexer lexString:source intoResult:result];
 	
 	GHAssertEquals((NSUInteger) 3, [result.tokens count], @"3 tokens should be found");
 	
@@ -62,7 +64,8 @@
 	[lexer addRule:r1];
 	[lexer addRule:r2];
 	
-	EDLexerResult *result = [lexer lexString:source];
+	EDLexerResult *result = [EDLexerResult result];
+	[lexer lexString:source intoResult:result];
 	
 	GHAssertEquals((NSUInteger) 1, [result.tokens count], @"1 token should be found");
 	
@@ -90,7 +93,9 @@
 	EDLexerResult *result;
 	EDLexicalToken *tok;
 	
-	result = [lexer lexString:source];
+	result = [EDLexerResult result];
+	[lexer lexString:source intoResult:result];
+	
 	tok = [result tokenAtRange:NSMakeRange(0, 8)];
 	
 	GHAssertEquals(EDKeywordToken, tok.type, @"Second rule should be used since state is not s1");
@@ -103,7 +108,9 @@
 	
 	[lexer.states applyStackInfo:stackInfo];
 	
-	result = [lexer lexString:source];
+	result = [EDLexerResult result];
+	[lexer lexString:source intoResult:result];
+	
 	tok = [result tokenAtRange:NSMakeRange(0, 8)];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is s1");
@@ -128,7 +135,9 @@
 	EDLexerResult *result;
 	EDLexicalToken *tok;
 	
-	result = [lexer lexString:source];
+	result = [EDLexerResult result];
+	[lexer lexString:source intoResult:result];
+	
 	tok = [result tokenAtRange:NSMakeRange(0, 8)];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is still the initial state");
@@ -140,7 +149,9 @@
 	
 	[lexer.states applyStackInfo:stackInfo];
 	
-	result = [lexer lexString:source];
+	result = [EDLexerResult result];
+	[lexer lexString:source intoResult:result];
+	
 	tok = [result tokenAtRange:NSMakeRange(0, 8)];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is s1");
@@ -165,7 +176,13 @@
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDKeywordToken]];
 	[lexer addRule:[EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+" tokenType:EDVariableToken]];
 	
-	EDLexerResult *newResult = [lexer lexString:editedString editedRange:editedRange changeInLength:changeInLength previousResult:previousResult];
+	EDLexerResult *newResult = [EDLexerResult result];
+	
+	[lexer lexString:editedString
+		 editedRange:editedRange
+	  changeInLength:changeInLength
+	  previousResult:previousResult
+		  intoResult:newResult];
 	
 	GHAssertEquals(t1, [newResult.tokens objectAtIndex:0], @"First token should be the same instance as previously");
 	GHAssertEquals(wst1, [newResult.tokens objectAtIndex:1], @"Second token should be the same instance as previously");
@@ -201,7 +218,13 @@
 	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDKeywordToken]];
 	[lexer addRule:[EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+" tokenType:EDVariableToken]];
 	
-	EDLexerResult *newResult = [lexer lexString:editedString editedRange:editedRange changeInLength:changeInLength previousResult:previousResult];
+	EDLexerResult *newResult = [EDLexerResult result];
+	
+	[lexer lexString:editedString
+		 editedRange:editedRange
+	  changeInLength:changeInLength
+	  previousResult:previousResult
+		  intoResult:newResult];
 	
 	GHAssertEquals(t1, [newResult.tokens objectAtIndex:0], @"First token should be the same instance as previously");
 	GHAssertEquals(wst1, [newResult.tokens objectAtIndex:1], @"Second token should be the same instance as previously");
