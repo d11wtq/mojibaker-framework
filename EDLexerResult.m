@@ -12,6 +12,7 @@
 @implementation EDLexerResult
 
 @synthesize tokens;
+@synthesize newTokens;
 
 +(id)result {
 	return [[[self alloc] init] autorelease];
@@ -24,6 +25,7 @@
 -(id)init {
 	if (self = [super init]) {
 		tokens = [[NSMutableArray alloc] init];
+		newTokens = [[NSMutableArray alloc] init];
 	}
 	
 	return self;
@@ -39,6 +41,14 @@
 
 -(void)addToken:(EDLexicalToken *)token {
 	[tokens addObject:token];
+}
+
+-(void)addToken:(EDLexicalToken *)token isNew:(BOOL)newFlag {
+	[tokens addObject:token];
+	if (newFlag) {
+		[newTokens addObject:token];
+	}
+	
 }
 
 -(EDLexicalToken *)tokenAtRange:(NSRange)range {
@@ -105,6 +115,7 @@
 
 -(void)dealloc {
 	[tokens release];
+	[newTokens release];
 	[super dealloc];
 }
 

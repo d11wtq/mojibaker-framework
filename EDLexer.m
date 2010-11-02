@@ -97,7 +97,7 @@
 				break;
 			}
 		} else {
-			[result addToken:newToken];
+			[result addToken:newToken isNew:YES];
 		}
 		
 		nextRange.location += newToken.range.length;

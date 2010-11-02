@@ -12,6 +12,7 @@
 
 @interface EDLexerResult : NSObject {
 	NSMutableArray *tokens;
+	NSMutableArray *newTokens;
 }
 
 +(id)result;
@@ -19,8 +20,10 @@
 -(id)initWithTokens:(NSArray *)foundTokens;
 
 @property (readonly) NSArray *tokens;
+@property (readonly) NSArray *newTokens;
 
 -(void)addToken:(EDLexicalToken *)token;
+-(void)addToken:(EDLexicalToken *)token isNew:(BOOL)newFlag;
 
 -(EDLexicalToken *)tokenAtRange:(NSRange)range;
 
