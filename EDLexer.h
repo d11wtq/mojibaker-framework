@@ -15,11 +15,13 @@
 @class EDLexerStates;
 
 @interface EDLexer : NSObject {
+	NSString *documentType;
 	NSMutableArray *rules;
 	NSArray *lastResortRules;
 	EDLexerStates *states;
 }
 
+@property (nonatomic, copy) NSString *documentType;
 @property (readonly) EDLexerStates *states;
 
 +(id)lexerWithStates:(EDLexerStates *)stateMachine;

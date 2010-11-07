@@ -18,6 +18,7 @@
 @implementation EDLexer
 
 @synthesize states;
+@synthesize documentType;
 
 +(id)lexerWithStates:(EDLexerStates *)stateMachine {
 	return [[[self alloc] initWithStates:stateMachine] autorelease];
@@ -172,6 +173,7 @@
 }
 
 -(void)dealloc {
+	[documentType release];
 	[states release];
 	[rules release];
 	[lastResortRules release];
