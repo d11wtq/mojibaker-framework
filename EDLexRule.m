@@ -15,12 +15,18 @@
 @synthesize isDefinite;
 @synthesize exclusiveState;
 @synthesize inclusiveState;
+@synthesize beginState;
+@synthesize pushState;
+@synthesize popsState;
 
 -(id)init {
 	if (self = [super init]) {
 		isDefinite = YES;
 		exclusiveState = -1;
 		inclusiveState = -1;
+		beginState = -1;
+		pushState = -1;
+		popsState = NO;
 	}
 	
 	return self;

@@ -142,9 +142,10 @@
 }
 
 -(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range {
+	EDLexRule *bestRule = nil;
 	EDLexicalToken *bestToken = nil;
 	
-	for (EDLexRule * rule in rules) {
+	for (EDLexRule *rule in rules) {
 		if (rule.exclusiveState > -1 && rule.exclusiveState != states.currentState) {
 			continue;
 		}
@@ -157,6 +158,7 @@
 		if (tok = [rule lexInString:string range:range states:states]) {
 			if (bestToken == nil || tok.range.length > bestToken.range.length) {
 				bestToken = tok;
+				bestRule = rule;
 			}
 			
 			if (rule.isDefinite) {
@@ -166,13 +168,26 @@
 	}
 	
 	if (bestToken == nil) {
-		for (EDLexRule * rule in lastResortRules) {
+		for (EDLexRule *rule in lastResortRules) {
 			EDLexicalToken *tok = nil;
 			if (tok = [rule lexInString:string range:range states:states]) {
 				bestToken = tok;
+				bestRule = rule;
 				break;
 			}
 		}
+	}
+	
+	if (bestRule.popsState) {
+		[states popState];
+	}
+	
+	if (bestRule.pushState > -1) {
+		[states pushState:bestRule.pushState];
+	}
+	
+	if (bestRule.beginState > -1) {
+		[states beginState:bestRule.beginState];
 	}
 	
 	return bestToken;

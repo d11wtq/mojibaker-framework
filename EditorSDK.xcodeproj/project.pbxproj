@@ -266,13 +266,13 @@
 				8327350412732DBE006D2BA2 /* EDCharacterSetLexRuleTest.m */,
 				8327350712732DBE006D2BA2 /* EDDelimitedStringLexRuleTest.m */,
 				8327350A12732DBE006D2BA2 /* EDExactStringLexRuleTest.m */,
-				8327350D12732DBE006D2BA2 /* EDLexerTest.m */,
 				83273A8D1274599C006D2BA2 /* EDLexerResultTest.m */,
 				83273B6412757680006D2BA2 /* EDWordListLexRuleTest.m */,
 				83273E451276E2CC006D2BA2 /* EDRadixNodeTest.m */,
 				83D66FBB12782AFB0088AC05 /* EDLexerStatesTest.m */,
 				835E870D1278399D00AE51E3 /* EDEmbeddedLanguageLexRuleTest.m */,
 				835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */,
+				8327350D12732DBE006D2BA2 /* EDLexerTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";

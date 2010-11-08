@@ -20,6 +20,8 @@
 
 @property (nonatomic) BOOL isChanged;
 
++(id)states;
+
 /*!
  * Returns the ID of the state name stateName, or generates one if needed.
  */
@@ -28,6 +30,7 @@
 -(void)stackInfo:(EDLexerStatesInfo *)stackInfo;
 -(void)applyStackInfo:(EDLexerStatesInfo)stackInfo;
 
+-(void)beginState:(NSUInteger)newStateId;
 -(void)pushState:(NSUInteger)newStateId;
 -(void)popState;
 -(void)rewindToState:(NSUInteger)stateId;

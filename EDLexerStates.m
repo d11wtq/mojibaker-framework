@@ -13,6 +13,10 @@
 
 @synthesize isChanged;
 
++(id)states {
+	return [[[self alloc] init] autorelease];
+}
+
 -(id)init {
 	if (self = [super init]) {
 		stateNames = [[NSMutableDictionary alloc] init];
@@ -57,27 +61,29 @@
 	currentState = stackInfo.currentState;
 }
 
+-(void)beginState:(NSUInteger)newStateId {
+	currentState = newStateId;
+	isChanged = YES;
+}
+
 -(void)pushState:(NSUInteger)newStateId {
 	if (stackPosition >= (EDLexerStatesStackSize - 1)) {
 		[NSException raise:@"StackOverflowException"
 					format:@"Cannot push state as stack exceeds maximum size %d", EDLexerStatesStackSize];
 	} else {
 		stack[stackPosition++] = currentState;
-		currentState = newStateId;
+		[self beginState:newStateId];
 	}
 	
 	isChanged = YES;
 }
 
 -(void)popState {
-	NSLog(@"Popping, currentState = %d", currentState);
-	int i = 0;
-	for (; i < stackPosition; ++i) NSLog(@"stack[%d] = %d", i, stack[i]);
 	if (stackPosition <= 0) {
 		[NSException raise:@"StackUnderflowException"
 					format:@"Cannot pop state as nothing current on stack"];
 	} else {
-		currentState = stack[--stackPosition];
+		[self beginState:stack[--stackPosition]];
 	}
 	isChanged = YES;
 }

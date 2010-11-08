@@ -11,26 +11,214 @@
 
 @implementation EDExactStringLexRule
 
-+(id)ruleWithString:(NSString *)string tokenType:(EDLexicalTokenType)theTokenType {
-	return [[[self alloc] initWithString:string tokenType:theTokenType caseInsensitive:NO] autorelease];
++(id)ruleWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag {
+	
+	return [[[self alloc] initWithString:string
+							   tokenType:theTokenType
+						 caseInsensitive:caseFlag] autorelease];
 }
 
-+(id)ruleWithString:(NSString *)string tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
-	return [[[self alloc] initWithString:string tokenType:theTokenType caseInsensitive:isCaseInsensitive] autorelease];
++(id)ruleWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+			  state:(NSUInteger)stateId
+		  inclusive:(BOOL)isStateInclusive {
+	
+	return [[[self alloc] initWithString:string
+							   tokenType:theTokenType
+						 caseInsensitive:caseFlag
+								   state:stateId
+							   inclusive:isStateInclusive] autorelease];
 }
 
--(id)initWithString:(NSString *)string tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive {
++(id)ruleWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+			  state:(NSUInteger)stateId
+		  inclusive:(BOOL)isStateInclusive
+		  pushState:(NSUInteger)newStateId {
+	
+	return [[[self alloc] initWithString:string
+							   tokenType:theTokenType
+						 caseInsensitive:caseFlag
+								   state:stateId
+							   inclusive:isStateInclusive
+							   pushState:newStateId] autorelease];
+}
+
++(id)ruleWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+			  state:(NSUInteger)stateId
+		  inclusive:(BOOL)isStateInclusive
+		 beginState:(NSUInteger)newStateId {
+	
+	return [[[self alloc] initWithString:string
+							   tokenType:theTokenType
+						 caseInsensitive:caseFlag
+								   state:stateId
+							   inclusive:isStateInclusive
+							  beginState:newStateId] autorelease];
+}
+
++(id)ruleWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+			  state:(NSUInteger)stateId
+		  inclusive:(BOOL)isStateInclusive
+		   popState:(BOOL)shouldPopState {
+	
+	return [[[self alloc] initWithString:string
+							   tokenType:theTokenType
+						 caseInsensitive:caseFlag
+								   state:stateId
+							   inclusive:isStateInclusive
+								popState:shouldPopState] autorelease];
+}
+
++(id)ruleWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+		  pushState:(NSUInteger)newStateId {
+	
+	return [[[self alloc] initWithString:string
+							   tokenType:theTokenType
+						 caseInsensitive:caseFlag
+							   pushState:newStateId] autorelease];
+}
+
++(id)ruleWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+		 beginState:(NSUInteger)newStateId {
+	
+	return [[[self alloc] initWithString:string
+							   tokenType:theTokenType
+						 caseInsensitive:caseFlag
+							  beginState:newStateId] autorelease];
+}
+
+#pragma mark -
+
+-(id)initWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag {
 	if (self = [self init]) {
-		needleString = isCaseInsensitive
+		needleString = caseFlag
 			? [[string lowercaseString] copy]
 			: [string copy]
 			;
-		caseInsensitive = isCaseInsensitive;
+		caseInsensitive = caseFlag;
 		tokenType = theTokenType;
 	}
 	
 	return self;
 }
+
+-(id)initWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+			  state:(NSUInteger)stateId
+		  inclusive:(BOOL)isStateInclusive {
+	
+	if (self = [self initWithString:string tokenType:theTokenType caseInsensitive:caseFlag]) {
+		if (isStateInclusive) {
+			inclusiveState = stateId;
+		} else {
+			exclusiveState = stateId;
+		}
+	}
+	
+	return self;
+}
+
+-(id)initWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+			  state:(NSUInteger)stateId
+		  inclusive:(BOOL)isStateInclusive
+		  pushState:(NSUInteger)newStateId {
+	
+	if (self = [self initWithString:string tokenType:theTokenType caseInsensitive:caseFlag]) {
+		if (isStateInclusive) {
+			inclusiveState = stateId;
+		} else {
+			exclusiveState = stateId;
+		}
+		
+		pushState = newStateId;
+	}
+	
+	return self;
+}
+
+-(id)initWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+			  state:(NSUInteger)stateId
+		  inclusive:(BOOL)isStateInclusive
+		 beginState:(NSUInteger)newStateId {
+	
+	if (self = [self initWithString:string tokenType:theTokenType caseInsensitive:caseFlag]) {
+		if (isStateInclusive) {
+			inclusiveState = stateId;
+		} else {
+			exclusiveState = stateId;
+		}
+		
+		beginState = newStateId;
+	}
+	
+	return self;
+}
+
+-(id)initWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+			  state:(NSUInteger)stateId
+		  inclusive:(BOOL)isStateInclusive
+		   popState:(BOOL)shouldPopState {
+	
+	if (self = [self initWithString:string tokenType:theTokenType caseInsensitive:caseFlag]) {
+		if (isStateInclusive) {
+			inclusiveState = stateId;
+		} else {
+			exclusiveState = stateId;
+		}
+		
+		popsState = shouldPopState;
+	}
+	
+	return self;
+}
+
+-(id)initWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+		  pushState:(NSUInteger)newStateId {
+	
+	if (self = [self initWithString:string tokenType:theTokenType caseInsensitive:caseFlag]) {
+		pushState = newStateId;
+	}
+	
+	return self;
+}
+
+-(id)initWithString:(NSString *)string
+		  tokenType:(EDLexicalTokenType)theTokenType
+	caseInsensitive:(BOOL)caseFlag
+		 beginState:(NSUInteger)newStateId {
+	
+	if (self = [self initWithString:string tokenType:theTokenType caseInsensitive:caseFlag]) {
+		beginState = newStateId;
+	}
+	
+	return self;
+}
+
+#pragma mark -
 
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
 	if (range.length < needleString.length) {
