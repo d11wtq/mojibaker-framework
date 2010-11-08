@@ -83,6 +83,8 @@
 	EDLexicalToken *newToken = nil;
 	
 	BOOL copyRemaining = NO;
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
 	while (newToken = [self nextTokenInString:string range:nextRange]) {
 		newToken.stackInfo = stackInfo;
 		
@@ -108,11 +110,15 @@
 			break;
 		}
 		
+		[pool release]; pool = [[NSAutoreleasePool alloc] init];
+		
 		while (existingToken && existingToken.range.location < nextRange.location) {
 			existingToken = [previousResultEnumerator nextObject];
 			[existingToken moveBy:delta];
 		}
 	}
+	
+	[pool release]; pool = nil;
 	
 	if (copyRemaining) {
 		while (existingToken = [previousResultEnumerator nextObject]) {
