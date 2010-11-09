@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
-#import "EDTokenDefines.h"
 
 @class EDLexer;
 
