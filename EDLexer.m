@@ -8,6 +8,7 @@
 
 #import "EDLexer.h"
 #import "EDLexerStates.h"
+#import "EDLexerStatesSnapshot.h"
 #import "EDLexicalToken.h"
 #import "EDLexerResult.h"
 #import "EDCharacterLexRule.h"
@@ -50,6 +51,8 @@
 		return;
 	}
 	
+	EDLexerStatesSnapshot *snapshot = [[states snapshot] retain];
+	
 	NSUInteger editedRangeEnd = editedRange.location + editedRange.length;
 	
 	NSRange nextRange = NSMakeRange(editedRange.location, 0);
@@ -72,12 +75,9 @@
 		}
 	}
 	
-	EDLexerStatesInfo stackInfo;
-	[states stackInfo:&stackInfo];
-	
 	if (existingToken) {
-		stackInfo = existingToken.stackInfo;
-		[states applyStackInfo:stackInfo];
+		snapshot = [existingToken statesSnapshot];
+		[states applySnapshot:snapshot];
 	}
 	
 	EDLexicalToken *newToken = nil;
@@ -86,10 +86,11 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	while (newToken = [self nextTokenInString:string range:nextRange]) {
-		newToken.stackInfo = stackInfo;
+		newToken.statesSnapshot = snapshot;
 		
 		if (states.isChanged) {
-			[states stackInfo:&stackInfo];
+			[snapshot release];
+			snapshot = [[states snapshot] retain];
 			states.isChanged = NO;
 		}
 		
@@ -130,6 +131,7 @@
 		}
 	}
 	
+	[snapshot release];
 	[states reset];
 }
 

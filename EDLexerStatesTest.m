@@ -93,13 +93,12 @@
 	[states pushState:s1];
 	[states pushState:s2];
 	
-	EDLexerStatesInfo stackInfo;
-	[states stackInfo:&stackInfo];
+	EDLexerStatesSnapshot *snapshot = [states snapshot];
 	
-	GHAssertEquals((NSUInteger) 2, stackInfo.stackSize, @"Stack size should be 2");
-	GHAssertEquals((NSUInteger) 0, stackInfo.stack[0], @"First stack entry should be initial state");
-	GHAssertEquals(s1, stackInfo.stack[1], @"Second stack entry should be s1");
-	GHAssertEquals(s2, stackInfo.currentState, @"Current state should be s2");
+	GHAssertEquals((NSUInteger) 2, snapshot.stack.count, @"Stack size should be 2");
+	GHAssertEquals((NSUInteger) 0, [[snapshot.stack objectAtIndex:0] unsignedIntegerValue], @"First stack entry should be initial state");
+	GHAssertEquals(s1, [[snapshot.stack objectAtIndex:1] unsignedIntegerValue], @"Second stack entry should be s1");
+	GHAssertEquals(s2, snapshot.currentState, @"Current state should be s2");
 	
 	[states release];
 }
@@ -112,12 +111,10 @@
 	[states pushState:s1];
 	[states pushState:s2];
 	
-	EDLexerStatesInfo stackInfo;
-	stackInfo.stack[0] = 0;
-	stackInfo.stackSize = 1;
-	stackInfo.currentState = s1;
+	NSArray *stack = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInt:0]];
+	EDLexerStatesSnapshot *snapshot = [EDLexerStatesSnapshot snapshotWithStack:stack currentState:s1];
 	
-	[states applyStackInfo:stackInfo];
+	[states applySnapshot:snapshot];
 	
 	GHAssertEquals(s1, states.currentState, @"State machine should be reset to the s1 state");
 	

@@ -8,30 +8,13 @@
 
 #import "EDLexicalToken.h"
 #import "EDLexerResult.h"
-
-// FIXME: Move me to a EDLexerFunctions.h include
-BOOL EDStacksEqual(EDLexerStatesInfo s1, EDLexerStatesInfo s2) {
-	BOOL result = NO;
-	
-	if (s1.currentState == s2.currentState && s1.stackSize == s2.stackSize) {
-		result = YES;
-		int i = 0;
-		for (; i < s1.stackSize; ++i) {
-			if (s1.stack[i] != s2.stack[i]) {
-				result = NO;
-				break;
-			}
-		}
-	}
-	
-	return result;
-}
+#import "EDLexerStatesSnapshot.h"
 
 @implementation EDLexicalToken
 
 @synthesize type;
 @synthesize range;
-@synthesize stackInfo;
+@synthesize statesSnapshot;
 
 +(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange {
 	return [[[self alloc] initWithType:theType range:theRange] autorelease];
@@ -41,10 +24,6 @@ BOOL EDStacksEqual(EDLexerStatesInfo s1, EDLexerStatesInfo s2) {
 	if (self = [self init]) {
 		type = theType;
 		range = theRange;
-		stackInfo = (EDLexerStatesInfo) {
-			.stackSize = 0,
-			.currentState = 0
-		};
 	}
 	
 	return self;
@@ -59,7 +38,7 @@ BOOL EDStacksEqual(EDLexerStatesInfo s1, EDLexerStatesInfo s2) {
 		&& (range.location == token.range.location
 			&& range.length == token.range.length
 			&& type == token.type
-			&& EDStacksEqual(stackInfo, token.stackInfo));
+			&& [statesSnapshot isEqualToSnapshot:token.statesSnapshot]);
 }
 
 @end

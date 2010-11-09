@@ -113,13 +113,10 @@
 	
 	GHAssertEquals(EDKeywordToken, tok.type, @"Second rule should be used since state is not s1");
 	
+	NSArray *stack = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:0]];
+	EDLexerStatesSnapshot *snapshot = [EDLexerStatesSnapshot snapshotWithStack:stack currentState:s1];
 	
-	EDLexerStatesInfo stackInfo;
-	stackInfo.stack[0] = 0;
-	stackInfo.stackSize = 1;
-	stackInfo.currentState = s1;
-	
-	[lexer.states applyStackInfo:stackInfo];
+	[lexer.states applySnapshot:snapshot];
 	
 	result = [EDLexerResult result];
 	[lexer lexString:source intoResult:result];
@@ -160,12 +157,11 @@
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"First rule should be used since state is still the initial state");
 	
-	EDLexerStatesInfo stackInfo;
-	stackInfo.stack[0] = 0;
-	stackInfo.stackSize = 1;
-	stackInfo.currentState = s1;
 	
-	[lexer.states applyStackInfo:stackInfo];
+	NSArray *stack = [NSArray arrayWithObject:[NSNumber numberWithUnsignedInteger:0]];
+	EDLexerStatesSnapshot *snapshot = [EDLexerStatesSnapshot snapshotWithStack:stack currentState:s1];
+	
+	[lexer.states applySnapshot:snapshot];
 	
 	result = [EDLexerResult result];
 	[lexer lexString:source intoResult:result];
@@ -182,11 +178,22 @@
 	NSRange editedRange = {12, 1};
 	NSInteger changeInLength = 1;
 	
+	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
+	
 	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8)]; // 'function'
+	t1.statesSnapshot = [lexer.states snapshot];
+	
 	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1)]; // ' '
+	wst1.statesSnapshot = [lexer.states snapshot];
+	
 	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 6)]; // 'foobar'
+	t2.statesSnapshot = [lexer.states snapshot];
+	
 	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(15, 1)]; // ' '
+	wst2.statesSnapshot = [lexer.states snapshot];
+	
 	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(16, 4)]; // 'test'
+	t3.statesSnapshot = [lexer.states snapshot];
 	
 	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
 	
@@ -196,7 +203,6 @@
 	EDLexRule *r2 = [EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+"];
 	r2.tokenType = EDVariableToken;
 	
-	EDLexer *lexer = [EDLexer lexerWithStates:nil];
 	[lexer addRule:r1];
 	[lexer addRule:r2];
 	
@@ -230,11 +236,22 @@
 	NSRange editedRange = {12, 0};
 	NSInteger changeInLength = -1;
 	
+	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
+	
 	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8)]; // 'function'
+	t1.statesSnapshot = [lexer.states snapshot];
+	
 	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1)]; // ' '
+	wst1.statesSnapshot = [lexer.states snapshot];
+	
 	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 7)]; // 'foo_bar'
+	t2.statesSnapshot = [lexer.states snapshot];
+	
 	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(16, 1)]; // ' '
+	wst2.statesSnapshot = [lexer.states snapshot];
+	
 	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(17, 4)]; // 'test'
+	t3.statesSnapshot = [lexer.states snapshot];
 	
 	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
 	
@@ -244,7 +261,6 @@
 	EDLexRule *r2 = [EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+"];
 	r2.tokenType = EDVariableToken;
 	
-	EDLexer *lexer = [EDLexer lexerWithStates:nil];
 	[lexer addRule:r1];
 	[lexer addRule:r2];
 	
@@ -335,23 +351,23 @@
 	
 	EDLexicalToken *fnNameTok = [result tokenAtRange:NSMakeRange(9, 4)];
 	GHAssertEquals(EDFunctionDefinitionToken, fnNameTok.type, @"Token type should be function definition");
-	GHAssertEquals(funcDefScope, fnNameTok.stackInfo.currentState, @"State should be funcDefScope");
+	GHAssertEquals(funcDefScope, fnNameTok.statesSnapshot.currentState, @"State should be funcDefScope");
 	
 	EDLexicalToken *wspTok = [result tokenAtRange:NSMakeRange(17, 1)];
 	GHAssertEquals(EDWhitespaceToken, wspTok.type, @"Token type should be whitespace");
-	GHAssertEquals(funcScope, wspTok.stackInfo.currentState, @"State should be funcScope");
+	GHAssertEquals(funcScope, wspTok.statesSnapshot.currentState, @"State should be funcScope");
 	
 	EDLexicalToken *wsp2Tok = [result tokenAtRange:NSMakeRange(21, 1)];
 	GHAssertEquals(EDWhitespaceToken, wsp2Tok.type, @"Token type should be whitespace");
-	GHAssertEquals(genericScope, wsp2Tok.stackInfo.currentState, @"State should be genericScope");
+	GHAssertEquals(genericScope, wsp2Tok.statesSnapshot.currentState, @"State should be genericScope");
 	
 	EDLexicalToken *wsp3Tok = [result tokenAtRange:NSMakeRange(25, 1)];
 	GHAssertEquals(EDWhitespaceToken, wsp3Tok.type, @"Token type should be whitespace");
-	GHAssertEquals(funcScope, wsp3Tok.stackInfo.currentState, @"State should be funcScope");
+	GHAssertEquals(funcScope, wsp3Tok.statesSnapshot.currentState, @"State should be funcScope");
 	
 	EDLexicalToken *wsp4Tok = [result tokenAtRange:NSMakeRange(27, 1)];
 	GHAssertEquals(EDWhitespaceToken, wsp4Tok.type, @"Token type should be whitespace");
-	GHAssertEquals((NSUInteger) 0, wsp4Tok.stackInfo.currentState, @"State should be initial state");
+	GHAssertEquals((NSUInteger) 0, wsp4Tok.statesSnapshot.currentState, @"State should be initial state");
 }
 
 /*-(void)testTokensCanOpenAndCloseScope {

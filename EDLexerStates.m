@@ -7,7 +7,7 @@
 //
 
 #import "EDLexerStates.h"
-
+#import "EDLexerStatesSnapshot.h"
 
 @implementation EDLexerStates
 
@@ -20,8 +20,9 @@
 -(id)init {
 	if (self = [super init]) {
 		stateNames = [[NSMutableDictionary alloc] init];
-		scopeStack = [[NSMutableArray alloc] init];
-		scopes = [[NSMutableArray alloc] init];
+		stateStack = [[NSMutableArray alloc] initWithCapacity:10];
+		scopeStack = [[NSMutableArray alloc] initWithCapacity:20];
+		scopes = [[NSMutableArray alloc] initWithCapacity:128];
 		highestStateId = 0;
 		[self reset];
 	}
@@ -38,29 +39,15 @@
 	return [num unsignedIntValue];
 }
 
--(void)stackInfo:(EDLexerStatesInfo *)stackInfo {
-	int i = 0;
-	for (; i < stackPosition; ++i) {
-		stackInfo->stack[i] = stack[i];
-	}
-	
-	stackInfo->stackSize = stackPosition;
-	stackInfo->currentState = currentState;
+-(EDLexerStatesSnapshot *)snapshot {
+	return [EDLexerStatesSnapshot snapshotWithStack:[stateStack copy] currentState:currentState];
 }
 
--(void)applyStackInfo:(EDLexerStatesInfo)stackInfo {
-	if (stackInfo.stackSize > EDLexerStatesStackSize) {
-		[NSException raise:@"StackOverflowException"
-					format:@"New stack size exceeds maximum size %d", EDLexerStatesStackSize];
-	}
+-(void)applySnapshot:(EDLexerStatesSnapshot *)snapshot {
+	[self reset];
 	
-	NSUInteger i = 0;
-	for (; i < stackInfo.stackSize; ++i) {
-		stack[i] = stackInfo.stack[i];
-	}
-	
-	stackPosition = stackInfo.stackSize;
-	currentState = stackInfo.currentState;
+	[stateStack addObjectsFromArray:[snapshot stack]];
+	currentState = [snapshot currentState];
 }
 
 -(void)beginScopeAtRange:(NSRange)range {
@@ -96,34 +83,21 @@
 }
 
 -(void)pushState:(NSUInteger)newStateId {
-	if (stackPosition >= (EDLexerStatesStackSize - 1)) {
-		[NSException raise:@"StackOverflowException"
-					format:@"Cannot push state as stack exceeds maximum size %d", EDLexerStatesStackSize];
-	} else {
-		stack[stackPosition++] = currentState;
-		[self beginState:newStateId];
-	}
+	[stateStack addObject:[NSNumber numberWithUnsignedInteger:currentState]];
+	[self beginState:newStateId];
 	
 	isChanged = YES;
 }
 
 -(void)popState {
-	if (stackPosition <= 0) {
-		[NSException raise:@"StackUnderflowException"
-					format:@"Cannot pop state as nothing current on stack"];
-	} else {
-		[self beginState:stack[--stackPosition]];
-	}
+	[self beginState:[[stateStack lastObject] unsignedIntegerValue]];
+	[stateStack removeLastObject];
+	
 	isChanged = YES;
 }
 
 -(void)rewindToState:(NSUInteger)stateId {
-	NSUInteger i = 0;
-	for (; i < stackPosition; ++i) {
-		if (currentState == stateId) {
-			break;
-		}
-		
+	while (currentState != stateId) {
 		[self popState];
 	}
 }
@@ -133,11 +107,11 @@
 }
 
 -(BOOL)includesState:(NSUInteger)stateId {
-	BOOL included = (currentState == stateId || stackPosition == 0);
+	BOOL included = (currentState == stateId || stateStack.count == 0);
+	
 	if (!included) {
-		NSUInteger i = 0;
-		for (; i < stackPosition; ++i) {
-			if (stack[i] == stateId) {
+		for (NSNumber *n in stateStack) {
+			if ([n unsignedIntegerValue] == stateId) {
 				included = YES;
 				break;
 			}
@@ -148,15 +122,16 @@
 }
 
 -(void)reset {
+	[stateStack removeAllObjects];
 	[scopeStack removeAllObjects];
 	[scopes removeAllObjects];
 	currentState = 0;
-	stackPosition = 0;
 	isChanged = NO;
 }
 
 -(void)dealloc {
 	[stateNames release];
+	[stateStack release];
 	[scopeStack release];
 	[scopes release];
 	[super dealloc];

@@ -9,20 +9,20 @@
 #import <Cocoa/Cocoa.h>
 
 #include "EDTokenDefines.h"
-#include "EDLexerStatesInfo.h"
 
 @class EDLexerResult;
 @class EDLexicalToken;
+@class EDLexerStatesSnapshot;
 
 @interface EDLexicalToken : NSObject {
 	EDLexicalTokenType type;
 	NSRange range;
-	EDLexerStatesInfo stackInfo;
+	EDLexerStatesSnapshot *statesSnapshot;
 }
 
 @property (readonly) EDLexicalTokenType type;
 @property (readonly) NSRange range;
-@property (nonatomic) EDLexerStatesInfo stackInfo;
+@property (nonatomic, retain) EDLexerStatesSnapshot *statesSnapshot;
 
 -(id)initWithType:(EDLexicalTokenType)theType range:(NSRange)theRange;
 +(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange;

@@ -14,7 +14,7 @@
 #import "EDLexerResult.h"
 #import "EDLexRule.h"
 #import "EDLexerStates.h"
-#import "EDLexerStatesInfo.h"
+#import "EDLexerStatesSnapshot.h"
 #import "EDLexicalToken.h"
 #import "EDCharacterLexRule.h"
 #import "EDExactMatchLexRule.h"

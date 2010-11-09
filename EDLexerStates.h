@@ -7,13 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "EDLexerStatesInfo.h"
+
+@class EDLexerStatesSnapshot;
 
 @interface EDLexerStates : NSObject {
 	NSUInteger currentState;
 	NSUInteger highestStateId;
-	NSUInteger stack[EDLexerStatesStackSize];
-	NSUInteger stackPosition;
+	NSMutableArray *stateStack;
 	NSMutableDictionary *stateNames;
 	BOOL isChanged;
 	
@@ -36,8 +36,8 @@
 #pragma mark -
 #pragma mark Restoring/describing the current state
 
--(void)stackInfo:(EDLexerStatesInfo *)stackInfo; // FIXME: I reckon this would be nicer as an object
--(void)applyStackInfo:(EDLexerStatesInfo)stackInfo;
+-(EDLexerStatesSnapshot *)snapshot;
+-(void)applySnapshot:(EDLexerStatesSnapshot *)snapshot;
 
 #pragma mark -
 #pragma mark Scope management
