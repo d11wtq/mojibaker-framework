@@ -8,6 +8,7 @@
 
 #import "EDLexerStates.h"
 #import "EDLexerStatesSnapshot.h"
+#import "NSMutableRangeValue.h"
 
 @implementation EDLexerStates
 
@@ -51,7 +52,7 @@
 }
 
 -(void)beginScopeAtRange:(NSRange)range {
-	NSValue *rangeValue = [NSValue valueWithRange:NSMakeRange(range.location, 0)];
+	NSValue *rangeValue = [NSMutableRangeValue valueWithRange:NSMakeRange(range.location, 0)];
 	[scopes addObject:rangeValue];
 	[scopeStack addObject:rangeValue];
 	
@@ -59,16 +60,12 @@
 }
 
 -(void)endScopeAtRange:(NSRange)range {
-	NSValue *value = [scopeStack lastObject];
+	NSMutableRangeValue *value = [scopeStack lastObject];
 	[scopeStack removeLastObject];
-	
-	// There has to be a better way... we've already got a reference this this NSValue!??!
-	NSUInteger index = [scopes indexOfObjectIdenticalTo:value];
 	
 	NSRange actualRange = [value rangeValue];
 	actualRange.length = NSMaxRange(range) - actualRange.location;
-	
-	[scopes replaceObjectAtIndex:index withObject:[NSValue valueWithRange:actualRange]];
+	[value setRangeValue:actualRange];
 	
 	isChanged = YES;
 }
