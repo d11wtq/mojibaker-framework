@@ -15,7 +15,6 @@
 
 +(id)rule;
 +(id)ruleWithUnicodeChar:(unichar)aChar;
-
 -(id)initWithUnicodeChar:(unichar)aChar;
 
 @end

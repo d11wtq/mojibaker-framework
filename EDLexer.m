@@ -28,9 +28,9 @@
 	if (self = [self init]) {
 		states = [stateMachine retain];
 		rules = [[NSMutableArray alloc] init];
-		EDLexRule *whiteSpaceRule = [EDCharacterSetLexRule
-									  ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
-									  tokenType:EDWhitespaceToken];
+		EDLexRule *whiteSpaceRule = [EDCharacterSetLexRule ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		whiteSpaceRule.tokenType = EDWhitespaceToken;
+		
 		lastResortRules = [[NSMutableArray alloc] initWithObjects:whiteSpaceRule,
 						   [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+" tokenType:EDUnmatchedToken],
 						   [EDCharacterLexRule rule], nil];

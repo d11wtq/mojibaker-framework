@@ -11,14 +11,13 @@
 
 @implementation EDCharacterSetLexRule
 
-+(id)ruleWithCharacterSet:(NSCharacterSet *)characterSet tokenType:(EDLexicalTokenType)theTokenType {
-	return [[[self alloc] initWithCharacterSet:characterSet tokenType:theTokenType] autorelease];
++(id)ruleWithCharacterSet:(NSCharacterSet *)characterSet {
+	return [[[self alloc] initWithCharacterSet:characterSet] autorelease];
 }
 
--(id)initWithCharacterSet:(NSCharacterSet *)characterSet tokenType:(EDLexicalTokenType)theTokenType {
+-(id)initWithCharacterSet:(NSCharacterSet *)characterSet {
 	if (self = [self init]) {
 		permittedCharacterSet = [characterSet retain];
-		tokenType = theTokenType;
 	}
 	
 	return self;
