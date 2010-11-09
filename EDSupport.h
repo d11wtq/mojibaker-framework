@@ -20,6 +20,6 @@
 #import "EDExactStringLexRule.h"
 #import "EDWordListLexRule.h"
 #import "EDCharacterSetLexRule.h"
-#import "EDDelimitedStringLexRule.h"
+#import "EDBoundedRegionLexRule.h"
 #import "EDEmbeddedLanguageLexRule.h"
 #import "EDPatternLexRule.h"

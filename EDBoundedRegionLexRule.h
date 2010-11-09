@@ -1,5 +1,5 @@
 //
-//  EDDelimitedStringLexRule.h
+//  EDBoundedRegionLexRule.h
 //  Editor
 //
 //  Created by Chris Corbyn on 22/10/10.
@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
 
-@interface EDDelimitedStringLexRule : EDLexRule {
+@interface EDBoundedRegionLexRule : EDLexRule {
 	NSString *start;
 	NSString *end;
 	NSString *escape;

@@ -1,15 +1,15 @@
 //
-//  EDDelimitedStringLexRule.m
+//  EDBoundedRegionLexRule.m
 //  Editor
 //
 //  Created by Chris Corbyn on 22/10/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "EDDelimitedStringLexRule.h"
+#import "EDBoundedRegionLexRule.h"
 #import "EDLexicalToken.h"
 
-@implementation EDDelimitedStringLexRule
+@implementation EDBoundedRegionLexRule
 
 +(id)ruleWithStart:(NSString *)startString end:(NSString *)endString escape:(NSString *)escapeString {
 	return [[[self alloc] initWithStart:startString end:endString escape:escapeString] autorelease];

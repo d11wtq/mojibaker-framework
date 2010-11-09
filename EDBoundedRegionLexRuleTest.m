@@ -1,5 +1,5 @@
 //
-//  EDDelimitedStringLexRuleTest.m
+//  EDBoundedRegionLexRuleTest.m
 //  Editor
 //
 //  Created by Chris Corbyn on 22/10/10.
@@ -9,14 +9,14 @@
 #import <GHUnit/GHUnit.h>
 #import <EDSupport/EDSupport.h>
 
-@interface EDDelimitedStringLexRuleTest : GHTestCase
+@interface EDBoundedRegionLexRuleTest : GHTestCase
 @end
 
 
-@implementation EDDelimitedStringLexRuleTest
+@implementation EDBoundedRegionLexRuleTest
 
 -(void)testReturnsNilIfRangeDoesNotStartWithStartSequence {
-	EDLexRule *rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
+	EDLexRule *rule = [EDBoundedRegionLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"test \"strings\"";
@@ -25,7 +25,7 @@
 }
 
 -(void)testReturnsTokenIfStartSequenceIsStartOfRange {
-	EDLexRule *rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
+	EDLexRule *rule = [EDBoundedRegionLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"string\" b";
@@ -37,7 +37,7 @@
 }
 
 -(void)testFindsOnlyUntilFirstOccurenceOfEndSequence {
-	EDLexRule *rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
+	EDLexRule *rule = [EDBoundedRegionLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"string 1\" \"string 2\" b";
@@ -49,7 +49,7 @@
 }
 
 -(void)testCanIncludeEndSequenceIfEscaped {
-	EDLexRule *rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
+	EDLexRule *rule = [EDBoundedRegionLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"string \\\"escaped\\\"\" b";
@@ -61,7 +61,7 @@
 }
 
 -(void)testDoesNotTreatEscapedEscapesAsFunctionalEscapes {
-	EDLexRule *rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
+	EDLexRule *rule = [EDBoundedRegionLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"string \\\\\"escaped\\\"\" b";
@@ -73,7 +73,7 @@
 }
 
 -(void)testMissingEndSequenceMakesTokenContinueToEnd {
-	EDLexRule *rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
+	EDLexRule *rule = [EDBoundedRegionLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"unterminated string";
@@ -85,7 +85,7 @@
 }
 
 -(void)testEscapeSequenceAtEndOfToken {
-	EDLexRule *rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
+	EDLexRule *rule = [EDBoundedRegionLexRule ruleWithStart:@"\"" end:@"\"" escape:@"\\"];
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"unterminated string\\";
@@ -97,7 +97,7 @@
 }
 
 -(void)testEscapeSequenceDisabled {
-	EDLexRule *rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:nil];
+	EDLexRule *rule = [EDBoundedRegionLexRule ruleWithStart:@"\"" end:@"\"" escape:nil];
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"unterminated string\\\" foo\" bar";
@@ -109,7 +109,7 @@
 }
 
 -(void)testEscapeSequenceSetToCustomSequence {
-	EDLexRule *rule = [EDDelimitedStringLexRule ruleWithStart:@"\"" end:@"\"" escape:@"aaa"];
+	EDLexRule *rule = [EDBoundedRegionLexRule ruleWithStart:@"\"" end:@"\"" escape:@"aaa"];
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"unterminated string aaa\" fooaaaaaa\" bar";
