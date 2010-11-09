@@ -7,11 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "EDTokenDefines.h"
 
 @class EDLexicalToken;
 @class EDLexerStates;
 
 @interface EDLexRule : NSObject {
+	EDLexicalTokenType tokenType;
 	BOOL isDefinite;
 	NSInteger exclusiveState;
 	NSInteger inclusiveState;
@@ -22,6 +24,7 @@
 	BOOL endsScope;
 }
 
+@property (nonatomic) EDLexicalTokenType tokenType;
 @property (nonatomic, setter=setDefinite:) BOOL isDefinite;
 @property (nonatomic) NSInteger exclusiveState;
 @property (nonatomic) NSInteger inclusiveState;

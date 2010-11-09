@@ -14,7 +14,6 @@
 	NSString *start;
 	NSString *end;
 	NSString *escape;
-	EDLexicalTokenType tokenType;
 }
 
 +(id)ruleWithStart:(NSString *)startString end:(NSString *)endString tokenType:(EDLexicalTokenType)theTokenType;

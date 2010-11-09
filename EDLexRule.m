@@ -12,6 +12,7 @@
 
 @implementation EDLexRule
 
+@synthesize tokenType;
 @synthesize isDefinite;
 @synthesize exclusiveState;
 @synthesize inclusiveState;
@@ -23,6 +24,7 @@
 
 -(id)init {
 	if (self = [super init]) {
+		tokenType = EDUnmatchedToken;
 		isDefinite = YES;
 		exclusiveState = -1;
 		inclusiveState = -1;

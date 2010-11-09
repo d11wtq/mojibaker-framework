@@ -12,7 +12,6 @@
 
 @interface EDPatternLexRule : EDLexRule {
 	NSString *pattern;
-	EDLexicalTokenType tokenType;
 }
 
 +(id)ruleWithPattern:(NSString *)icuPattern

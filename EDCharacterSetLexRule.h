@@ -12,7 +12,6 @@
 
 @interface EDCharacterSetLexRule : EDLexRule {
 	NSCharacterSet *permittedCharacterSet;
-	EDLexicalTokenType tokenType;
 }
 
 +(id)ruleWithCharacterSet:(NSCharacterSet *)characterSet tokenType:(EDLexicalTokenType)theTokenType;

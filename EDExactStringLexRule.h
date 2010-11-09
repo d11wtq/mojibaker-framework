@@ -12,7 +12,6 @@
 
 @interface EDExactStringLexRule : EDLexRule {
 	NSString *needleString;
-	EDLexicalTokenType tokenType;
 	BOOL caseInsensitive;
 }
 

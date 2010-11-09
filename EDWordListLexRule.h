@@ -14,7 +14,6 @@
 
 @interface EDWordListLexRule : EDLexRule {
 	EDRadixNode *radixTree;
-	EDLexicalTokenType tokenType;
 	BOOL caseInsensitive;
 }
 

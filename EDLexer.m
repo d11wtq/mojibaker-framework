@@ -10,7 +10,7 @@
 #import "EDLexerStates.h"
 #import "EDLexicalToken.h"
 #import "EDLexerResult.h"
-#import "EDAnyCharacterLexRule.h"
+#import "EDCharacterLexRule.h"
 #import "EDCharacterSetLexRule.h"
 #import "EDPatternLexRule.h"
 
@@ -28,12 +28,12 @@
 	if (self = [self init]) {
 		states = [stateMachine retain];
 		rules = [[NSMutableArray alloc] init];
-		EDLexRule * whiteSpaceRule = [EDCharacterSetLexRule
+		EDLexRule *whiteSpaceRule = [EDCharacterSetLexRule
 									  ruleWithCharacterSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]
 									  tokenType:EDWhitespaceToken];
 		lastResortRules = [[NSMutableArray alloc] initWithObjects:whiteSpaceRule,
 						   [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+" tokenType:EDUnmatchedToken],
-						   [EDAnyCharacterLexRule rule], nil];
+						   [EDCharacterLexRule rule], nil];
 	}
 	
 	return self;
