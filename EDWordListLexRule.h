@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
-#import "EDTokenDefines.h"
 
 @class EDRadixNode;
 
@@ -17,7 +16,7 @@
 	BOOL caseInsensitive;
 }
 
-+(id)ruleWithList:(NSArray *)wordList tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
--(id)initWithList:(NSArray *)wordList tokenType:(EDLexicalTokenType)theTokenType caseInsensitive:(BOOL)isCaseInsensitive;
++(id)ruleWithList:(NSArray *)wordList caseInsensitive:(BOOL)isCaseInsensitive;
+-(id)initWithList:(NSArray *)wordList caseInsensitive:(BOOL)isCaseInsensitive;
 
 @end

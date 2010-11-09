@@ -17,7 +17,9 @@
 
 -(void)testReturnsNilIfNoWordsInListMatch {
 	NSArray *words = [NSArray arrayWithObjects:@"foo", @"bar", @"zip", @"zap", nil];
-	EDLexRule * rule = [EDWordListLexRule ruleWithList:words tokenType:EDKeywordToken caseInsensitive:NO];
+	EDLexRule *rule = [EDWordListLexRule ruleWithList:words caseInsensitive:NO];
+	rule.tokenType = EDKeywordToken;
+	
 	NSString *source = @"nothing to see here";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
 	
@@ -26,7 +28,9 @@
 
 -(void)testReturnsTokenIfMatchExistsAtRange {
 	NSArray *words = [NSArray arrayWithObjects:@"foo", @"bar", @"zip", @"zapper", nil];
-	EDLexRule * rule = [EDWordListLexRule ruleWithList:words tokenType:EDKeywordToken caseInsensitive:NO];
+	EDLexRule *rule = [EDWordListLexRule ruleWithList:words caseInsensitive:NO];
+	rule.tokenType = EDKeywordToken;
+	
 	NSString *source = @"hello zapper, how are you?";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6) states:nil];
 	
@@ -37,7 +41,9 @@
 
 -(void)testReturnsLongestTokenIfMultipleMatch {
 	NSArray *words = [NSArray arrayWithObjects:@"foo", @"bar", @"zap", @"zapper", nil];
-	EDLexRule * rule = [EDWordListLexRule ruleWithList:words tokenType:EDKeywordToken caseInsensitive:NO];
+	EDLexRule *rule = [EDWordListLexRule ruleWithList:words caseInsensitive:NO];
+	rule.tokenType = EDKeywordToken;
+	
 	NSString *source = @"hello zapper, how are you?";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6) states:nil];
 	
