@@ -21,8 +21,14 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDKeywordToken caseInsensitive:NO]];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"bar" tokenType:EDKeywordToken caseInsensitive:NO]];
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	r1.tokenType = EDKeywordToken;
+	
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"bar" caseInsensitive:NO];
+	r2.tokenType = EDKeywordToken;
+	
+	[lexer addRule:r1];
+	[lexer addRule:r2];
 	
 	EDLexRule *rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
 	
@@ -40,9 +46,15 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	r1.tokenType = EDKeywordToken;
+	
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"bar" caseInsensitive:NO];
+	r2.tokenType = EDKeywordToken;
+	
 	EDLexer *lexer = [EDLexer lexerWithStates:states];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDKeywordToken caseInsensitive:NO]];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"bar" tokenType:EDKeywordToken caseInsensitive:NO]];
+	[lexer addRule:r1];
+	[lexer addRule:r2];
 	
 	EDLexRule * rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
 	
@@ -62,9 +74,15 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	r1.tokenType = EDKeywordToken;
+	
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"bar" caseInsensitive:NO];
+	r2.tokenType = EDKeywordToken;
+	
 	EDLexer *lexer = [EDLexer lexerWithStates:states];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDKeywordToken caseInsensitive:NO]];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"bar" tokenType:EDKeywordToken caseInsensitive:NO]];
+	[lexer addRule:r1];
+	[lexer addRule:r2];
 	
 	EDLexRule *rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
 	
@@ -82,9 +100,15 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	r1.tokenType = EDDefinerKeywordToken;
+	
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"zip" caseInsensitive:NO];
+	r2.tokenType = EDKeywordToken;
+	
 	EDLexer *lexer = [EDLexer lexerWithStates:states];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDDefinerKeywordToken caseInsensitive:NO]];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"zip" tokenType:EDKeywordToken caseInsensitive:NO]];
+	[lexer addRule:r1];
+	[lexer addRule:r2];
 	
 	EDLexRule *rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
 	
@@ -104,9 +128,15 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	r1.tokenType = EDKeywordToken;
+	
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"bar" caseInsensitive:NO];
+	r2.tokenType = EDKeywordToken;
+	
 	EDLexer *lexer = [EDLexer lexerWithStates:states];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"foo" tokenType:EDKeywordToken caseInsensitive:NO]];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"bar" tokenType:EDKeywordToken caseInsensitive:NO]];
+	[lexer addRule:r1];
+	[lexer addRule:r2];
 	
 	EDLexRule *rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
 	

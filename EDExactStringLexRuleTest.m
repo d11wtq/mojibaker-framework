@@ -16,16 +16,18 @@
 @implementation EDExactStringLexRuleTest
 
 -(void)testReturnsNilIfKeywordIsNotAtStartOfRange {
-	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class"
-													   tokenType:EDDefinerKeywordToken caseInsensitive:NO];
+	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class" caseInsensitive:NO];
+	rule.tokenType = EDDefinerKeywordToken;
+	
 	NSString *source = @"test class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
 	GHAssertNil(tok, @"Nil should be return since 'class' is not in range");
 }
 
 -(void)testReturnsTokenIfKeywordIsAtStartOfRange {
-	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class"
-													   tokenType:EDDefinerKeywordToken caseInsensitive:NO];
+	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class" caseInsensitive:NO];
+	rule.tokenType = EDDefinerKeywordToken;
+	
 	NSString *source = @"test class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) states:nil];
 	
@@ -35,8 +37,9 @@
 }
 
 -(void)testReturnsTokenIfKeywordIsAtStartOfRangeInCaseInsensitiveMode {
-	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class"
-													   tokenType:EDDefinerKeywordToken caseInsensitive:YES];
+	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class" caseInsensitive:YES];
+	rule.tokenType = EDDefinerKeywordToken;
+	
 	NSString *source = @"test Class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) states:nil];
 	
@@ -46,8 +49,9 @@
 }
 
 -(void)testReturnsNilIfKeywordAtRangeDoesNotMatchCase {
-	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class"
-													   tokenType:EDDefinerKeywordToken caseInsensitive:NO];
+	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class" caseInsensitive:NO];
+	rule.tokenType = EDDefinerKeywordToken;
+	
 	NSString *source = @"test Class foo";
 	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) states:nil];
 	GHAssertNil(tok, @"Nil should be return since 'Class' is not the same as 'class'");

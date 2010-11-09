@@ -15,8 +15,8 @@
 @interface EDLexRule : NSObject {
 	EDLexicalTokenType tokenType;
 	BOOL isDefinite;
-	NSInteger exclusiveState;
-	NSInteger inclusiveState;
+	NSInteger state;
+	BOOL isStateInclusive;
 	NSInteger beginState;
 	NSInteger pushState;
 	BOOL popsState;
@@ -26,8 +26,8 @@
 
 @property (nonatomic) EDLexicalTokenType tokenType;
 @property (nonatomic, setter=setDefinite:) BOOL isDefinite;
-@property (nonatomic) NSInteger exclusiveState;
-@property (nonatomic) NSInteger inclusiveState;
+@property (nonatomic) NSInteger state;
+@property (nonatomic) BOOL isStateInclusive;
 @property (nonatomic) NSInteger beginState;
 @property (nonatomic) NSInteger pushState;
 @property (nonatomic) BOOL popsState;

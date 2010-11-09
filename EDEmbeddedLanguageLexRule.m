@@ -25,7 +25,8 @@
 		end = [endString copy];
 		lexer = [embeddedLexer retain];
 		embeddedState = stateId;
-		inclusiveState = stateId;
+		state = stateId;
+		isStateInclusive = YES;
 	}
 	
 	return self;

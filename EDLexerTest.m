@@ -34,8 +34,12 @@
 
 -(void)testFindsTokensSpecifiedByRules {
 	NSString *source = @"-function-";
+	
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	r1.tokenType = EDDefinerKeywordToken;
+	
 	EDLexer *lexer = [EDLexer lexerWithStates:nil];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDDefinerKeywordToken caseInsensitive:NO]];
+	[lexer addRule:r1];
 	
 	EDLexerResult *result = [EDLexerResult result];
 	[lexer lexString:source intoResult:result];
@@ -56,9 +60,13 @@
 -(void)testUsesTheLongestMatchIfNotDefiniteAndAmbiguous {
 	NSString *source = @"function";
 	EDLexer *lexer = [EDLexer lexerWithStates:nil];
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"func" tokenType:EDDefinerKeywordToken caseInsensitive:NO];
+	
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"func" caseInsensitive:NO];
+	r1.tokenType = EDDefinerKeywordToken;
 	r1.isDefinite = NO;
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"function" tokenType:EDDefinerKeywordToken caseInsensitive:NO];
+	
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	r2.tokenType = EDDefinerKeywordToken;
 	r2.isDefinite = NO;
 	
 	[lexer addRule:r1];
@@ -84,14 +92,16 @@
 	
 	NSUInteger s1 = [lexer.states stateNamed:@"s1"];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function"
-											   tokenType:EDDefinerKeywordToken
-										 caseInsensitive:NO
-												   state:s1
-											   inclusive:NO];
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	r1.tokenType = EDDefinerKeywordToken;
+	r1.state = s1;
+	r1.isStateInclusive = NO;
+	
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	r2.tokenType = EDKeywordToken;
 	
 	[lexer addRule:r1];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDKeywordToken caseInsensitive:NO]];
+	[lexer addRule:r2];
 	
 	EDLexerResult *result;
 	EDLexicalToken *tok;
@@ -129,13 +139,16 @@
 	
 	NSUInteger s1 = [lexer.states stateNamed:@"s1"];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function"
-											   tokenType:EDDefinerKeywordToken
-										 caseInsensitive:NO
-												   state:s1
-											   inclusive:YES];
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	r1.tokenType = EDDefinerKeywordToken;
+	r1.state = s1;
+	r1.isStateInclusive = YES;
+	
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	r2.tokenType = EDKeywordToken;
+	
 	[lexer addRule:r1];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDKeywordToken caseInsensitive:NO]];
+	[lexer addRule:r2];
 	
 	EDLexerResult *result;
 	EDLexicalToken *tok;
@@ -177,9 +190,15 @@
 	
 	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
 	
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	r1.tokenType = EDKeywordToken;
+	
+	EDLexRule *r2 = [EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+"];
+	r2.tokenType = EDVariableToken;
+	
 	EDLexer *lexer = [EDLexer lexerWithStates:nil];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDKeywordToken caseInsensitive:NO]];
-	[lexer addRule:[EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+" tokenType:EDVariableToken]];
+	[lexer addRule:r1];
+	[lexer addRule:r2];
 	
 	EDLexerResult *newResult = [EDLexerResult result];
 	
@@ -219,9 +238,15 @@
 	
 	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
 	
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	r1.tokenType = EDKeywordToken;
+	
+	EDLexRule *r2 = [EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+"];
+	r2.tokenType = EDVariableToken;
+	
 	EDLexer *lexer = [EDLexer lexerWithStates:nil];
-	[lexer addRule:[EDExactStringLexRule ruleWithString:@"function" tokenType:EDKeywordToken caseInsensitive:NO]];
-	[lexer addRule:[EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+" tokenType:EDVariableToken]];
+	[lexer addRule:r1];
+	[lexer addRule:r2];
 	
 	EDLexerResult *newResult = [EDLexerResult result];
 	
@@ -258,51 +283,46 @@
 	NSUInteger funcDefScope = [lexer.states stateNamed:@"funcDefScope"];
 	NSUInteger funcScope = [lexer.states stateNamed:@"funcScope"];
 	
-	EDLexRule *fn = [EDExactStringLexRule ruleWithString:@"function"
-											   tokenType:EDDefinerKeywordToken
-										 caseInsensitive:NO
-											   pushState:funcDefScope];
+	EDLexRule *fn = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	fn.tokenType = EDDefinerKeywordToken;
+	fn.pushState = funcDefScope;
 	
 	[lexer addRule:fn];
 	
-	EDLexRule *fnName = [EDPatternLexRule ruleWithPattern:@"^[a-z]+"
-												tokenType:EDFunctionDefinitionToken
-													state:funcDefScope
-												inclusive:NO];
+	EDLexRule *fnName = [EDPatternLexRule ruleWithPattern:@"^[a-z]+"];
+	fnName.tokenType = EDFunctionDefinitionToken;
+	fnName.state = funcDefScope;
+	fnName.isStateInclusive = NO;
 	
 	[lexer addRule:fnName];
 	
-	EDLexRule *fnScopeOpen = [EDExactStringLexRule ruleWithString:@"{"
-														tokenType:EDBraceToken
-												  caseInsensitive:NO
-															state:funcDefScope
-														inclusive:NO
-													   beginState:funcScope];
+	EDLexRule *fnScopeOpen = [EDCharacterLexRule ruleWithUnicodeChar:'{'];
+	fnScopeOpen.tokenType = EDBraceToken;
+	fnScopeOpen.state = funcDefScope;
+	fnScopeOpen.isStateInclusive = NO;
+	fnScopeOpen.beginState = funcScope;
 	
 	[lexer addRule:fnScopeOpen];
 	
-	EDLexRule *fnScopeClose = [EDExactStringLexRule ruleWithString:@"}"
-														 tokenType:EDBraceToken
-												   caseInsensitive:NO
-															 state:funcScope
-														 inclusive:NO
-													      popState:YES];
+	EDLexRule *fnScopeClose = [EDCharacterLexRule ruleWithUnicodeChar:'}'];
+	fnScopeClose.tokenType = EDBraceToken;
+	fnScopeClose.state = funcScope;
+	fnScopeClose.isStateInclusive = NO;
+	fnScopeClose.popsState = YES;
 	
 	[lexer addRule:fnScopeClose];
 	
-	EDLexRule *scopeOpen = [EDExactStringLexRule ruleWithString:@"{"
-														tokenType:EDBraceToken
-												  caseInsensitive:NO
-													    pushState:genericScope];
+	EDLexRule *scopeOpen = [EDCharacterLexRule ruleWithUnicodeChar:'{'];
+	scopeOpen.tokenType = EDBraceToken;
+	scopeOpen.pushState = genericScope;
 	
 	[lexer addRule:scopeOpen];
 	
-	EDLexRule *scopeClose = [EDExactStringLexRule ruleWithString:@"}"
-														 tokenType:EDBraceToken
-												   caseInsensitive:NO
-															 state:genericScope
-														 inclusive:NO
-													      popState:YES];
+	EDLexRule *scopeClose = [EDCharacterLexRule ruleWithUnicodeChar:'}'];
+	scopeClose.tokenType = EDBraceToken;
+	scopeClose.state = genericScope;
+	scopeClose.isStateInclusive = NO;
+	scopeClose.popsState = YES;
 	
 	[lexer addRule:scopeClose];
 	

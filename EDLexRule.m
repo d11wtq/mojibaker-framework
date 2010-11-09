@@ -14,8 +14,8 @@
 
 @synthesize tokenType;
 @synthesize isDefinite;
-@synthesize exclusiveState;
-@synthesize inclusiveState;
+@synthesize state;
+@synthesize isStateInclusive;
 @synthesize beginState;
 @synthesize pushState;
 @synthesize popsState;
@@ -26,8 +26,8 @@
 	if (self = [super init]) {
 		tokenType = EDUnmatchedToken;
 		isDefinite = YES;
-		exclusiveState = -1;
-		inclusiveState = -1;
+		state = -1;
+		isStateInclusive = NO;
 		beginState = -1;
 		pushState = -1;
 		popsState = NO;

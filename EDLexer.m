@@ -32,7 +32,7 @@
 		whiteSpaceRule.tokenType = EDWhitespaceToken;
 		
 		lastResortRules = [[NSMutableArray alloc] initWithObjects:whiteSpaceRule,
-						   [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+" tokenType:EDUnmatchedToken],
+						   [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+"],
 						   [EDCharacterLexRule rule], nil];
 	}
 	
@@ -146,12 +146,9 @@
 	EDLexicalToken *bestToken = nil;
 	
 	for (EDLexRule *rule in rules) {
-		if (rule.exclusiveState > -1 && rule.exclusiveState != states.currentState) {
-			continue;
-		}
-		
-		if (rule.inclusiveState > -1 && ![states includesState:rule.inclusiveState]) {
-			continue;
+		if (rule.state > -1) {
+			if (!rule.isStateInclusive && rule.state != states.currentState) continue;
+			if (rule.isStateInclusive && ![states includesState:rule.state]) continue;
 		}
 		
 		EDLexicalToken *tok = nil;
