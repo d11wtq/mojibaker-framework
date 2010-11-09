@@ -1,15 +1,15 @@
 //
-//  EDExactStringLexRule.m
+//  EDExactMatchLexRule.m
 //  Editor
 //
 //  Created by Chris Corbyn on 22/10/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
-#import "EDExactStringLexRule.h"
+#import "EDExactMatchLexRule.h"
 #import "EDLexicalToken.h"
 
-@implementation EDExactStringLexRule
+@implementation EDExactMatchLexRule
 
 +(id)ruleWithString:(NSString *)string caseInsensitive:(BOOL)caseFlag {	
 	return [[[self alloc] initWithString:string caseInsensitive:caseFlag] autorelease];

@@ -35,7 +35,7 @@
 -(void)testFindsTokensSpecifiedByRules {
 	NSString *source = @"-function-";
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r1.tokenType = EDDefinerKeywordToken;
 	
 	EDLexer *lexer = [EDLexer lexerWithStates:nil];
@@ -61,11 +61,11 @@
 	NSString *source = @"function";
 	EDLexer *lexer = [EDLexer lexerWithStates:nil];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"func" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"func" caseInsensitive:NO];
 	r1.tokenType = EDDefinerKeywordToken;
 	r1.isDefinite = NO;
 	
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r2.tokenType = EDDefinerKeywordToken;
 	r2.isDefinite = NO;
 	
@@ -92,12 +92,12 @@
 	
 	NSUInteger s1 = [lexer.states stateNamed:@"s1"];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r1.tokenType = EDDefinerKeywordToken;
 	r1.state = s1;
 	r1.isStateInclusive = NO;
 	
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r2.tokenType = EDKeywordToken;
 	
 	[lexer addRule:r1];
@@ -139,12 +139,12 @@
 	
 	NSUInteger s1 = [lexer.states stateNamed:@"s1"];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r1.tokenType = EDDefinerKeywordToken;
 	r1.state = s1;
 	r1.isStateInclusive = YES;
 	
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r2.tokenType = EDKeywordToken;
 	
 	[lexer addRule:r1];
@@ -190,7 +190,7 @@
 	
 	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r1.tokenType = EDKeywordToken;
 	
 	EDLexRule *r2 = [EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+"];
@@ -238,7 +238,7 @@
 	
 	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r1.tokenType = EDKeywordToken;
 	
 	EDLexRule *r2 = [EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+"];
@@ -283,7 +283,7 @@
 	NSUInteger funcDefScope = [lexer.states stateNamed:@"funcDefScope"];
 	NSUInteger funcScope = [lexer.states stateNamed:@"funcScope"];
 	
-	EDLexRule *fn = [EDExactStringLexRule ruleWithString:@"function" caseInsensitive:NO];
+	EDLexRule *fn = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	fn.tokenType = EDDefinerKeywordToken;
 	fn.pushState = funcDefScope;
 	
@@ -356,12 +356,12 @@
 
 /*-(void)testTokensCanOpenAndCloseScope {
 	// FIXME: Make EDCharacterLexRule
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"{"
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"{"
 											  tokenType:EDBraceToken
 										caseInsensitive:NO];
 	r1.opensScope = YES;
 	
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"}"
+	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"}"
 											   tokenType:EDBraceToken
 										 caseInsensitive:NO];
 	r2.opensScope = YES;

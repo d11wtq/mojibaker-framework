@@ -1,5 +1,5 @@
 //
-//  EDExactStringLexRule.h
+//  EDExactMatchLexRule.h
 //  Editor
 //
 //  Created by Chris Corbyn on 22/10/10.
@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "EDLexRule.h"
 
-@interface EDExactStringLexRule : EDLexRule {
+@interface EDExactMatchLexRule : EDLexRule {
 	NSString *needleString;
 	BOOL caseInsensitive;
 }

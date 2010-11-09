@@ -1,5 +1,5 @@
 //
-//  EDExactStringLexRuleTest.m
+//  EDExactMatchLexRuleTest.m
 //  Editor
 //
 //  Created by Chris Corbyn on 22/10/10.
@@ -9,14 +9,14 @@
 #import <GHUnit/GHUnit.h>
 #import <EDSupport/EDSupport.h>
 
-@interface EDExactStringLexRuleTest : GHTestCase
+@interface EDExactMatchLexRuleTest : GHTestCase
 @end
 
 
-@implementation EDExactStringLexRuleTest
+@implementation EDExactMatchLexRuleTest
 
 -(void)testReturnsNilIfKeywordIsNotAtStartOfRange {
-	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class" caseInsensitive:NO];
+	EDLexRule *rule = [EDExactMatchLexRule ruleWithString:@"class" caseInsensitive:NO];
 	rule.tokenType = EDDefinerKeywordToken;
 	
 	NSString *source = @"test class foo";
@@ -25,7 +25,7 @@
 }
 
 -(void)testReturnsTokenIfKeywordIsAtStartOfRange {
-	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class" caseInsensitive:NO];
+	EDLexRule *rule = [EDExactMatchLexRule ruleWithString:@"class" caseInsensitive:NO];
 	rule.tokenType = EDDefinerKeywordToken;
 	
 	NSString *source = @"test class foo";
@@ -37,7 +37,7 @@
 }
 
 -(void)testReturnsTokenIfKeywordIsAtStartOfRangeInCaseInsensitiveMode {
-	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class" caseInsensitive:YES];
+	EDLexRule *rule = [EDExactMatchLexRule ruleWithString:@"class" caseInsensitive:YES];
 	rule.tokenType = EDDefinerKeywordToken;
 	
 	NSString *source = @"test Class foo";
@@ -49,7 +49,7 @@
 }
 
 -(void)testReturnsNilIfKeywordAtRangeDoesNotMatchCase {
-	EDLexRule *rule = [EDExactStringLexRule ruleWithString:@"class" caseInsensitive:NO];
+	EDLexRule *rule = [EDExactMatchLexRule ruleWithString:@"class" caseInsensitive:NO];
 	rule.tokenType = EDDefinerKeywordToken;
 	
 	NSString *source = @"test Class foo";

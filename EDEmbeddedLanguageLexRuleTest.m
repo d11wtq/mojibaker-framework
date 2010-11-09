@@ -21,10 +21,10 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"foo" caseInsensitive:NO];
 	r1.tokenType = EDKeywordToken;
 	
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"bar" caseInsensitive:NO];
+	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"bar" caseInsensitive:NO];
 	r2.tokenType = EDKeywordToken;
 	
 	[lexer addRule:r1];
@@ -46,10 +46,10 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"foo" caseInsensitive:NO];
 	r1.tokenType = EDKeywordToken;
 	
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"bar" caseInsensitive:NO];
+	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"bar" caseInsensitive:NO];
 	r2.tokenType = EDKeywordToken;
 	
 	EDLexer *lexer = [EDLexer lexerWithStates:states];
@@ -74,10 +74,10 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"foo" caseInsensitive:NO];
 	r1.tokenType = EDKeywordToken;
 	
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"bar" caseInsensitive:NO];
+	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"bar" caseInsensitive:NO];
 	r2.tokenType = EDKeywordToken;
 	
 	EDLexer *lexer = [EDLexer lexerWithStates:states];
@@ -100,10 +100,10 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"foo" caseInsensitive:NO];
 	r1.tokenType = EDDefinerKeywordToken;
 	
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"zip" caseInsensitive:NO];
+	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"zip" caseInsensitive:NO];
 	r2.tokenType = EDKeywordToken;
 	
 	EDLexer *lexer = [EDLexer lexerWithStates:states];
@@ -128,10 +128,10 @@
 	
 	NSUInteger s1 = [states stateNamed:@"s1"];
 	
-	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"foo" caseInsensitive:NO];
+	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"foo" caseInsensitive:NO];
 	r1.tokenType = EDKeywordToken;
 	
-	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"bar" caseInsensitive:NO];
+	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"bar" caseInsensitive:NO];
 	r2.tokenType = EDKeywordToken;
 	
 	EDLexer *lexer = [EDLexer lexerWithStates:states];
