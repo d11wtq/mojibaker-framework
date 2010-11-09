@@ -16,9 +16,15 @@
 	NSUInteger stackPosition;
 	NSMutableDictionary *stateNames;
 	BOOL isChanged;
+	
+	NSMutableArray *scopeStack;
+	NSMutableArray *scopes;
 }
 
 @property (nonatomic) BOOL isChanged;
+
+#pragma mark -
+#pragma mark Initialization
 
 +(id)states;
 
@@ -27,8 +33,21 @@
  */
 -(NSUInteger)stateNamed:(NSString *)stateName;
 
--(void)stackInfo:(EDLexerStatesInfo *)stackInfo;
+#pragma mark -
+#pragma mark Restoring/describing the current state
+
+-(void)stackInfo:(EDLexerStatesInfo *)stackInfo; // FIXME: I reckon this would be nicer as an object
 -(void)applyStackInfo:(EDLexerStatesInfo)stackInfo;
+
+#pragma mark -
+#pragma mark Scope management
+
+-(void)beginScopeAtRange:(NSRange)range;
+-(void)endScopeAtRange:(NSRange)range;
+-(NSArray *)scopeRanges;
+
+#pragma mark -
+#pragma mark State management
 
 -(void)beginState:(NSUInteger)newStateId;
 -(void)pushState:(NSUInteger)newStateId;
@@ -36,6 +55,9 @@
 -(void)rewindToState:(NSUInteger)stateId;
 -(NSUInteger)currentState;
 -(BOOL)includesState:(NSUInteger)stateId;
+
+#pragma mark -
+#pragma mark Resetting the state machine
 
 -(void)reset;
 

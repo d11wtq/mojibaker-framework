@@ -18,6 +18,8 @@
 @synthesize beginState;
 @synthesize pushState;
 @synthesize popsState;
+@synthesize beginsScope;
+@synthesize endsScope;
 
 -(id)init {
 	if (self = [super init]) {
@@ -27,6 +29,8 @@
 		beginState = -1;
 		pushState = -1;
 		popsState = NO;
+		beginsScope = NO;
+		endsScope = NO;
 	}
 	
 	return self;

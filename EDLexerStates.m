@@ -20,6 +20,8 @@
 -(id)init {
 	if (self = [super init]) {
 		stateNames = [[NSMutableDictionary alloc] init];
+		scopeStack = [[NSMutableArray alloc] init];
+		scopes = [[NSMutableArray alloc] init];
 		highestStateId = 0;
 		[self reset];
 	}
@@ -59,6 +61,33 @@
 	
 	stackPosition = stackInfo.stackSize;
 	currentState = stackInfo.currentState;
+}
+
+-(void)beginScopeAtRange:(NSRange)range {
+	NSValue *rangeValue = [NSValue valueWithRange:NSMakeRange(range.location, 0)];
+	[scopes addObject:rangeValue];
+	[scopeStack addObject:rangeValue];
+	
+	isChanged = YES;
+}
+
+-(void)endScopeAtRange:(NSRange)range {
+	NSValue *value = [scopeStack lastObject];
+	[scopeStack removeLastObject];
+	
+	// There has to be a better way... we've already got a reference this this NSValue!??!
+	NSUInteger index = [scopes indexOfObjectIdenticalTo:value];
+	
+	NSRange actualRange = [value rangeValue];
+	actualRange.length = NSMaxRange(range) - actualRange.location;
+	
+	[scopes replaceObjectAtIndex:index withObject:[NSValue valueWithRange:actualRange]];
+	
+	isChanged = YES;
+}
+
+-(NSArray *)scopeRanges {
+	return scopes;
 }
 
 -(void)beginState:(NSUInteger)newStateId {
@@ -119,6 +148,8 @@
 }
 
 -(void)reset {
+	[scopeStack removeAllObjects];
+	[scopes removeAllObjects];
 	currentState = 0;
 	stackPosition = 0;
 	isChanged = NO;
@@ -126,6 +157,8 @@
 
 -(void)dealloc {
 	[stateNames release];
+	[scopeStack release];
+	[scopes release];
 	[super dealloc];
 }
 

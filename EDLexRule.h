@@ -18,14 +18,18 @@
 	NSInteger beginState;
 	NSInteger pushState;
 	BOOL popsState;
+	BOOL beginsScope;
+	BOOL endsScope;
 }
 
-@property (nonatomic) BOOL isDefinite;
+@property (nonatomic, setter=setDefinite:) BOOL isDefinite;
 @property (nonatomic) NSInteger exclusiveState;
 @property (nonatomic) NSInteger inclusiveState;
 @property (nonatomic) NSInteger beginState;
 @property (nonatomic) NSInteger pushState;
 @property (nonatomic) BOOL popsState;
+@property (nonatomic) BOOL beginsScope;
+@property (nonatomic) BOOL endsScope;
 
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states;
 

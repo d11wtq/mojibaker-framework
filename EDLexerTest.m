@@ -334,4 +334,28 @@
 	GHAssertEquals((NSUInteger) 0, wsp4Tok.stackInfo.currentState, @"State should be initial state");
 }
 
+/*-(void)testTokensCanOpenAndCloseScope {
+	// FIXME: Make EDCharacterLexRule
+	EDLexRule *r1 = [EDExactStringLexRule ruleWithString:@"{"
+											  tokenType:EDBraceToken
+										caseInsensitive:NO];
+	r1.opensScope = YES;
+	
+	EDLexRule *r2 = [EDExactStringLexRule ruleWithString:@"}"
+											   tokenType:EDBraceToken
+										 caseInsensitive:NO];
+	r2.opensScope = YES;
+	
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
+	
+	[lexer addRule:r1];
+	[lexer addRule:r2];
+	
+	EDLexerResult *result = [EDLexerResult result];
+	
+	[lexer lexString:@"scope A { scope B { } }" intoResult:result];
+	
+	NSArray *scopes = result.scopes;
+}*/
+
 @end
