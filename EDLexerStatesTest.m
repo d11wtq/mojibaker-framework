@@ -156,22 +156,16 @@
 -(void)testScopesCanBeRecorded {
 	EDLexerStates *states = [[EDLexerStates alloc] init];
 	
-	[states beginScopeAtRange:NSMakeRange(2, 1)];
-	[states beginScopeAtRange:NSMakeRange(6, 1)];
+	NSValue *scope1 = [states beginScopeAtRange:NSMakeRange(2, 1)];
+	NSValue *scope2 = [states beginScopeAtRange:NSMakeRange(6, 1)];
 	[states endScopeAtRange:NSMakeRange(8, 1)];
-	[states beginScopeAtRange:NSMakeRange(10, 1)];
+	NSValue *scope3 = [states beginScopeAtRange:NSMakeRange(10, 1)];
 	[states endScopeAtRange:NSMakeRange(11, 1)];
 	[states endScopeAtRange:NSMakeRange(13, 1)];
 	
-	NSArray *scopes = [states scopeRanges];
-	
-	NSRange scope1 = [[scopes objectAtIndex:0] rangeValue];
-	NSRange scope2 = [[scopes objectAtIndex:1] rangeValue];
-	NSRange scope3 = [[scopes objectAtIndex:2] rangeValue];
-	
-	GHAssertTrue(NSEqualRanges(NSMakeRange(2, 12), scope1), @"First scope should be at (2,12)");
-	GHAssertTrue(NSEqualRanges(NSMakeRange(6, 3), scope2), @"Second scope should be at (6,3)");
-	GHAssertTrue(NSEqualRanges(NSMakeRange(10, 2), scope3), @"Third scope should be at (10,2)");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(2, 12), [scope1 rangeValue]), @"First scope should be at (2,12)");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(6, 3), [scope2 rangeValue]), @"Second scope should be at (6,3)");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(10, 2), [scope3 rangeValue]), @"Third scope should be at (10,2)");
 	
 	[states release];
 }

@@ -23,7 +23,6 @@
 		stateNames = [[NSMutableDictionary alloc] init];
 		stateStack = [[NSMutableArray alloc] initWithCapacity:10];
 		scopeStack = [[NSMutableArray alloc] initWithCapacity:20];
-		scopes = [[NSMutableArray alloc] initWithCapacity:128];
 		highestStateId = 0;
 		isChanged = NO;
 	}
@@ -51,12 +50,13 @@
 	currentState = [snapshot currentState];
 }
 
--(void)beginScopeAtRange:(NSRange)range {
+-(NSValue *)beginScopeAtRange:(NSRange)range {
 	NSValue *rangeValue = [NSMutableRangeValue valueWithRange:NSMakeRange(range.location, 0)];
-	[scopes addObject:rangeValue];
 	[scopeStack addObject:rangeValue];
 	
 	isChanged = YES;
+	
+	return rangeValue;
 }
 
 -(void)endScopeAtRange:(NSRange)range {
@@ -72,10 +72,6 @@
 	[value setRangeValue:actualRange];
 	
 	isChanged = YES;
-}
-
--(NSArray *)scopeRanges {
-	return [[scopes copy] autorelease];
 }
 
 -(void)beginState:(NSUInteger)newStateId {
@@ -125,7 +121,6 @@
 -(void)reset {
 	[stateStack removeAllObjects];
 	[scopeStack removeAllObjects];
-	[scopes removeAllObjects];
 	currentState = 0;
 	isChanged = NO;
 }
@@ -134,7 +129,6 @@
 	[stateNames release];
 	[stateStack release];
 	[scopeStack release];
-	[scopes release];
 	[super dealloc];
 }
 

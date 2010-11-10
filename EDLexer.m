@@ -131,8 +131,6 @@
 		}
 	}
 	
-	[result setScopes:[states scopeRanges]];
-	
 	[snapshot release];
 	[states reset];
 }

@@ -18,7 +18,6 @@
 	BOOL isChanged;
 	
 	NSMutableArray *scopeStack;
-	NSMutableArray *scopes;
 }
 
 @property (nonatomic) BOOL isChanged;
@@ -42,9 +41,8 @@
 #pragma mark -
 #pragma mark Scope management
 
--(void)beginScopeAtRange:(NSRange)range;
+-(NSValue *)beginScopeAtRange:(NSRange)range;
 -(void)endScopeAtRange:(NSRange)range;
--(NSArray *)scopeRanges;
 
 #pragma mark -
 #pragma mark State management
