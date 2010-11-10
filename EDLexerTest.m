@@ -370,19 +370,16 @@
 	GHAssertEquals((NSUInteger) 0, wsp4Tok.statesSnapshot.currentState, @"State should be initial state");
 }
 
-/*-(void)testTokensCanOpenAndCloseScope {
-	// FIXME: Make EDCharacterLexRule
-	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"{"
-											  tokenType:EDBraceToken
-										caseInsensitive:NO];
-	r1.opensScope = YES;
+-(void)testTokensCanOpenAndCloseScope {
+	EDLexRule *r1 = [EDCharacterLexRule ruleWithUnicodeChar:'{'];
+	r1.tokenType = EDBraceToken;
+	r1.beginsScope = YES;
 	
-	EDLexRule *r2 = [EDExactMatchLexRule ruleWithString:@"}"
-											   tokenType:EDBraceToken
-										 caseInsensitive:NO];
-	r2.opensScope = YES;
+	EDLexRule *r2 = [EDCharacterLexRule ruleWithUnicodeChar:'}'];
+	r2.tokenType = EDBraceToken;
+	r2.endsScope = YES;
 	
-	EDLexer *lexer = [EDLexer lexerWithStates:nil];
+	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
 	
 	[lexer addRule:r1];
 	[lexer addRule:r2];
@@ -391,7 +388,13 @@
 	
 	[lexer lexString:@"scope A { scope B { } }" intoResult:result];
 	
-	NSArray *scopes = result.scopes;
-}*/
+	NSArray *scopes = [result scopes];
+	
+	GHAssertEquals((NSUInteger)8, [[scopes objectAtIndex:0] rangeValue].location, @"First scope should start at location 8");
+	GHAssertEquals((NSUInteger)15, [[scopes objectAtIndex:0] rangeValue].length, @"First scope should have length 15");
+	
+	GHAssertEquals((NSUInteger)18, [[scopes objectAtIndex:1] rangeValue].location, @"Second scope should start at location 18");
+	GHAssertEquals((NSUInteger)3, [[scopes objectAtIndex:1] rangeValue].length, @"Second scope should have length 3");
+}
 
 @end

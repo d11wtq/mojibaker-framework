@@ -13,6 +13,7 @@
 
 @synthesize tokens;
 @synthesize newTokens;
+@synthesize scopes;
 
 +(id)result {
 	return [[[self alloc] init] autorelease];
@@ -116,6 +117,7 @@
 -(void)dealloc {
 	[tokens release];
 	[newTokens release];
+	[scopes release];
 	[super dealloc];
 }
 

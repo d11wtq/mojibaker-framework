@@ -47,7 +47,6 @@
 		83273E421276E2B1006D2BA2 /* EDRadixNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 83273E401276E2B1006D2BA2 /* EDRadixNode.h */; };
 		83273E431276E2B1006D2BA2 /* EDRadixNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273E411276E2B1006D2BA2 /* EDRadixNode.m */; };
 		83273E461276E2CC006D2BA2 /* EDRadixNodeTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273E451276E2CC006D2BA2 /* EDRadixNodeTest.m */; };
-		83273E471276E4AE006D2BA2 /* EDRadixNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 83273E411276E2B1006D2BA2 /* EDRadixNode.m */; };
 		835E870E1278399D00AE51E3 /* EDEmbeddedLanguageLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E870D1278399D00AE51E3 /* EDEmbeddedLanguageLexRuleTest.m */; };
 		835E882312785EA000AE51E3 /* EDPatternLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 835E882112785EA000AE51E3 /* EDPatternLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		835E882412785EA000AE51E3 /* EDPatternLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E882212785EA000AE51E3 /* EDPatternLexRule.m */; };
@@ -432,7 +431,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83273E471276E4AE006D2BA2 /* EDRadixNode.m in Sources */,
 				832735C7127334B3006D2BA2 /* GHUnitTestMain.m in Sources */,
 				8327356C12732F80006D2BA2 /* EDCharacterLexRuleTest.m in Sources */,
 				8327356D12732F80006D2BA2 /* EDCharacterSetLexRuleTest.m in Sources */,

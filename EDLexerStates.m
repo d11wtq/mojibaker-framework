@@ -25,7 +25,7 @@
 		scopeStack = [[NSMutableArray alloc] initWithCapacity:20];
 		scopes = [[NSMutableArray alloc] initWithCapacity:128];
 		highestStateId = 0;
-		[self reset];
+		isChanged = NO;
 	}
 	
 	return self;
@@ -41,7 +41,7 @@
 }
 
 -(EDLexerStatesSnapshot *)snapshot {
-	return [EDLexerStatesSnapshot snapshotWithStack:[stateStack copy] currentState:currentState];
+	return [EDLexerStatesSnapshot snapshotWithStack:[[stateStack copy] autorelease] currentState:currentState];
 }
 
 -(void)applySnapshot:(EDLexerStatesSnapshot *)snapshot {
@@ -71,7 +71,7 @@
 }
 
 -(NSArray *)scopeRanges {
-	return scopes;
+	return [[scopes copy] autorelease];
 }
 
 -(void)beginState:(NSUInteger)newStateId {

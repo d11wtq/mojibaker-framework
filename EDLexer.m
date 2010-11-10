@@ -131,6 +131,8 @@
 		}
 	}
 	
+	[result setScopes:[states scopeRanges]];
+	
 	[snapshot release];
 	[states reset];
 }
@@ -139,7 +141,7 @@
 	[self lexString:string
 		editedRange:NSMakeRange(0, string.length)
 	 changeInLength:string.length
-	 previousResult:[EDLexerResult resultWithTokens:[NSArray array]]
+	 previousResult:[EDLexerResult result]
 		 intoResult:result];
 }
 
@@ -187,6 +189,14 @@
 	
 	if (bestRule.beginState > -1) {
 		[states beginState:bestRule.beginState];
+	}
+	
+	if (bestRule.beginsScope) {
+		[states beginScopeAtRange:bestToken.range];
+	}
+	
+	if (bestRule.endsScope) {
+		[states endScopeAtRange:bestToken.range];
 	}
 	
 	return bestToken;
