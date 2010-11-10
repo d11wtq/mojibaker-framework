@@ -60,6 +60,10 @@
 }
 
 -(void)endScopeAtRange:(NSRange)range {
+	if ([scopeStack count] == 0) {
+		return;
+	}
+	
 	NSMutableRangeValue *value = [scopeStack lastObject];
 	[scopeStack removeLastObject];
 	
