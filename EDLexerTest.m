@@ -178,33 +178,37 @@
 	NSRange editedRange = {12, 1};
 	NSInteger changeInLength = 1;
 	
-	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
-	
-	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8) value:@"function" rule:nil];
-	t1.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1) value:@" " rule:nil];
-	wst1.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 6) value:@"foobar" rule:nil];
-	t2.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(15, 1) value:@" " rule:nil];
-	wst2.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(16, 4) value:@"test" rule:nil];
-	t3.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
-	
 	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r1.tokenType = EDKeywordToken;
 	
 	EDLexRule *r2 = [EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+"];
 	r2.tokenType = EDVariableToken;
 	
+	EDLexRule *r3 = [EDPatternLexRule ruleWithPattern:@"^\\s+"];
+	r3.tokenType = EDWhitespaceToken;
+	
+	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
+	
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8) value:@"function" rule:r1];
+	t1.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1) value:@" " rule:r3];
+	wst1.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 6) value:@"foobar" rule:r2];
+	t2.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(15, 1) value:@" " rule:r3];
+	wst2.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(16, 4) value:@"test" rule:r2];
+	t3.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
+	
 	[lexer addRule:r1];
 	[lexer addRule:r2];
+	[lexer addRule:r3];
 	
 	EDLexerResult *newResult = [EDLexerResult result];
 	
@@ -236,33 +240,37 @@
 	NSRange editedRange = {12, 0};
 	NSInteger changeInLength = -1;
 	
-	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
-	
-	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8) value:@"function" rule:nil];
-	t1.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1) value:@" " rule:nil];
-	wst1.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 7) value:@"foo_bar" rule:nil];
-	t2.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(16, 1) value:@" " rule:nil];
-	wst2.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(17, 4) value:@"test" rule:nil];
-	t3.statesSnapshot = [lexer.states snapshot];
-	
-	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
-	
 	EDLexRule *r1 = [EDExactMatchLexRule ruleWithString:@"function" caseInsensitive:NO];
 	r1.tokenType = EDKeywordToken;
 	
 	EDLexRule *r2 = [EDPatternLexRule ruleWithPattern:@"^[a-z0-9_]+"];
 	r2.tokenType = EDVariableToken;
 	
+	EDLexRule *r3 = [EDPatternLexRule ruleWithPattern:@"^\\s+"];
+	r3.tokenType = EDWhitespaceToken;
+	
+	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
+	
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8) value:@"function" rule:r1];
+	t1.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1) value:@" " rule:r3];
+	wst1.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 7) value:@"foo_bar" rule:r2];
+	t2.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(16, 1) value:@" " rule:r3];
+	wst2.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(17, 4) value:@"test" rule:r2];
+	t3.statesSnapshot = [lexer.states snapshot];
+	
+	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
+	
 	[lexer addRule:r1];
 	[lexer addRule:r2];
+	[lexer addRule:r3];
 	
 	EDLexerResult *newResult = [EDLexerResult result];
 	

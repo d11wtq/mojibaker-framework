@@ -43,7 +43,7 @@
 		&& (range.location == token.range.location
 			&& range.length == token.range.length
 			&& type == token.type
-			//&& rule == token.rule
+			&& rule == token.rule
 			&& [statesSnapshot isEqualToSnapshot:token.statesSnapshot]);
 }
 
