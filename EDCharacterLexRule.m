@@ -36,6 +36,10 @@
 }
 
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
+	if (range.location >= string.length) {
+		return nil;
+	}
+	
 	NSRange singleCharRange = NSMakeRange(range.location, 1);
 	NSString *value = [string substringWithRange:singleCharRange];
 	if (ch == 0) {
