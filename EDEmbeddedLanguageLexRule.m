@@ -37,20 +37,26 @@
 	
 	if ([states includesState:embeddedState] && states.currentState > 0) {
 		NSRange endRange = NSMakeRange(range.location, end.length);
-		NSString *endString = [string substringWithRange:endRange];
-		if (endRange.length <= range.length && [endString isEqualToString:end]) {
-			tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:endRange value:endString rule:self];
-			[states rewindToState:embeddedState];
-			[states popState];
-		} else {
+		if (endRange.length <= range.length) {
+			NSString *endString = [string substringWithRange:endRange];
+			if ([endString isEqualToString:end]) {
+				tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:endRange value:endString rule:self];
+				[states rewindToState:embeddedState];
+				[states popState];
+			}
+		}
+		
+		if (tok == nil) { // Didn't find the end delimiter
 			tok = [lexer nextTokenInString:string range:range];
 		}
 	} else {
 		NSRange startRange = NSMakeRange(range.location, start.length);
-		NSString *startString = [string substringWithRange:startRange];
-		if (startRange.length <= range.length && [startString isEqualToString:start]) {
-			tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:startRange value:startString rule:self];
-			[states pushState:embeddedState];
+		if (startRange.length <= range.length) {
+			NSString *startString = [string substringWithRange:startRange];
+			if ([startString isEqualToString:start]) {
+				tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:startRange value:startString rule:self];
+				[states pushState:embeddedState];
+			}
 		}
 	}
 	
