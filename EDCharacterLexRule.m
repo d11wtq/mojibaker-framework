@@ -36,12 +36,14 @@
 }
 
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
+	NSRange singleCharRange = NSMakeRange(range.location, 1);
+	NSString *value = [string substringWithRange:singleCharRange];
 	if (ch == 0) {
-		return [EDLexicalToken tokenWithType:tokenType range:NSMakeRange(range.location, 1)];
+		return [EDLexicalToken tokenWithType:tokenType range:singleCharRange value:value rule:self];
 	} else {
 		unichar firstChar = [string characterAtIndex:range.location];
 		if (ch == firstChar) {
-			return [EDLexicalToken tokenWithType:tokenType range:NSMakeRange(range.location, 1)];
+			return [EDLexicalToken tokenWithType:tokenType range:singleCharRange value:value rule:self];
 		} else {
 			return nil;
 		}

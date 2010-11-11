@@ -47,7 +47,7 @@
 			NSRange endRange = [substringToScan rangeOfString:end];
 			
 			if (endRange.location == NSNotFound) { // Unterminated sequence, consider token to be entire range
-				tok = [EDLexicalToken tokenWithType:tokenType range:range];
+				tok = [EDLexicalToken tokenWithType:tokenType range:range value:[string substringWithRange:range] rule:self];
 				break;
 			} else {
 				NSRange escapeRange = (escape != nil)
@@ -77,9 +77,12 @@
 					
 					NSUInteger lengthConsumed = matchedString.length + end.length;
 					NSUInteger lengthRemaining = matchRange.length - lengthConsumed;
+					NSRange actualRange = NSMakeRange(range.location, range.length - lengthRemaining);
 					
 					tok = [EDLexicalToken tokenWithType:tokenType
-												  range:NSMakeRange(range.location, range.length - lengthRemaining)];
+												  range:actualRange
+												  value:[string substringWithRange:actualRange]
+												   rule:self];
 					break;
 				}
 			}

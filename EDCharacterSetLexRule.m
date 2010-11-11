@@ -35,7 +35,10 @@
 	NSScanner *scanner = [NSScanner scannerWithString:[string substringWithRange:range]];
 	[scanner setCharactersToBeSkipped:nil];
 	if ([scanner scanCharactersFromSet:permittedCharacterSet intoString:&matchedString]) {
-		tok = [EDLexicalToken tokenWithType:tokenType range:NSMakeRange(range.location, matchedString.length)];
+		tok = [EDLexicalToken tokenWithType:tokenType
+									  range:NSMakeRange(range.location, matchedString.length)
+									  value:matchedString
+									   rule:self];
 	}
 	
 	return tok;

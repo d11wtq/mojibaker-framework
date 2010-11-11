@@ -7,23 +7,28 @@
 //
 
 #import "EDLexicalToken.h"
+#import "EDLexRule.h"
 #import "EDLexerResult.h"
 #import "EDLexerStatesSnapshot.h"
 
 @implementation EDLexicalToken
 
+@synthesize rule;
 @synthesize type;
 @synthesize range;
+@synthesize value;
 @synthesize statesSnapshot;
 
-+(id)tokenWithType:(EDLexicalTokenType)theType range:(NSRange)theRange {
-	return [[[self alloc] initWithType:theType range:theRange] autorelease];
++(id)tokenWithType:(EDLexicalTokenType)aType range:(NSRange)aRange value:(NSString *)aValue rule:(EDLexRule *)aRule {
+	return [[[self alloc] initWithType:aType range:aRange value:aValue rule:aRule] autorelease];
 }
 
--(id)initWithType:(EDLexicalTokenType)theType range:(NSRange)theRange {
+-(id)initWithType:(EDLexicalTokenType)aType range:(NSRange)aRange value:(NSString *)aValue rule:(EDLexRule *)aRule {
 	if (self = [self init]) {
-		type = theType;
-		range = theRange;
+		type = aType;
+		range = aRange;
+		value = [aValue copy];
+		rule = [aRule retain];
 	}
 	
 	return self;
@@ -38,7 +43,14 @@
 		&& (range.location == token.range.location
 			&& range.length == token.range.length
 			&& type == token.type
+			//&& rule == token.rule
 			&& [statesSnapshot isEqualToSnapshot:token.statesSnapshot]);
+}
+
+-(void)dealloc {
+	[rule release];
+	[value release];
+	[super dealloc];
 }
 
 @end

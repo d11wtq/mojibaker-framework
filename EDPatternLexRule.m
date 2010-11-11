@@ -30,7 +30,7 @@
 	if (matchedRange.location != range.location) {
 		return nil;
 	} else {
-		return [EDLexicalToken tokenWithType:tokenType range:matchedRange];
+		return [EDLexicalToken tokenWithType:tokenType range:matchedRange value:[string substringWithRange:matchedRange] rule:self];
 	}
 }
 

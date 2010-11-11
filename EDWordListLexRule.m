@@ -32,7 +32,11 @@
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
 	NSUInteger matchedLength;
 	if (matchedLength = [radixTree substringLengthMatchedFromString:[string substringWithRange:range]]) {
-		return [EDLexicalToken tokenWithType:tokenType range:NSMakeRange(range.location, matchedLength)];
+		NSRange matchedRange = NSMakeRange(range.location, matchedLength);
+		return [EDLexicalToken tokenWithType:tokenType
+									   range:matchedRange
+									   value:[string substringWithRange:matchedRange]
+										rule:self];
 	} else {
 		return nil;
 	}

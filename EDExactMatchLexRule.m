@@ -36,13 +36,14 @@
 	
 	NSRange matchRange = NSMakeRange(range.location, needleString.length);
 	NSString *rangeSubstring = [string substringWithRange:matchRange];
+	NSString *caseAwareSubstring = rangeSubstring;
 	
 	if (caseInsensitive) {
-		rangeSubstring = [rangeSubstring lowercaseString];
+		caseAwareSubstring = [rangeSubstring lowercaseString];
 	}
 	
-	if ([rangeSubstring isEqualToString:needleString]) {
-		tok = [EDLexicalToken tokenWithType:tokenType range:matchRange];
+	if ([caseAwareSubstring isEqualToString:needleString]) {
+		tok = [EDLexicalToken tokenWithType:tokenType range:matchRange value:rangeSubstring rule:self];
 	}
 	
 	return tok;

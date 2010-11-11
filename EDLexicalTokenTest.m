@@ -22,10 +22,10 @@
 	EDLexerStatesSnapshot *snapshotA = [EDLexerStatesSnapshot snapshotWithStack:stackA currentState:1];
 	EDLexerStatesSnapshot *snapshotB = [EDLexerStatesSnapshot snapshotWithStack:stackB currentState:1];
 	
-	EDLexicalToken *tokA = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(4, 8)];
+	EDLexicalToken *tokA = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(4, 8) value:@"function" rule:nil];
 	tokA.statesSnapshot = snapshotA;
 	
-	EDLexicalToken *tokB = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(4, 8)];
+	EDLexicalToken *tokB = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(4, 8) value:@"function" rule:nil];
 	tokB.statesSnapshot = snapshotB;
 	
 	GHAssertTrue([tokA isEqualToToken:tokB], @"Tokens should be the same");

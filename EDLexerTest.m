@@ -180,19 +180,19 @@
 	
 	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
 	
-	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8)]; // 'function'
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8) value:@"function" rule:nil];
 	t1.statesSnapshot = [lexer.states snapshot];
 	
-	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1)]; // ' '
+	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1) value:@" " rule:nil];
 	wst1.statesSnapshot = [lexer.states snapshot];
 	
-	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 6)]; // 'foobar'
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 6) value:@"foobar" rule:nil];
 	t2.statesSnapshot = [lexer.states snapshot];
 	
-	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(15, 1)]; // ' '
+	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(15, 1) value:@" " rule:nil];
 	wst2.statesSnapshot = [lexer.states snapshot];
 	
-	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(16, 4)]; // 'test'
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(16, 4) value:@"test" rule:nil];
 	t3.statesSnapshot = [lexer.states snapshot];
 	
 	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];
@@ -238,19 +238,19 @@
 	
 	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
 	
-	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8)]; // 'function'
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 8) value:@"function" rule:nil];
 	t1.statesSnapshot = [lexer.states snapshot];
 	
-	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1)]; // ' '
+	EDLexicalToken *wst1 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(8, 1) value:@" " rule:nil];
 	wst1.statesSnapshot = [lexer.states snapshot];
 	
-	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 7)]; // 'foo_bar'
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(9, 7) value:@"foo_bar" rule:nil];
 	t2.statesSnapshot = [lexer.states snapshot];
 	
-	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(16, 1)]; // ' '
+	EDLexicalToken *wst2 = [EDLexicalToken tokenWithType:EDWhitespaceToken range:NSMakeRange(16, 1) value:@" " rule:nil];
 	wst2.statesSnapshot = [lexer.states snapshot];
 	
-	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(17, 4)]; // 'test'
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDVariableToken range:NSMakeRange(17, 4) value:@"test" rule:nil];
 	t3.statesSnapshot = [lexer.states snapshot];
 	
 	EDLexerResult *previousResult = [EDLexerResult resultWithTokens:[NSArray arrayWithObjects:t1, wst1, t2, wst2, t3, nil]];

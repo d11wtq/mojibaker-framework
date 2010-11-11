@@ -37,8 +37,9 @@
 	
 	if ([states includesState:embeddedState] && states.currentState > 0) {
 		NSRange endRange = NSMakeRange(range.location, end.length);
-		if (endRange.length <= range.length && [[string substringWithRange:endRange] isEqualToString:end]) {
-			tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:endRange];
+		NSString *endString = [string substringWithRange:endRange];
+		if (endRange.length <= range.length && [endString isEqualToString:end]) {
+			tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:endRange value:endString rule:self];
 			[states rewindToState:embeddedState];
 			[states popState];
 		} else {
@@ -46,8 +47,9 @@
 		}
 	} else {
 		NSRange startRange = NSMakeRange(range.location, start.length);
-		if (startRange.length <= range.length && [[string substringWithRange:startRange] isEqualToString:start]) {
-			tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:startRange];
+		NSString *startString = [string substringWithRange:startRange];
+		if (startRange.length <= range.length && [startString isEqualToString:start]) {
+			tok = [EDLexicalToken tokenWithType:EDEmbeddedLanguageDelimiterToken range:startRange value:startString rule:self];
 			[states pushState:embeddedState];
 		}
 	}
