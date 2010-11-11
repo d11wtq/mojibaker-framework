@@ -34,6 +34,7 @@
 	GHAssertEquals(EDStringToken, tok.type, @"Type should be EDStringToken");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
 	GHAssertEquals((NSUInteger) 8, tok.range.length, @"String should have length 8");
+	GHAssertEqualStrings(@"\"string\"", tok.value, @"Value should be \"string\"");
 }
 
 -(void)testFindsOnlyUntilFirstOccurenceOfEndSequence {

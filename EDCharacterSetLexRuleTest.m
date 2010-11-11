@@ -34,6 +34,7 @@
 	GHAssertEquals(EDWhitespaceToken, tok.type, @"Token type should be EDWhitespaceToken");
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Matched token range should always be range searched");
 	GHAssertEquals((NSUInteger) 6, tok.range.length, @"Matched token range should include all characters");
+	GHAssertEqualStrings(@" \t\t\r\n ", tok.value, @"Value should be all the whistespace");
 }
 
 @end

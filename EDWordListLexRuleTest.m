@@ -37,6 +37,7 @@
 	GHAssertEquals(EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.location, @"Token location should be 6");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.length, @"Token length should be 6");
+	GHAssertEqualStrings(@"zapper", tok.value, @"Value should be 'zapper'");
 }
 
 -(void)testReturnsLongestTokenIfMultipleMatch {
@@ -50,6 +51,7 @@
 	GHAssertEquals(EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.location, @"Token location should be 6");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.length, @"Token length should be 6");
+	GHAssertEqualStrings(@"zapper", tok.value, @"Value should be 'zapper'");
 }
 
 @end

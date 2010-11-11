@@ -33,6 +33,7 @@
 	GHAssertEquals(EDVariableToken, tok.type, @"Token should be a variable token type");
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Token should be at location 4");
 	GHAssertEquals((NSUInteger) 5, tok.range.length, @"Token should have length 5");
+	GHAssertEqualStrings(@"$test", tok.value, @"Value should be $test");
 }
 
 @end

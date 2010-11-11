@@ -26,6 +26,7 @@
 		GHAssertEquals(EDUnmatchedToken, tok.type, @"Type should be EDUnmatchedToken");
 		GHAssertEquals((NSUInteger) i, tok.range.location, @"Location should be start of range");
 		GHAssertEquals((NSUInteger) 1, tok.range.length, @"Length should be 1");
+		GHAssertEqualStrings([source substringWithRange:tok.range], tok.value, @"Value should match range");
 	}
 }
 

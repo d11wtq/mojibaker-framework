@@ -34,6 +34,7 @@
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
 	GHAssertEquals((NSUInteger) 5, tok.range.location, @"Matched token range should always be range searched");
 	GHAssertEquals((NSUInteger) 5, tok.range.length, @"Matched token range should have same length as keyword");
+	GHAssertEqualStrings(@"class", tok.value, @"Value should be 'class'");
 }
 
 -(void)testReturnsTokenIfKeywordIsAtStartOfRangeInCaseInsensitiveMode {
