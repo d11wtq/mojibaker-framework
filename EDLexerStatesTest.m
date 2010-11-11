@@ -153,21 +153,4 @@
 	[states release];
 }
 
--(void)testScopesCanBeRecorded {
-	EDLexerStates *states = [[EDLexerStates alloc] init];
-	
-	NSValue *scope1 = [states beginScopeAtRange:NSMakeRange(2, 1)];
-	NSValue *scope2 = [states beginScopeAtRange:NSMakeRange(6, 1)];
-	[states endScopeAtRange:NSMakeRange(8, 1)];
-	NSValue *scope3 = [states beginScopeAtRange:NSMakeRange(10, 1)];
-	[states endScopeAtRange:NSMakeRange(11, 1)];
-	[states endScopeAtRange:NSMakeRange(13, 1)];
-	
-	GHAssertTrue(NSEqualRanges(NSMakeRange(2, 12), [scope1 rangeValue]), @"First scope should be at (2,12)");
-	GHAssertTrue(NSEqualRanges(NSMakeRange(6, 3), [scope2 rangeValue]), @"Second scope should be at (6,3)");
-	GHAssertTrue(NSEqualRanges(NSMakeRange(10, 2), [scope3 rangeValue]), @"Third scope should be at (10,2)");
-	
-	[states release];
-}
-
 @end

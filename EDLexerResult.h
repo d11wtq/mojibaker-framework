@@ -13,7 +13,8 @@
 @interface EDLexerResult : NSObject {
 	NSMutableArray *tokens;
 	NSMutableArray *newTokens;
-	NSArray *scopes;
+	NSMutableArray *scopesStack;
+	NSMutableArray *scopes;
 }
 
 +(id)result;
@@ -22,7 +23,7 @@
 
 @property (readonly) NSArray *tokens;
 @property (readonly) NSArray *newTokens;
-@property (nonatomic, retain) NSArray *scopes;
+@property (readonly) NSArray *scopes;
 
 -(void)addToken:(EDLexicalToken *)token;
 -(void)addToken:(EDLexicalToken *)token isNew:(BOOL)newFlag;

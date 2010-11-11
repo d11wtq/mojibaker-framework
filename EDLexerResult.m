@@ -8,6 +8,9 @@
 
 #import "EDLexerResult.h"
 #import "EDLexicalToken.h"
+#import "EDLexRule.h"
+#import "EDLexicalScope.h"
+#import "NSMutableRangeValue.h"
 
 @implementation EDLexerResult
 
@@ -27,6 +30,8 @@
 	if (self = [super init]) {
 		tokens = [[NSMutableArray alloc] init];
 		newTokens = [[NSMutableArray alloc] init];
+		scopes = [[NSMutableArray alloc] initWithCapacity:128];
+		scopesStack = [[NSMutableArray alloc] initWithCapacity:20];
 	}
 	
 	return self;
@@ -34,7 +39,9 @@
 
 -(id)initWithTokens:(NSArray *)foundTokens {
 	if (self = [self init]) {
-		[tokens addObjectsFromArray:foundTokens];
+		for (EDLexicalToken *tok in foundTokens) {
+			[self addToken:tok];
+		}
 	}
 	
 	return self;
@@ -42,14 +49,30 @@
 
 -(void)addToken:(EDLexicalToken *)token {
 	[tokens addObject:token];
+	
+	if (token.rule.beginsScope) {
+		NSValue *rangeValue = [NSMutableRangeValue valueWithRange:NSMakeRange(token.range.location, 0)];
+		[scopesStack addObject:rangeValue];
+		[scopes addObject:[EDLexicalScope scopeWithRangeValue:rangeValue]];
+	}
+	
+	if (token.rule.endsScope) {
+		if ([scopesStack count] > 0) {
+			NSMutableRangeValue *value = [scopesStack lastObject];
+			[scopesStack removeLastObject];
+			
+			NSRange actualRange = [value rangeValue];
+			actualRange.length = NSMaxRange(token.range) - actualRange.location;
+			[value setRangeValue:actualRange];
+		}
+	}
 }
 
 -(void)addToken:(EDLexicalToken *)token isNew:(BOOL)newFlag {
-	[tokens addObject:token];
+	[self addToken:token];
 	if (newFlag) {
 		[newTokens addObject:token];
 	}
-	
 }
 
 -(EDLexicalToken *)tokenAtRange:(NSRange)range {
@@ -118,6 +141,7 @@
 	[tokens release];
 	[newTokens release];
 	[scopes release];
+	[scopesStack release];
 	[super dealloc];
 }
 

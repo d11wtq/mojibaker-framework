@@ -378,32 +378,4 @@
 	GHAssertEquals((NSUInteger) 0, wsp4Tok.statesSnapshot.currentState, @"State should be initial state");
 }
 
-/*-(void)testTokensCanOpenAndCloseScope {
-	EDLexRule *r1 = [EDCharacterLexRule ruleWithUnicodeChar:'{'];
-	r1.tokenType = EDBraceToken;
-	r1.beginsScope = YES;
-	
-	EDLexRule *r2 = [EDCharacterLexRule ruleWithUnicodeChar:'}'];
-	r2.tokenType = EDBraceToken;
-	r2.endsScope = YES;
-	
-	EDLexer *lexer = [EDLexer lexerWithStates:[EDLexerStates states]];
-	
-	[lexer addRule:r1];
-	[lexer addRule:r2];
-	
-	EDLexerResult *result = [EDLexerResult result];
-	
-	[lexer lexString:@"scope A { scope B { } }" intoResult:result];
-	
-	EDLexicalToken *tok1 = [result tokenAtRange:NSMakeRange(8, 1)];
-	EDLexicalToken *tok2 = [result tokenAtRange:NSMakeRange(18, 1)];
-	
-	GHAssertEquals((NSUInteger)8, [tok1 scopeRange].location, @"First scope should start at location 8");
-	GHAssertEquals((NSUInteger)15, [tok1 scopeRange].length, @"First scope should have length 15");
-	
-	GHAssertEquals((NSUInteger)18, [tok2 scopeRange].location, @"Second scope should start at location 18");
-	GHAssertEquals((NSUInteger)3, [tok2 scopeRange].length, @"Second scope should have length 3");
-}*/
-
 @end

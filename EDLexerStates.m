@@ -8,7 +8,6 @@
 
 #import "EDLexerStates.h"
 #import "EDLexerStatesSnapshot.h"
-#import "NSMutableRangeValue.h"
 
 @implementation EDLexerStates
 
@@ -22,7 +21,6 @@
 	if (self = [super init]) {
 		stateNames = [[NSMutableDictionary alloc] init];
 		stateStack = [[NSMutableArray alloc] initWithCapacity:10];
-		scopeStack = [[NSMutableArray alloc] initWithCapacity:20];
 		highestStateId = 0;
 		isChanged = NO;
 	}
@@ -48,30 +46,6 @@
 	
 	[stateStack addObjectsFromArray:[snapshot stack]];
 	currentState = [snapshot currentState];
-}
-
--(NSValue *)beginScopeAtRange:(NSRange)range {
-	NSValue *rangeValue = [NSMutableRangeValue valueWithRange:NSMakeRange(range.location, 0)];
-	[scopeStack addObject:rangeValue];
-	
-	isChanged = YES;
-	
-	return rangeValue;
-}
-
--(void)endScopeAtRange:(NSRange)range {
-	if ([scopeStack count] == 0) {
-		return;
-	}
-	
-	NSMutableRangeValue *value = [scopeStack lastObject];
-	[scopeStack removeLastObject];
-	
-	NSRange actualRange = [value rangeValue];
-	actualRange.length = NSMaxRange(range) - actualRange.location;
-	[value setRangeValue:actualRange];
-	
-	isChanged = YES;
 }
 
 -(void)beginState:(NSUInteger)newStateId {
@@ -120,7 +94,6 @@
 
 -(void)reset {
 	[stateStack removeAllObjects];
-	[scopeStack removeAllObjects];
 	currentState = 0;
 	isChanged = NO;
 }
@@ -128,7 +101,6 @@
 -(void)dealloc {
 	[stateNames release];
 	[stateStack release];
-	[scopeStack release];
 	[super dealloc];
 }
 

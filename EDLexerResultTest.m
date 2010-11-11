@@ -109,4 +109,38 @@
 	GHAssertNotNil(tok, @"Token should be found");
 }
 
+-(void)testScopesCanBeRecorded {
+	EDLexerResult *result = [EDLexerResult result];
+	
+	EDLexRule *opRule = [[[EDLexRule alloc] init] autorelease];
+	opRule.beginsScope = YES;
+	
+	EDLexRule *clRule = [[[EDLexRule alloc] init] autorelease];
+	clRule.endsScope = YES;
+	
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(2, 1) value:@"{" rule:opRule];
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(6, 1) value:@"{" rule:opRule];
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(8, 1) value:@"}" rule:clRule];
+	EDLexicalToken *t4 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(10, 1) value:@"{" rule:opRule];
+	EDLexicalToken *t5 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(11, 1) value:@"}" rule:clRule];
+	EDLexicalToken *t6 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(13, 1) value:@"}" rule:clRule];
+	
+	[result addToken:t1];
+	[result addToken:t2];
+	[result addToken:t3];
+	[result addToken:t4];
+	[result addToken:t5];
+	[result addToken:t6];
+	
+	NSArray *scopes = [result scopes];
+	
+	EDLexicalScope *scope1 = [scopes objectAtIndex:0];
+	EDLexicalScope *scope2 = [scopes objectAtIndex:1];
+	EDLexicalScope *scope3 = [scopes objectAtIndex:2];
+	
+	GHAssertTrue(NSEqualRanges(NSMakeRange(2, 12), scope1.range), @"First scope should be at (2,12)");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(6, 3), scope2.range), @"Second scope should be at (6,3)");
+	GHAssertTrue(NSEqualRanges(NSMakeRange(10, 2), scope3.range), @"Third scope should be at (10,2)");
+}
+
 @end

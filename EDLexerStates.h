@@ -16,8 +16,6 @@
 	NSMutableArray *stateStack;
 	NSMutableDictionary *stateNames;
 	BOOL isChanged;
-	
-	NSMutableArray *scopeStack;
 }
 
 @property (nonatomic) BOOL isChanged;
@@ -37,12 +35,6 @@
 
 -(EDLexerStatesSnapshot *)snapshot;
 -(void)applySnapshot:(EDLexerStatesSnapshot *)snapshot;
-
-#pragma mark -
-#pragma mark Scope management
-
--(NSValue *)beginScopeAtRange:(NSRange)range;
--(void)endScopeAtRange:(NSRange)range;
 
 #pragma mark -
 #pragma mark State management

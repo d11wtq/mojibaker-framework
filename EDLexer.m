@@ -189,14 +189,6 @@
 		[states beginState:bestRule.beginState];
 	}
 	
-	if (bestRule.beginsScope) {
-		[states beginScopeAtRange:bestToken.range];
-	}
-	
-	if (bestRule.endsScope) {
-		[states endScopeAtRange:bestToken.range];
-	}
-	
 	return bestToken;
 }
 
