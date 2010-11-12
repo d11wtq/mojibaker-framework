@@ -40,10 +40,10 @@
 
 -(BOOL)isEqualToToken:(EDLexicalToken *)token {
 	return token
-		&& (range.location == token.range.location
+		&& (rule == token.rule
+			&& range.location == token.range.location
 			&& range.length == token.range.length
 			&& type == token.type
-			&& rule == token.rule
 			&& [statesSnapshot isEqualToSnapshot:token.statesSnapshot]);
 }
 

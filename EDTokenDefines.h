@@ -15,7 +15,6 @@ typedef enum _EDLexicalTokenType {
 	EDKeyword2Token,
 	EDKeyword3Token,
 	EDStringToken,
-	EDString1Token, // FIXME: Remove this
 	EDString2Token,
 	EDString3Token,
 	EDSingleLineCommentToken,
@@ -27,6 +26,9 @@ typedef enum _EDLexicalTokenType {
 	EDVariableToken,
 	EDVariable2Token,
 	EDVariable3Token,
+	EDConstantToken,
 	EDBraceToken,
+	EDFunctionCallToken,
+	EDMethodCallToken,
 	EDEmbeddedLanguageDelimiterToken
 } EDLexicalTokenType;

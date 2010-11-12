@@ -69,7 +69,7 @@
 
 -(void)testOnlyClosestTokenInGivenRangeIsReturnedIfTokensAreNested {
 	NSArray *tokens = [NSArray arrayWithObjects:[EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 4) value:@"aaaa" rule:nil],
-					   [EDLexicalToken tokenWithType:EDString1Token range:NSMakeRange(4, 10) value:@"bbbbbbbbbb" rule:nil],
+					   [EDLexicalToken tokenWithType:EDStringToken range:NSMakeRange(4, 10) value:@"bbbbbbbbbb" rule:nil],
 					   [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(6, 7) value:@"ccccccc" rule:nil], nil];
 	EDLexerResult *result = [EDLexerResult resultWithTokens:tokens];
 	
@@ -82,7 +82,7 @@
 
 -(void)testSearchInLongListOfTokens {
 	NSArray *tokens = [NSArray arrayWithObjects:[EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(0, 4) value:@"aaaa" rule:nil],
-					   [EDLexicalToken tokenWithType:EDString1Token range:NSMakeRange(4, 10) value:@"bbbbbbbbbb" rule:nil],
+					   [EDLexicalToken tokenWithType:EDStringToken range:NSMakeRange(4, 10) value:@"bbbbbbbbbb" rule:nil],
 					   [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(14, 5) value:@"ccccc" rule:nil],
 					   [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(19, 1) value:@"+" rule:nil],
 					   [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(20, 4) value:@"dddd" rule:nil], nil];

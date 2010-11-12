@@ -13,7 +13,7 @@
 		8314CFBC1289A08200EDB067 /* EDLexicalTokenTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314CFBB1289A08200EDB067 /* EDLexicalTokenTest.m */; };
 		8314D00B1289F28900EDB067 /* NSMutableRangeValue.h in Headers */ = {isa = PBXBuildFile; fileRef = 8314D0091289F28900EDB067 /* NSMutableRangeValue.h */; };
 		8314D00C1289F28900EDB067 /* NSMutableRangeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314D00A1289F28900EDB067 /* NSMutableRangeValue.m */; };
-		8314D20A128C0E6F00EDB067 /* EDLexicalScope.h in Headers */ = {isa = PBXBuildFile; fileRef = 8314D208128C0E6F00EDB067 /* EDLexicalScope.h */; };
+		8314D20A128C0E6F00EDB067 /* EDLexicalScope.h in Headers */ = {isa = PBXBuildFile; fileRef = 8314D208128C0E6F00EDB067 /* EDLexicalScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8314D20B128C0E6F00EDB067 /* EDLexicalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314D209128C0E6F00EDB067 /* EDLexicalScope.m */; };
 		8327351212732DBE006D2BA2 /* EDCharacterLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 832734FF12732DBE006D2BA2 /* EDCharacterLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8327351312732DBE006D2BA2 /* EDCharacterLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350012732DBE006D2BA2 /* EDCharacterLexRule.m */; };
