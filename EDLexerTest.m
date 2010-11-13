@@ -354,6 +354,31 @@
 	GHAssertEquals(notFuncName, otherToken.rule, @"The notFuncName rule should have matched the other token");
 }
 
+-(void)testRulesCanDependOnLookaheadTokens {
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
+	
+	EDLexRule *paren = [EDCharacterLexRule ruleWithUnicodeChar:'('];
+	EDLexRule *funcCall = [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+"];
+	funcCall.precedes = paren;
+	EDLexRule *notFuncCall = [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+"];
+	
+	[lexer addRule:paren];
+	[lexer addRule:funcCall];
+	[lexer addRule:notFuncCall];
+	
+	NSString *source = @"x + foo() > bar + zip";
+	
+	EDLexerResult *result = [EDLexerResult result];
+	
+	[lexer lexString:source intoResult:result];
+	
+	EDLexicalToken *tokBeforeParen = [result tokenAtRange:NSMakeRange(4, 3)];
+	EDLexicalToken *otherToken = [result tokenAtRange:NSMakeRange(12, 3)];
+	
+	GHAssertEquals(funcCall, tokBeforeParen.rule, @"The funcCall rule should have matched the token before the parenthesis");
+	GHAssertEquals(notFuncCall, otherToken.rule, @"The notFuncCall rule should have matched the other token");
+}
+
 #pragma mark -
 #pragma mark Complex state tests
 

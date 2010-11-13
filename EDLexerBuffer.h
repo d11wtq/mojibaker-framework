@@ -15,11 +15,20 @@
 	NSString *string;
 	EDLexer *lexer;
 	
+	NSMutableArray *lookaheadStack;
+	
 	EDLexicalToken *lookbehind;
+	EDLexicalToken *token;
+	
+	EDLexicalToken *lastToken;
 }
 
 -(id)initWithLexer:(EDLexer *)aLexer string:(NSString *)sourceString;
 
 @property (nonatomic, retain) EDLexicalToken *lookbehind;
+@property (nonatomic, retain) EDLexicalToken *token;
+
+-(EDLexicalToken *)lookahead;
+-(NSArray *)lookaheadStack;
 
 @end

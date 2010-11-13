@@ -25,6 +25,7 @@
 	BOOL beginsScope;
 	BOOL endsScope;
 	EDLexRule *follows;
+	EDLexRule *precedes;
 }
 
 @property (nonatomic) EDLexicalTokenType tokenType;
@@ -37,6 +38,7 @@
 @property (nonatomic) BOOL beginsScope;
 @property (nonatomic) BOOL endsScope;
 @property (nonatomic, retain) EDLexRule *follows;
+@property (nonatomic, retain) EDLexRule *precedes;
 
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range buffer:(EDLexerBuffer *)buffer states:(EDLexerStates *)states;
 

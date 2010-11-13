@@ -23,6 +23,7 @@
 @synthesize beginsScope;
 @synthesize endsScope;
 @synthesize follows;
+@synthesize precedes;
 
 -(id)init {
 	if (self = [super init]) {
@@ -46,6 +47,7 @@
 
 -(void)dealloc {
 	[follows release];
+	[precedes release];
 	[super dealloc];
 }
 

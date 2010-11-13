@@ -166,6 +166,10 @@
 }
 
 -(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range buffer:(EDLexerBuffer *)buffer {
+	if (range.location >= string.length) {
+		return nil;
+	}
+	
 	EDLexRule *bestRule = nil;
 	EDLexicalToken *bestToken = nil;
 	
@@ -186,12 +190,19 @@
 		
 		EDLexicalToken *tok = nil;
 		if (tok = [rule lexInString:string range:range buffer:buffer states:states]) {
+			buffer.token = tok;
+			
 			if (bestToken == nil || tok.range.length > bestToken.range.length) {
+				if (tok.rule.precedes && tok.rule.precedes != [buffer lookahead].rule) {
+					continue;
+				}
+				
 				bestToken = tok;
 				bestRule = rule;
 			}
 			
-			if (rule.isDefinite) {
+			// FIXME: Should this be "bestToken" ?
+			if (tok.rule.isDefinite) {
 				break;
 			}
 		}
@@ -201,6 +212,7 @@
 		for (EDLexRule *rule in lastResortRules) {
 			EDLexicalToken *tok = nil;
 			if (tok = [rule lexInString:string range:range buffer:buffer states:states]) {
+				buffer.token = tok;
 				bestToken = tok;
 				bestRule = rule;
 				break;

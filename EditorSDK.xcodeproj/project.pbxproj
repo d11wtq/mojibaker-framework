@@ -17,6 +17,7 @@
 		8314D20B128C0E6F00EDB067 /* EDLexicalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314D209128C0E6F00EDB067 /* EDLexicalScope.m */; };
 		8314D356128D6FBB00EDB067 /* EDLexerBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8314D354128D6FBB00EDB067 /* EDLexerBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8314D357128D6FBB00EDB067 /* EDLexerBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314D355128D6FBB00EDB067 /* EDLexerBuffer.m */; };
+		8314D3C5128E3A6100EDB067 /* EDLexerBufferTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314D3C4128E3A6100EDB067 /* EDLexerBufferTest.m */; };
 		8327351212732DBE006D2BA2 /* EDCharacterLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 832734FF12732DBE006D2BA2 /* EDCharacterLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8327351312732DBE006D2BA2 /* EDCharacterLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350012732DBE006D2BA2 /* EDCharacterLexRule.m */; };
 		8327351512732DBE006D2BA2 /* EDCharacterSetLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327350212732DBE006D2BA2 /* EDCharacterSetLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -109,6 +110,7 @@
 		8314D209128C0E6F00EDB067 /* EDLexicalScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexicalScope.m; sourceTree = "<group>"; };
 		8314D354128D6FBB00EDB067 /* EDLexerBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexerBuffer.h; sourceTree = "<group>"; };
 		8314D355128D6FBB00EDB067 /* EDLexerBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexerBuffer.m; sourceTree = "<group>"; };
+		8314D3C4128E3A6100EDB067 /* EDLexerBufferTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexerBufferTest.m; sourceTree = "<group>"; };
 		832734FF12732DBE006D2BA2 /* EDCharacterLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCharacterLexRule.h; sourceTree = "<group>"; };
 		8327350012732DBE006D2BA2 /* EDCharacterLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCharacterLexRule.m; sourceTree = "<group>"; };
 		8327350112732DBE006D2BA2 /* EDCharacterLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCharacterLexRuleTest.m; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 				8327350D12732DBE006D2BA2 /* EDLexerTest.m */,
 				8314CFB712899F4200EDB067 /* EDLexerStatesSnapshotTest.m */,
 				8314CFBB1289A08200EDB067 /* EDLexicalTokenTest.m */,
+				8314D3C4128E3A6100EDB067 /* EDLexerBufferTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				835E884C1278623500AE51E3 /* EDPatternLexRuleTest.m in Sources */,
 				8314CFB812899F4200EDB067 /* EDLexerStatesSnapshotTest.m in Sources */,
 				8314CFBC1289A08200EDB067 /* EDLexicalTokenTest.m in Sources */,
+				8314D3C5128E3A6100EDB067 /* EDLexerBufferTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
