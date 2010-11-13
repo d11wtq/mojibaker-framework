@@ -20,7 +20,7 @@
 	rule.tokenType = EDDefinerKeywordToken;
 	
 	NSString *source = @"test class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) buffer:nil states:nil];
 	GHAssertNil(tok, @"Nil should be return since 'class' is not in range");
 }
 
@@ -29,7 +29,7 @@
 	rule.tokenType = EDDefinerKeywordToken;
 	
 	NSString *source = @"test class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) buffer:nil states:nil];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
 	GHAssertEquals((NSUInteger) 5, tok.range.location, @"Matched token range should always be range searched");
@@ -42,7 +42,7 @@
 	rule.tokenType = EDDefinerKeywordToken;
 	
 	NSString *source = @"test Class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) buffer:nil states:nil];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token type should be EDDefinerKeywordToken");
 	GHAssertEquals((NSUInteger) 5, tok.range.location, @"Matched token range should always be range searched");
@@ -54,7 +54,7 @@
 	rule.tokenType = EDDefinerKeywordToken;
 	
 	NSString *source = @"test Class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(5, source.length - 5) buffer:nil states:nil];
 	GHAssertNil(tok, @"Nil should be return since 'Class' is not the same as 'class'");
 }
 

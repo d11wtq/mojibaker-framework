@@ -20,7 +20,7 @@
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"test \"strings\"";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) buffer:nil states:nil];
 	GHAssertNil(tok, @"Nil should be return since '\"' not in range");
 }
 
@@ -29,7 +29,7 @@
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"string\" b";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) buffer:nil states:nil];
 	
 	GHAssertEquals(EDStringToken, tok.type, @"Type should be EDStringToken");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -42,7 +42,7 @@
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"string 1\" \"string 2\" b";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) buffer:nil states:nil];
 	
 	GHAssertEquals(EDStringToken, tok.type, @"Type should be EDStringToken");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -54,7 +54,7 @@
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"string \\\"escaped\\\"\" b";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) buffer:nil states:nil];
 	
 	GHAssertEquals(EDStringToken, tok.type, @"Type should be EDStringToken");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -66,7 +66,7 @@
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"string \\\\\"escaped\\\"\" b";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) buffer:nil states:nil];
 	
 	GHAssertEquals(EDStringToken, tok.type, @"Type should be EDStringToken");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -78,7 +78,7 @@
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"unterminated string";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) buffer:nil states:nil];
 	
 	GHAssertEquals(EDStringToken, tok.type, @"Type should be EDStringToken");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -90,7 +90,7 @@
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"unterminated string\\";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) buffer:nil states:nil];
 	
 	GHAssertEquals(EDStringToken, tok.type, @"Type should be EDStringToken");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -102,7 +102,7 @@
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"unterminated string\\\" foo\" bar";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) buffer:nil states:nil];
 	
 	GHAssertEquals(EDStringToken, tok.type, @"Type should be EDStringToken");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");
@@ -114,7 +114,7 @@
 	rule.tokenType = EDStringToken;
 	
 	NSString *source = @"a \"unterminated string aaa\" fooaaaaaa\" bar";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(2, source.length - 2) buffer:nil states:nil];
 	
 	GHAssertEquals(EDStringToken, tok.type, @"Type should be EDStringToken");
 	GHAssertEquals((NSUInteger) 2, tok.range.location, @"String should be found at offset 2");

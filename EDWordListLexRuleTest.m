@@ -21,7 +21,7 @@
 	rule.tokenType = EDKeywordToken;
 	
 	NSString *source = @"nothing to see here";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) buffer:nil states:nil];
 	
 	GHAssertNil(tok, @"nil should be returned since no match exists");
 }
@@ -32,7 +32,7 @@
 	rule.tokenType = EDKeywordToken;
 	
 	NSString *source = @"hello zapper, how are you?";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6) buffer:nil states:nil];
 	
 	GHAssertEquals(EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.location, @"Token location should be 6");
@@ -46,7 +46,7 @@
 	rule.tokenType = EDKeywordToken;
 	
 	NSString *source = @"hello zapper, how are you?";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(6, source.length - 6) buffer:nil states:nil];
 	
 	GHAssertEquals(EDKeywordToken, tok.type, @"Token type should be EDKeywordToken");
 	GHAssertEquals((NSUInteger) 6, (NSUInteger) tok.range.location, @"Token location should be 6");

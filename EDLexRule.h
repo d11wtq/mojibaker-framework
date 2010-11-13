@@ -9,7 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "EDTokenDefines.h"
 
+@class EDLexRule;
 @class EDLexicalToken;
+@class EDLexerBuffer;
 @class EDLexerStates;
 
 @interface EDLexRule : NSObject {
@@ -22,6 +24,7 @@
 	BOOL popsState;
 	BOOL beginsScope;
 	BOOL endsScope;
+	EDLexRule *follows;
 }
 
 @property (nonatomic) EDLexicalTokenType tokenType;
@@ -33,7 +36,8 @@
 @property (nonatomic) BOOL popsState;
 @property (nonatomic) BOOL beginsScope;
 @property (nonatomic) BOOL endsScope;
+@property (nonatomic, retain) EDLexRule *follows;
 
--(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states;
+-(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range buffer:(EDLexerBuffer *)buffer states:(EDLexerStates *)states;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "EDLexRule.h"
 #import "EDLexicalToken.h"
+#import "EDLexerBuffer.h"
 #import "EDLexerStates.h"
 
 @implementation EDLexRule
@@ -21,6 +22,7 @@
 @synthesize popsState;
 @synthesize beginsScope;
 @synthesize endsScope;
+@synthesize follows;
 
 -(id)init {
 	if (self = [super init]) {
@@ -38,8 +40,13 @@
 	return self;
 }
 
--(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
+-(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range buffer:(EDLexerBuffer *)buffer states:(EDLexerStates *)states {
 	return nil;
+}
+
+-(void)dealloc {
+	[follows release];
+	[super dealloc];
 }
 
 @end

@@ -23,7 +23,7 @@
 	return self;
 }
 
--(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
+-(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range buffer:(EDLexerBuffer *)buffer states:(EDLexerStates *)states {
 	// Test if the first character is in the set, if not, return early to save potentially expensive search
 	if (![permittedCharacterSet characterIsMember:[string characterAtIndex:range.location]]) {
 		return nil;

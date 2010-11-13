@@ -15,6 +15,8 @@
 		8314D00C1289F28900EDB067 /* NSMutableRangeValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314D00A1289F28900EDB067 /* NSMutableRangeValue.m */; };
 		8314D20A128C0E6F00EDB067 /* EDLexicalScope.h in Headers */ = {isa = PBXBuildFile; fileRef = 8314D208128C0E6F00EDB067 /* EDLexicalScope.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8314D20B128C0E6F00EDB067 /* EDLexicalScope.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314D209128C0E6F00EDB067 /* EDLexicalScope.m */; };
+		8314D356128D6FBB00EDB067 /* EDLexerBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 8314D354128D6FBB00EDB067 /* EDLexerBuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8314D357128D6FBB00EDB067 /* EDLexerBuffer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8314D355128D6FBB00EDB067 /* EDLexerBuffer.m */; };
 		8327351212732DBE006D2BA2 /* EDCharacterLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 832734FF12732DBE006D2BA2 /* EDCharacterLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8327351312732DBE006D2BA2 /* EDCharacterLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8327350012732DBE006D2BA2 /* EDCharacterLexRule.m */; };
 		8327351512732DBE006D2BA2 /* EDCharacterSetLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8327350212732DBE006D2BA2 /* EDCharacterSetLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -105,6 +107,8 @@
 		8314D00A1289F28900EDB067 /* NSMutableRangeValue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableRangeValue.m; sourceTree = "<group>"; };
 		8314D208128C0E6F00EDB067 /* EDLexicalScope.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexicalScope.h; sourceTree = "<group>"; };
 		8314D209128C0E6F00EDB067 /* EDLexicalScope.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexicalScope.m; sourceTree = "<group>"; };
+		8314D354128D6FBB00EDB067 /* EDLexerBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexerBuffer.h; sourceTree = "<group>"; };
+		8314D355128D6FBB00EDB067 /* EDLexerBuffer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexerBuffer.m; sourceTree = "<group>"; };
 		832734FF12732DBE006D2BA2 /* EDCharacterLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDCharacterLexRule.h; sourceTree = "<group>"; };
 		8327350012732DBE006D2BA2 /* EDCharacterLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCharacterLexRule.m; sourceTree = "<group>"; };
 		8327350112732DBE006D2BA2 /* EDCharacterLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDCharacterLexRuleTest.m; sourceTree = "<group>"; };
@@ -241,6 +245,8 @@
 				8314D00A1289F28900EDB067 /* NSMutableRangeValue.m */,
 				8314D208128C0E6F00EDB067 /* EDLexicalScope.h */,
 				8314D209128C0E6F00EDB067 /* EDLexicalScope.m */,
+				8314D354128D6FBB00EDB067 /* EDLexerBuffer.h */,
+				8314D355128D6FBB00EDB067 /* EDLexerBuffer.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -345,6 +351,7 @@
 				8314CF4C1289935500EDB067 /* EDLexerStatesSnapshot.h in Headers */,
 				8314D00B1289F28900EDB067 /* NSMutableRangeValue.h in Headers */,
 				8314D20A128C0E6F00EDB067 /* EDLexicalScope.h in Headers */,
+				8314D356128D6FBB00EDB067 /* EDLexerBuffer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +483,7 @@
 				8314CF4D1289935500EDB067 /* EDLexerStatesSnapshot.m in Sources */,
 				8314D00C1289F28900EDB067 /* NSMutableRangeValue.m in Sources */,
 				8314D20B128C0E6F00EDB067 /* EDLexicalScope.m in Sources */,
+				8314D357128D6FBB00EDB067 /* EDLexerBuffer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

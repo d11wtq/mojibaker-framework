@@ -13,6 +13,7 @@
 @class EDLexicalToken;
 @class EDLexerResult;
 @class EDLexerStates;
+@class EDLexerBuffer;
 
 @interface EDLexer : NSObject {
 	NSString *documentType;
@@ -34,6 +35,6 @@
 
 -(void)lexString:(NSString *)string intoResult:(EDLexerResult *)result;
 
--(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range;
+-(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range buffer:(EDLexerBuffer *)buffer;
 
 @end

@@ -11,6 +11,7 @@
 #import "EDLexerStatesSnapshot.h"
 #import "EDLexicalToken.h"
 #import "EDLexerResult.h"
+#import "EDLexerBuffer.h"
 #import "EDCharacterLexRule.h"
 #import "EDCharacterSetLexRule.h"
 #import "EDPatternLexRule.h"
@@ -51,6 +52,8 @@
 		return;
 	}
 	
+	EDLexerBuffer *buffer = [[EDLexerBuffer alloc] initWithLexer:self string:string];
+	
 	EDLexerStatesSnapshot *snapshot = [[states snapshot] retain];
 	
 	NSUInteger editedRangeEnd = editedRange.location + editedRange.length;
@@ -75,6 +78,8 @@
 		}
 	}
 	
+	buffer.lookbehind = existingToken;
+	
 	if (existingToken) {
 		snapshot = [existingToken statesSnapshot];
 		[states applySnapshot:snapshot];
@@ -85,7 +90,8 @@
 	BOOL copyRemaining = NO;
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
-	while (newToken = [self nextTokenInString:string range:nextRange]) {
+	while (newToken = [self nextTokenInString:string range:nextRange buffer:buffer]) {
+		buffer.lookbehind = newToken;
 		newToken.statesSnapshot = snapshot;
 		
 		if (states.isChanged) {
@@ -132,6 +138,7 @@
 	}
 	
 	[snapshot release];
+	[buffer release];
 	[states reset];
 }
 
@@ -143,18 +150,27 @@
 		 intoResult:result];
 }
 
--(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range {
+-(EDLexicalToken *)nextTokenInString:(NSString *)string range:(NSRange)range buffer:(EDLexerBuffer *)buffer {
 	EDLexRule *bestRule = nil;
 	EDLexicalToken *bestToken = nil;
 	
 	for (EDLexRule *rule in rules) {
+		if (rule.follows && rule.follows != buffer.lookbehind.rule) {
+			continue;
+		}
+		
 		if (rule.state > -1) {
-			if (!rule.isStateInclusive && rule.state != states.currentState) continue;
-			if (rule.isStateInclusive && ![states includesState:rule.state]) continue;
+			if (!rule.isStateInclusive && rule.state != states.currentState) {
+				continue;
+			}
+			
+			if (rule.isStateInclusive && ![states includesState:rule.state]) {
+				continue;
+			}
 		}
 		
 		EDLexicalToken *tok = nil;
-		if (tok = [rule lexInString:string range:range states:states]) {
+		if (tok = [rule lexInString:string range:range buffer:buffer states:states]) {
 			if (bestToken == nil || tok.range.length > bestToken.range.length) {
 				bestToken = tok;
 				bestRule = rule;
@@ -169,7 +185,7 @@
 	if (bestToken == nil) {
 		for (EDLexRule *rule in lastResortRules) {
 			EDLexicalToken *tok = nil;
-			if (tok = [rule lexInString:string range:range states:states]) {
+			if (tok = [rule lexInString:string range:range buffer:buffer states:states]) {
 				bestToken = tok;
 				bestRule = rule;
 				break;

@@ -32,7 +32,7 @@
 	return self;
 }
 
--(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range states:(EDLexerStates *)states {
+-(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range buffer:(EDLexerBuffer *)buffer states:(EDLexerStates *)states {
 	EDLexicalToken *tok = nil;
 	
 	if ([states includesState:embeddedState] && states.currentState > 0) {
@@ -47,7 +47,7 @@
 		}
 		
 		if (tok == nil) { // Didn't find the end delimiter
-			tok = [lexer nextTokenInString:string range:range];
+			tok = [lexer nextTokenInString:string range:range buffer:buffer];
 		}
 	} else {
 		NSRange startRange = NSMakeRange(range.location, start.length);

@@ -22,7 +22,7 @@
 	NSUInteger i;
 	NSUInteger len = source.length;
 	for (i = 0; i < len; ++i) {
-		EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(i, len - i) states:nil];
+		EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(i, len - i) buffer:nil states:nil];
 		GHAssertEquals(EDUnmatchedToken, tok.type, @"Type should be EDUnmatchedToken");
 		GHAssertEquals((NSUInteger) i, tok.range.location, @"Location should be start of range");
 		GHAssertEquals((NSUInteger) 1, tok.range.length, @"Length should be 1");
@@ -36,7 +36,7 @@
 	
 	NSString *source = @" ";
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, 1) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, 1) buffer:nil states:nil];
 	GHAssertEquals(EDWhitespaceToken, tok.type, @"Type should be EDWhitespaceToken");
 }
 
@@ -46,7 +46,7 @@
 	
 	NSString *source = @"abc";
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, 1) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, 1) buffer:nil states:nil];
 	GHAssertNil(tok, @"Char not found so nil should be returned");
 }
 
@@ -55,7 +55,7 @@
 	
 	NSString *source = @"bc";
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, 1) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, 1) buffer:nil states:nil];
 	GHAssertEquals((NSUInteger)0, (NSUInteger)tok.range.location, @"Char found so location should be 0");
 	GHAssertEquals((NSUInteger)1, (NSUInteger)tok.range.length, @"Char found so length should be 1");
 }

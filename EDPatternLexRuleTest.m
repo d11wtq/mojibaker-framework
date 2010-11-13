@@ -18,7 +18,7 @@
 -(void)testReturnsNilIfPatternNotFoundAtRange {
 	EDLexRule *rule = [EDPatternLexRule ruleWithPattern:@"^\\$[a-z]+"];
 	NSString *source = @"foo $test";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) buffer:nil states:nil];
 	
 	GHAssertNil(tok, @"Pattern is not found at range so should return nil");
 }
@@ -28,7 +28,7 @@
 	rule.tokenType = EDVariableToken;
 	
 	NSString *source = @"foo $test";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4) buffer:nil states:nil];
 	
 	GHAssertEquals(EDVariableToken, tok.type, @"Token should be a variable token type");
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Token should be at location 4");

@@ -34,7 +34,7 @@
 	
 	NSString *source = @"abc <% foo bar %> def";
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:states];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) buffer:nil states:states];
 	
 	GHAssertNil(tok, @"Nil should be returned since match does not fall in range");
 	
@@ -60,7 +60,7 @@
 	
 	NSString *source = @"abc <% foo bar %> def";
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4) states:states];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4) buffer:nil states:states];
 	
 	GHAssertEquals(EDEmbeddedLanguageDelimiterToken, tok.type, @"Type should be EDEmbeddedLanguageDelimiterToken");
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Location should be 4");
@@ -88,7 +88,7 @@
 	
 	NSString *source = @"abc <% foo bar %> def";
 	
-	[rule lexInString:source range:NSMakeRange(4, source.length - 4) states:states];
+	[rule lexInString:source range:NSMakeRange(4, source.length - 4) buffer:nil states:states];
 	
 	GHAssertEquals(s1, states.currentState, @"State should be changed");
 	
@@ -116,7 +116,7 @@
 	
 	[states pushState:s1];
 	
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(7, source.length - 7) states:states];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(7, source.length - 7) buffer:nil states:states];
 	
 	GHAssertEquals(EDDefinerKeywordToken, tok.type, @"Token should be type EDDefinerKeywordToken");
 	
@@ -144,7 +144,7 @@
 	
 	[states pushState:s1];
 	
-	[rule lexInString:source range:NSMakeRange(15, source.length - 15) states:states];
+	[rule lexInString:source range:NSMakeRange(15, source.length - 15) buffer:nil states:states];
 	
 	GHAssertEquals((NSUInteger) 0, states.currentState, @"State should be reset");
 	

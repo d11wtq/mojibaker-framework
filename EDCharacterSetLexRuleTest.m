@@ -20,7 +20,7 @@
 	rule.tokenType = EDWhitespaceToken;
 	
 	NSString *source = @"test \t\t\n class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(0, source.length) buffer:nil states:nil];
 	GHAssertNil(tok, @"Nil should be return since whitespace chars not in range");
 }
 
@@ -29,7 +29,7 @@
 	rule.tokenType = EDWhitespaceToken;
 	
 	NSString *source = @"test \t\t\r\n class foo";
-	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4) states:nil];
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(4, source.length - 4) buffer:nil states:nil];
 	
 	GHAssertEquals(EDWhitespaceToken, tok.type, @"Token type should be EDWhitespaceToken");
 	GHAssertEquals((NSUInteger) 4, tok.range.location, @"Matched token range should always be range searched");
