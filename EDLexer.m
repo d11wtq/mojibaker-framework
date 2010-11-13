@@ -123,6 +123,10 @@
 			}
 		} else {
 			[result addToken:newToken isNew:YES];
+			for (EDLexicalToken *lookahead in [buffer lookaheadStack]) {
+				[result addToken:lookahead];
+				newToken = lookahead;
+			}
 		}
 		
 		nextRange.location += newToken.range.length;
