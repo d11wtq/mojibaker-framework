@@ -20,6 +20,8 @@
 	NSMutableArray *rules;
 	NSArray *lastResortRules;
 	EDLexerStates *states;
+	
+	NSMutableArray *skippedTokens;
 }
 
 @property (nonatomic, copy) NSString *documentType;
@@ -27,6 +29,8 @@
 
 +(id)lexerWithStates:(EDLexerStates *)stateMachine;
 -(id)initWithStates:(EDLexerStates *)stateMachine;
+
+-(void)addSkippedToken:(EDLexicalTokenType)tokenType;
 
 -(void)addRule:(EDLexRule *)ruleToAdd;
 

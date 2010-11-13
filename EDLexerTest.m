@@ -322,6 +322,38 @@
 	GHAssertEquals(notFuncName, otherToken.rule, @"The notFuncName rule should have matched the other token");
 }
 
+-(void)testNeutralTokensCanBeSkippedForLookbehindChecks {
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
+	
+	EDLexRule *comment = [EDBoundedRegionLexRule ruleWithStart:@"/*" end:@"*/" escape:nil];
+	comment.tokenType = EDMultilineCommentToken;
+	
+	EDLexRule *arrow = [EDExactMatchLexRule ruleWithString:@"->" caseInsensitive:NO];
+	EDLexRule *funcName = [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+"];
+	funcName.follows = arrow;
+	EDLexRule *notFuncName = [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+"];
+	
+	[lexer addSkippedToken:EDWhitespaceToken];
+	[lexer addSkippedToken:EDMultilineCommentToken];
+	
+	[lexer addRule:comment];
+	[lexer addRule:arrow];
+	[lexer addRule:funcName];
+	[lexer addRule:notFuncName];
+	
+	NSString *source = @"$this -> /* test */ foo = bar";
+	
+	EDLexerResult *result = [EDLexerResult result];
+	
+	[lexer lexString:source intoResult:result];
+	
+	EDLexicalToken *tokAfterArrow = [result tokenAtRange:NSMakeRange(20, 3)];
+	EDLexicalToken *otherToken = [result tokenAtRange:NSMakeRange(26, 3)];
+	
+	GHAssertEquals(funcName, tokAfterArrow.rule, @"The funcName rule should have matched the token after the arrow");
+	GHAssertEquals(notFuncName, otherToken.rule, @"The notFuncName rule should have matched the other token");
+}
+
 #pragma mark -
 #pragma mark Complex state tests
 

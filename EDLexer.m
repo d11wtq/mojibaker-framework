@@ -36,9 +36,15 @@
 		lastResortRules = [[NSMutableArray alloc] initWithObjects:whiteSpaceRule,
 						   [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+"],
 						   [EDCharacterLexRule rule], nil];
+		
+		skippedTokens = [[NSMutableArray alloc] init];
 	}
 	
 	return self;
+}
+
+-(void)addSkippedToken:(EDLexicalTokenType)tokenType {
+	[skippedTokens addObject:[NSNumber numberWithUnsignedInteger:tokenType]];
 }
 
 -(void)addRule:(EDLexRule *)ruleToAdd {
@@ -71,14 +77,18 @@
 	NSEnumerator *previousResultEnumerator = [previousResult.tokens objectEnumerator];
 	
 	while (existingToken = [previousResultEnumerator nextObject]) {
+		NSNumber *type = [[NSNumber alloc] initWithUnsignedInteger:existingToken.type];
+		if (![skippedTokens containsObject:type]) {
+			buffer.lookbehind = existingToken;
+		}
+		[type release];
+		
 		if (existingToken.range.location < nextRange.location) {
 			[result addToken:existingToken];
 		} else {
 			break;
 		}
 	}
-	
-	buffer.lookbehind = existingToken;
 	
 	if (existingToken) {
 		snapshot = [existingToken statesSnapshot];
@@ -91,7 +101,12 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	while (newToken = [self nextTokenInString:string range:nextRange buffer:buffer]) {
-		buffer.lookbehind = newToken;
+		NSNumber *type = [[NSNumber alloc] initWithUnsignedInteger:newToken.type];
+		if (![skippedTokens containsObject:type]) {
+			buffer.lookbehind = newToken;
+		}
+		[type release];
+		
 		newToken.statesSnapshot = snapshot;
 		
 		if (states.isChanged) {
@@ -213,6 +228,7 @@
 	[states release];
 	[rules release];
 	[lastResortRules release];
+	[skippedTokens release];
 	[super dealloc];
 }
 
