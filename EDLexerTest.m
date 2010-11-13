@@ -379,6 +379,38 @@
 	GHAssertEquals(notFuncCall, otherToken.rule, @"The notFuncCall rule should have matched the other token");
 }
 
+-(void)testNeutralTokensCanBeSkippedForLookaheadChecks {
+	EDLexer *lexer = [EDLexer lexerWithStates:nil];
+	
+	EDLexRule *comment = [EDBoundedRegionLexRule ruleWithStart:@"/*" end:@"*/" escape:nil];
+	comment.tokenType = EDMultilineCommentToken;
+	
+	EDLexRule *paren = [EDCharacterLexRule ruleWithUnicodeChar:'('];
+	EDLexRule *funcCall = [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+"];
+	funcCall.precedes = paren;
+	EDLexRule *notFuncCall = [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+"];
+	
+	[lexer addRule:comment];
+	[lexer addRule:paren];
+	[lexer addRule:funcCall];
+	[lexer addRule:notFuncCall];
+	
+	[lexer addSkippedToken:EDWhitespaceToken];
+	[lexer addSkippedToken:EDMultilineCommentToken];
+	
+	NSString *source = @"x + foo /* test */ () > bar + zip";
+	
+	EDLexerResult *result = [EDLexerResult result];
+	
+	[lexer lexString:source intoResult:result];
+	
+	EDLexicalToken *tokBeforeParen = [result tokenAtRange:NSMakeRange(4, 3)];
+	EDLexicalToken *otherToken = [result tokenAtRange:NSMakeRange(24, 3)];
+	
+	GHAssertEquals(funcCall, tokBeforeParen.rule, @"The funcCall rule should have matched the token before the parenthesis");
+	GHAssertEquals(notFuncCall, otherToken.rule, @"The notFuncCall rule should have matched the other token");
+}
+
 #pragma mark -
 #pragma mark Complex state tests
 

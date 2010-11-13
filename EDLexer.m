@@ -178,6 +178,7 @@
 	EDLexicalToken *bestToken = nil;
 	
 	for (EDLexRule *rule in rules) {
+		// Handle lookbehind checks early
 		if (rule.follows && rule.follows != buffer.lookbehind.rule) {
 			continue;
 		}
@@ -197,8 +198,20 @@
 			buffer.token = tok;
 			
 			if (bestToken == nil || tok.range.length > bestToken.range.length) {
-				if (tok.rule.precedes && tok.rule.precedes != [buffer lookahead].rule) {
-					continue;
+				// Handle lookahead checks
+				if (tok.rule.precedes) {
+					EDLexicalToken *lookahead = nil;
+					while (lookahead = [buffer lookahead]) {
+						NSNumber *type = [[NSNumber alloc] initWithUnsignedInteger:lookahead.type];
+						if (![skippedTokens containsObject:type]) {
+							break;
+						}
+						[type release];
+					}
+					
+					if (tok.rule.precedes != lookahead.rule) {
+						continue;
+					}
 				}
 				
 				bestToken = tok;
