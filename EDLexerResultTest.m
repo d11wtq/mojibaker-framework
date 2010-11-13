@@ -143,4 +143,55 @@
 	GHAssertTrue(NSEqualRanges(NSMakeRange(10, 2), scope3.range), @"Third scope should be at (10,2)");
 }
 
+-(void)testCodeOutlineIsKnown {
+	EDLexerResult *result = [EDLexerResult result];
+	
+	EDLexRule *opRule = [[[EDLexRule alloc] init] autorelease];
+	opRule.beginsScope = YES;
+	
+	EDLexRule *clRule = [[[EDLexRule alloc] init] autorelease];
+	clRule.endsScope = YES;
+	
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDDefinerKeywordToken range:NSMakeRange(0, 5) value:@"class" rule:nil];
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDClassDefinitionToken range:NSMakeRange(6, 3) value:@"Foo" rule:nil];
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(9, 1) value:@"{" rule:opRule];
+	EDLexicalToken *t4 = [EDLexicalToken tokenWithType:EDDefinerKeywordToken range:NSMakeRange(11, 8) value:@"function" rule:nil];
+	EDLexicalToken *t5 = [EDLexicalToken tokenWithType:EDMethodDefinitionToken range:NSMakeRange(20, 3) value:@"bar" rule:nil];
+	EDLexicalToken *t6 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(24, 1) value:@"{" rule:opRule];
+	EDLexicalToken *t7 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(25, 1) value:@"}" rule:clRule];
+	EDLexicalToken *t8 = [EDLexicalToken tokenWithType:EDDefinerKeywordToken range:NSMakeRange(27, 8) value:@"function" rule:nil];
+	EDLexicalToken *t9 = [EDLexicalToken tokenWithType:EDMethodDefinitionToken range:NSMakeRange(36, 3) value:@"zip" rule:nil];
+	EDLexicalToken *t10 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(39, 1) value:@"{" rule:opRule];
+	EDLexicalToken *t11 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(40, 1) value:@"}" rule:clRule];
+	EDLexicalToken *t12 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(41, 1) value:@"}" rule:clRule];
+	
+	[result addToken:t1];
+	[result addToken:t2];
+	[result addToken:t3];
+	[result addToken:t4];
+	[result addToken:t5];
+	[result addToken:t6];
+	[result addToken:t7];
+	[result addToken:t8];
+	[result addToken:t9];
+	[result addToken:t10];
+	[result addToken:t11];
+	[result addToken:t12];
+	
+	NSArray *tree = [result tree];
+	
+	GHAssertEquals((NSUInteger) 2, [tree count], @"There should be one top level element");
+	
+	EDLexicalToken *topLevel = [tree objectAtIndex:0];
+	
+	GHAssertEquals(t2, topLevel, @"Top level token should be the class definition");
+	
+	NSArray *children = [tree objectAtIndex:1];
+	
+	GHAssertEquals((NSUInteger) 2, [children count], @"Class definition should have two child symbols");
+	
+	GHAssertEquals(t5, [children objectAtIndex:0], @"First child should be the method 'bar'");
+	GHAssertEquals(t9, [children objectAtIndex:1], @"Second child should be the method 'zip'");
+}
+
 @end

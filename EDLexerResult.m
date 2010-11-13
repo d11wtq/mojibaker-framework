@@ -17,6 +17,7 @@
 @synthesize tokens;
 @synthesize newTokens;
 @synthesize scopes;
+@synthesize tree;
 
 +(id)result {
 	return [[[self alloc] init] autorelease];
@@ -32,6 +33,9 @@
 		newTokens = [[NSMutableArray alloc] init];
 		scopes = [[NSMutableArray alloc] initWithCapacity:128];
 		scopesStack = [[NSMutableArray alloc] initWithCapacity:20];
+		tree = [[NSMutableArray alloc] init];
+		
+		treeStack = [[NSMutableArray alloc] initWithObjects:tree, nil];
 	}
 	
 	return self;
@@ -50,10 +54,21 @@
 -(void)addToken:(EDLexicalToken *)token {
 	[tokens addObject:token];
 	
+	switch (token.type) {
+		case EDFunctionDefinitionToken:
+		case EDClassDefinitionToken:
+		case EDMethodDefinitionToken:
+			[[treeStack lastObject] addObject:token];
+			break;
+	}
+	
 	if (token.rule.beginsScope) {
 		NSValue *rangeValue = [NSMutableRangeValue valueWithRange:NSMakeRange(token.range.location, 0)];
 		[scopesStack addObject:rangeValue];
 		[scopes addObject:[EDLexicalScope scopeWithRangeValue:rangeValue]];
+		
+		[[treeStack lastObject] addObject:[NSMutableArray array]];
+		[treeStack addObject:[[treeStack lastObject] lastObject]];
 	}
 	
 	if (token.rule.endsScope) {
@@ -64,6 +79,11 @@
 			NSRange actualRange = [value rangeValue];
 			actualRange.length = NSMaxRange(token.range) - actualRange.location;
 			[value setRangeValue:actualRange];
+			
+			[treeStack removeLastObject];
+			if ([[[treeStack lastObject] lastObject] count] == 0) {
+				[[treeStack lastObject] removeLastObject];
+			}
 		}
 	}
 }
@@ -142,6 +162,8 @@
 	[newTokens release];
 	[scopes release];
 	[scopesStack release];
+	[tree release];
+	[treeStack release];
 	[super dealloc];
 }
 

@@ -23,6 +23,8 @@ typedef enum _EDLexicalTokenType {
 	EDMultilineComment2Token,
 	EDMultilineComment3Token,
 	EDFunctionDefinitionToken,
+	EDClassDefinitionToken,
+	EDMethodDefinitionToken,
 	EDVariableToken,
 	EDVariable2Token,
 	EDVariable3Token,

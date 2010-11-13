@@ -15,6 +15,9 @@
 	NSMutableArray *newTokens;
 	NSMutableArray *scopesStack;
 	NSMutableArray *scopes;
+	NSMutableArray *tree;
+	
+	NSMutableArray *treeStack;
 }
 
 +(id)result;
@@ -24,6 +27,7 @@
 @property (readonly) NSArray *tokens;
 @property (readonly) NSArray *newTokens;
 @property (readonly) NSArray *scopes;
+@property (readonly) NSArray *tree;
 
 -(void)addToken:(EDLexicalToken *)token;
 -(void)addToken:(EDLexicalToken *)token isNew:(BOOL)newFlag;
