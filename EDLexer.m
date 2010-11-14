@@ -89,11 +89,10 @@
 	NSEnumerator *previousResultEnumerator = [previousResult.tokens objectEnumerator];
 	
 	while (existingToken = [previousResultEnumerator nextObject]) {
-		if (![existingToken.rule.lexer shouldSkipToken:existingToken]) {
-			buffer.lookbehind = existingToken;
-		}
-		
 		if (existingToken.range.location < nextRange.location) {
+			if (![existingToken.rule.lexer shouldSkipToken:existingToken]) {
+				buffer.lookbehind = existingToken;
+			}
 			[result addToken:existingToken];
 		} else {
 			break;
