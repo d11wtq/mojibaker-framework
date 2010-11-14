@@ -37,6 +37,10 @@
 						   [EDPatternLexRule ruleWithPattern:@"^[a-zA-Z0-9_]+"],
 						   [EDCharacterLexRule rule], nil];
 		
+		for (EDLexRule *r in lastResortRules) {
+			[r setLexer:self];
+		}
+		
 		skippedTokens = [[NSMutableArray alloc] init];
 	}
 	
@@ -47,7 +51,15 @@
 	[skippedTokens addObject:[NSNumber numberWithUnsignedInteger:tokenType]];
 }
 
+-(BOOL)shouldSkipToken:(EDLexicalToken *)token {
+	NSNumber *typeNumber = [[NSNumber alloc] initWithUnsignedInteger:token.type];
+	BOOL skip = [skippedTokens containsObject:typeNumber];
+	[typeNumber release];
+	return skip;
+}
+
 -(void)addRule:(EDLexRule *)ruleToAdd {
+	[ruleToAdd setLexer:self];
 	[rules addObject:ruleToAdd];
 }
 
@@ -77,11 +89,9 @@
 	NSEnumerator *previousResultEnumerator = [previousResult.tokens objectEnumerator];
 	
 	while (existingToken = [previousResultEnumerator nextObject]) {
-		NSNumber *type = [[NSNumber alloc] initWithUnsignedInteger:existingToken.type];
-		if (![skippedTokens containsObject:type]) {
+		if (![existingToken.rule.lexer shouldSkipToken:existingToken]) {
 			buffer.lookbehind = existingToken;
 		}
-		[type release];
 		
 		if (existingToken.range.location < nextRange.location) {
 			[result addToken:existingToken];
@@ -101,11 +111,9 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	
 	while (newToken = [self nextTokenInString:string range:nextRange buffer:buffer]) {
-		NSNumber *type = [[NSNumber alloc] initWithUnsignedInteger:newToken.type];
-		if (![skippedTokens containsObject:type]) {
+		if (![newToken.rule.lexer shouldSkipToken:newToken]) {
 			buffer.lookbehind = newToken;
 		}
-		[type release];
 		
 		newToken.statesSnapshot = snapshot;
 		
@@ -202,11 +210,9 @@
 				if (tok.rule.precedes) {
 					EDLexicalToken *lookahead = nil;
 					while (lookahead = [buffer lookahead]) {
-						NSNumber *type = [[NSNumber alloc] initWithUnsignedInteger:lookahead.type];
-						if (![skippedTokens containsObject:type]) {
+						if (![lookahead.rule.lexer shouldSkipToken:lookahead]) {
 							break;
 						}
-						[type release];
 					}
 					
 					if (tok.rule.precedes != lookahead.rule) {
@@ -255,6 +261,7 @@
 -(void)dealloc {
 	[documentType release];
 	[states release];
+	[rules makeObjectsPerformSelector:@selector(setLexer:) withObject:nil];
 	[rules release];
 	[lastResortRules release];
 	[skippedTokens release];

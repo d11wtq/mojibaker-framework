@@ -14,13 +14,13 @@
 @interface EDEmbeddedLanguageLexRule : EDLexRule {
 	NSString *start;
 	NSString *end;
-	EDLexer *lexer;
+	EDLexer *embeddedLexer;
 	NSUInteger embeddedState;
 }
 
-+(id)ruleWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer
++(id)ruleWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)aLexer
 		usingState:(NSUInteger)stateId;
--(id)initWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer
+-(id)initWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)aLexer
 		usingState:(NSUInteger)stateId;
 
 @end

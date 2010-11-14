@@ -9,12 +9,15 @@
 #import <Cocoa/Cocoa.h>
 #import "EDTokenDefines.h"
 
+@class EDLexer;
 @class EDLexRule;
 @class EDLexicalToken;
 @class EDLexerBuffer;
 @class EDLexerStates;
 
 @interface EDLexRule : NSObject {
+	EDLexer *lexer;
+	
 	EDLexicalTokenType tokenType;
 	BOOL isDefinite;
 	NSInteger state;
@@ -28,6 +31,7 @@
 	EDLexRule *precedes;
 }
 
+@property (nonatomic, assign) EDLexer *lexer;
 @property (nonatomic) EDLexicalTokenType tokenType;
 @property (nonatomic, setter=setDefinite:) BOOL isDefinite;
 @property (nonatomic) NSInteger state;

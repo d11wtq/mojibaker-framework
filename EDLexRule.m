@@ -7,12 +7,14 @@
 //
 
 #import "EDLexRule.h"
+#import "EDLexer.h"
 #import "EDLexicalToken.h"
 #import "EDLexerBuffer.h"
 #import "EDLexerStates.h"
 
 @implementation EDLexRule
 
+@synthesize lexer;
 @synthesize tokenType;
 @synthesize isDefinite;
 @synthesize state;

@@ -31,6 +31,7 @@
 -(id)initWithStates:(EDLexerStates *)stateMachine;
 
 -(void)addSkippedToken:(EDLexicalTokenType)tokenType;
+-(BOOL)shouldSkipToken:(EDLexicalToken *)token;
 
 -(void)addRule:(EDLexRule *)ruleToAdd;
 

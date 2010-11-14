@@ -14,16 +14,16 @@
 
 @implementation EDEmbeddedLanguageLexRule
 
-+(id)ruleWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer
++(id)ruleWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)aLexer
 		usingState:(NSUInteger)stateId {
-	return [[[self alloc] initWithStart:startString end:endString lexer:embeddedLexer usingState:stateId] autorelease];
+	return [[[self alloc] initWithStart:startString end:endString lexer:aLexer usingState:stateId] autorelease];
 }
 
--(id)initWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)embeddedLexer usingState:(NSUInteger)stateId {
+-(id)initWithStart:(NSString *)startString end:(NSString *)endString lexer:(EDLexer *)aLexer usingState:(NSUInteger)stateId {
 	if (self = [self init]) {
 		start = [startString copy];
 		end = [endString copy];
-		lexer = [embeddedLexer retain];
+		embeddedLexer = [aLexer retain];
 		embeddedState = stateId;
 		state = stateId;
 		isStateInclusive = YES;
@@ -47,7 +47,7 @@
 		}
 		
 		if (tok == nil) { // Didn't find the end delimiter
-			tok = [lexer nextTokenInString:string range:range buffer:buffer];
+			tok = [embeddedLexer nextTokenInString:string range:range buffer:buffer];
 		}
 	} else {
 		NSRange startRange = NSMakeRange(range.location, start.length);
@@ -66,7 +66,7 @@
 -(void)dealloc {
 	[start release];
 	[end release];
-	[lexer release];
+	[embeddedLexer release];
 	[super dealloc];
 }
 
