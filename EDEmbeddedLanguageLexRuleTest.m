@@ -151,4 +151,29 @@
 	[states release];
 }
 
+-(void)testSingleLineCommentsCannotConsumeTheEndDelimiter {
+	EDLexerStates *states = [[EDLexerStates alloc] init];
+	
+	NSUInteger s1 = [states stateNamed:@"s1"];
+	
+	EDLexRule *r1 = [EDBoundedRegionLexRule ruleWithStart:@"//" end:@"\n" escape:nil];
+	r1.tokenType = EDSingleLineCommentToken;
+	
+	EDLexer *lexer = [EDLexer lexerWithStates:states];
+	[lexer addRule:r1];
+	
+	EDLexRule *rule = [EDEmbeddedLanguageLexRule ruleWithStart:@"<%" end:@"%>" lexer:lexer usingState:s1];
+	
+	NSString *source = @"abc <% // comment %> def";
+	
+	[states pushState:s1];
+	
+	EDLexicalToken *tok = [rule lexInString:source range:NSMakeRange(7, source.length - 7) buffer:nil states:states];
+	
+	GHAssertEquals(EDSingleLineCommentToken, tok.type, @"Token should be type EDSingleLineCommentToken");
+	GHAssertEquals((NSUInteger) 11, tok.range.length, @"Token should have length 11, not 13");
+	
+	[states release];
+}
+
 @end

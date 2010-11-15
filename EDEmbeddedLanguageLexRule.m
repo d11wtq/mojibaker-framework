@@ -48,6 +48,21 @@
 		
 		if (tok == nil) { // Didn't find the end delimiter
 			tok = [embeddedLexer nextTokenInString:string range:range buffer:buffer];
+			switch (tok.type) {
+				case EDSingleLineCommentToken:
+				case EDSingleLineComment2Token:
+					
+					// Comment token captured the end tag, fix manually
+					endRange = [[string substringWithRange:tok.range] rangeOfString:end];
+					if (endRange.location != NSNotFound) {
+						NSRange tokenRange = tok.range;
+						tokenRange.length = endRange.location;
+						
+						tok.range = tokenRange;
+					}
+					
+					break;
+			}
 		}
 	} else {
 		NSRange startRange = NSMakeRange(range.location, start.length);

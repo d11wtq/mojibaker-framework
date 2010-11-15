@@ -25,7 +25,7 @@
 
 @property (readonly) EDLexRule *rule;
 @property (readonly) EDLexicalTokenType type;
-@property (readonly) NSRange range;
+@property (nonatomic) NSRange range;
 @property (readonly) NSString *value;
 @property (nonatomic, retain) EDLexerStatesSnapshot *statesSnapshot;
 
