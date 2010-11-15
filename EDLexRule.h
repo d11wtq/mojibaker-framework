@@ -17,7 +17,6 @@
 
 @interface EDLexRule : NSObject {
 	EDLexer *lexer;
-	
 	EDLexicalTokenType tokenType;
 	BOOL isDefinite;
 	NSInteger state;
@@ -27,8 +26,10 @@
 	BOOL popsState;
 	BOOL beginsScope;
 	BOOL endsScope;
-	EDLexRule *follows;
-	EDLexRule *precedes;
+	EDLexRule *follows;  // FIXME: Rename -lookbehindRule
+	EDLexRule *precedes; // FIXME: Rename -lookaheadRule
+	
+	BOOL includedInSymbolTree;
 }
 
 @property (nonatomic, assign) EDLexer *lexer;
@@ -43,6 +44,7 @@
 @property (nonatomic) BOOL endsScope;
 @property (nonatomic, retain) EDLexRule *follows;
 @property (nonatomic, retain) EDLexRule *precedes;
+@property (nonatomic) BOOL includedInSymbolTree;
 
 -(EDLexicalToken *)lexInString:(NSString *)string range:(NSRange)range buffer:(EDLexerBuffer *)buffer states:(EDLexerStates *)states;
 

@@ -146,6 +146,9 @@
 -(void)testCodeOutlineIsKnown {
 	EDLexerResult *result = [EDLexerResult result];
 	
+	EDLexRule *treeItem = [[[EDLexRule alloc] init] autorelease];
+	treeItem.includedInSymbolTree = YES;
+	
 	EDLexRule *opRule = [[[EDLexRule alloc] init] autorelease];
 	opRule.beginsScope = YES;
 	
@@ -153,14 +156,14 @@
 	clRule.endsScope = YES;
 	
 	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDDefinerKeywordToken range:NSMakeRange(0, 5) value:@"class" rule:nil];
-	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDClassDefinitionToken range:NSMakeRange(6, 3) value:@"Foo" rule:nil];
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDClassDefinitionToken range:NSMakeRange(6, 3) value:@"Foo" rule:treeItem];
 	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(9, 1) value:@"{" rule:opRule];
 	EDLexicalToken *t4 = [EDLexicalToken tokenWithType:EDDefinerKeywordToken range:NSMakeRange(11, 8) value:@"function" rule:nil];
-	EDLexicalToken *t5 = [EDLexicalToken tokenWithType:EDMethodDefinitionToken range:NSMakeRange(20, 3) value:@"bar" rule:nil];
+	EDLexicalToken *t5 = [EDLexicalToken tokenWithType:EDMethodDefinitionToken range:NSMakeRange(20, 3) value:@"bar" rule:treeItem];
 	EDLexicalToken *t6 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(24, 1) value:@"{" rule:opRule];
 	EDLexicalToken *t7 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(25, 1) value:@"}" rule:clRule];
 	EDLexicalToken *t8 = [EDLexicalToken tokenWithType:EDDefinerKeywordToken range:NSMakeRange(27, 8) value:@"function" rule:nil];
-	EDLexicalToken *t9 = [EDLexicalToken tokenWithType:EDMethodDefinitionToken range:NSMakeRange(36, 3) value:@"zip" rule:nil];
+	EDLexicalToken *t9 = [EDLexicalToken tokenWithType:EDMethodDefinitionToken range:NSMakeRange(36, 3) value:@"zip" rule:treeItem];
 	EDLexicalToken *t10 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(39, 1) value:@"{" rule:opRule];
 	EDLexicalToken *t11 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(40, 1) value:@"}" rule:clRule];
 	EDLexicalToken *t12 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(41, 1) value:@"}" rule:clRule];

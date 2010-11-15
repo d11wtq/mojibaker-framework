@@ -26,6 +26,7 @@
 @synthesize endsScope;
 @synthesize follows;
 @synthesize precedes;
+@synthesize includedInSymbolTree;
 
 -(id)init {
 	if (self = [super init]) {
@@ -38,6 +39,7 @@
 		popsState = NO;
 		beginsScope = NO;
 		endsScope = NO;
+		includedInSymbolTree = NO;
 	}
 	
 	return self;

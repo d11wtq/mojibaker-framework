@@ -54,12 +54,8 @@
 -(void)addToken:(EDLexicalToken *)token {
 	[tokens addObject:token];
 	
-	switch (token.type) {
-		case EDFunctionDefinitionToken:
-		case EDClassDefinitionToken:
-		case EDMethodDefinitionToken:
-			[[treeStack lastObject] addObject:token];
-			break;
+	if (token.rule.includedInSymbolTree) {
+		[[treeStack lastObject] addObject:token];
 	}
 	
 	if (token.rule.beginsScope) {
