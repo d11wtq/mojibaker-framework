@@ -17,6 +17,7 @@
 @synthesize type;
 @synthesize range;
 @synthesize value;
+@synthesize attachedScope;
 @synthesize statesSnapshot;
 
 +(id)tokenWithType:(EDLexicalTokenType)aType range:(NSRange)aRange value:(NSString *)aValue rule:(EDLexRule *)aRule {
@@ -32,6 +33,17 @@
 	}
 	
 	return self;
+}
+
+-(NSRange)effectiveRange {
+	NSRange effectiveRange;
+	if (attachedScope == nil) {
+		effectiveRange = range;
+	} else {
+		effectiveRange = NSUnionRange(range, [attachedScope range]);
+	}
+	
+	return effectiveRange;
 }
 
 -(void)moveBy:(NSInteger)delta {
@@ -50,6 +62,7 @@
 -(void)dealloc {
 	[rule release];
 	[value release];
+	[attachedScope release];
 	[super dealloc];
 }
 

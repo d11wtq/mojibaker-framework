@@ -31,4 +31,18 @@
 	GHAssertTrue([tokA isEqualToToken:tokB], @"Tokens should be the same");
 }
 
+-(void)testEffectiveRangeReturnsActualRangeWithoutScope {
+	EDLexicalToken *tok = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(4, 8) value:@"function" rule:nil];
+	
+	GHAssertTrue(NSEqualRanges(NSMakeRange(4, 8), tok.effectiveRange), @"Effective range should be actual range");
+}
+
+-(void)testEffectiveRangeReturnsSumOfRangesWithScope {
+	EDLexicalScope *scope = [EDLexicalScope scopeWithRangeValue:[NSValue valueWithRange:NSMakeRange(16, 10)]];
+	EDLexicalToken *tok = [EDLexicalToken tokenWithType:EDKeywordToken range:NSMakeRange(4, 8) value:@"function" rule:nil];
+	tok.attachedScope = scope;
+	
+	GHAssertTrue(NSEqualRanges(NSMakeRange(4, 22), tok.effectiveRange), @"Effective range should be sum of ranges");
+}
+
 @end

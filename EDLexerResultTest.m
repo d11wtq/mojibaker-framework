@@ -143,6 +143,35 @@
 	GHAssertTrue(NSEqualRanges(NSMakeRange(10, 2), scope3.range), @"Third scope should be at (10,2)");
 }
 
+-(void)testTokensCanOwnScope {
+	EDLexerResult *result = [EDLexerResult result];
+	
+	EDLexRule *fooRule = [[[EDLexRule alloc] init] autorelease];
+	fooRule.attachToScope = YES;
+	
+	EDLexRule *opRule = [[[EDLexRule alloc] init] autorelease];
+	opRule.beginsScope = YES;
+	
+	EDLexRule *clRule = [[[EDLexRule alloc] init] autorelease];
+	clRule.endsScope = YES;
+	
+	EDLexicalToken *t1 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(2, 3) value:@"foo" rule:fooRule];
+	EDLexicalToken *t2 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(20, 1) value:@"{" rule:opRule];
+	EDLexicalToken *t3 = [EDLexicalToken tokenWithType:EDUnmatchedToken range:NSMakeRange(26, 1) value:@"}" rule:clRule];
+	
+	[result addToken:t1];
+	[result addToken:t2];
+	[result addToken:t3];
+	
+	NSArray *scopes = [result scopes];
+	
+	EDLexicalScope *scope1 = [scopes objectAtIndex:0];
+	
+	EDLexicalToken *fooToken = [result tokenAtRange:NSMakeRange(2, 3)];
+	
+	GHAssertEquals(scope1, fooToken.attachedScope, @"Token should have the scope attached to it");
+}
+
 -(void)testCodeOutlineIsKnown {
 	EDLexerResult *result = [EDLexerResult result];
 	

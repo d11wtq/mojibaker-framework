@@ -58,13 +58,24 @@
 		[[treeStack lastObject] addObject:token];
 	}
 	
+	if (token.rule.attachToScope) {
+		tokenAwaitingScope = token;
+	}
+	
 	if (token.rule.beginsScope) {
 		NSValue *rangeValue = [NSMutableRangeValue valueWithRange:NSMakeRange(token.range.location, 0)];
+		EDLexicalScope *scope = [EDLexicalScope scopeWithRangeValue:rangeValue];
+		
 		[scopesStack addObject:rangeValue];
-		[scopes addObject:[EDLexicalScope scopeWithRangeValue:rangeValue]];
+		[scopes addObject:scope];
 		
 		[[treeStack lastObject] addObject:[NSMutableArray array]];
 		[treeStack addObject:[[treeStack lastObject] lastObject]];
+		
+		if (tokenAwaitingScope) {
+			tokenAwaitingScope.attachedScope = scope;
+			tokenAwaitingScope = nil;
+		}
 	}
 	
 	if (token.rule.endsScope) {

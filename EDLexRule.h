@@ -26,6 +26,7 @@
 	BOOL popsState;
 	BOOL beginsScope;
 	BOOL endsScope;
+	BOOL attachToScope;
 	EDLexRule *follows;  // FIXME: Rename -lookbehindRule
 	EDLexRule *precedes; // FIXME: Rename -lookaheadRule
 	
@@ -42,6 +43,7 @@
 @property (nonatomic) BOOL popsState;
 @property (nonatomic) BOOL beginsScope;
 @property (nonatomic) BOOL endsScope;
+@property (nonatomic) BOOL attachToScope;
 @property (nonatomic, retain) EDLexRule *follows;
 @property (nonatomic, retain) EDLexRule *precedes;
 @property (nonatomic) BOOL includedInSymbolTree;

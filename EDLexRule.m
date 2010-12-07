@@ -24,6 +24,7 @@
 @synthesize popsState;
 @synthesize beginsScope;
 @synthesize endsScope;
+@synthesize attachToScope;
 @synthesize follows;
 @synthesize precedes;
 @synthesize includedInSymbolTree;
@@ -39,6 +40,7 @@
 		popsState = NO;
 		beginsScope = NO;
 		endsScope = NO;
+		attachToScope = NO;
 		includedInSymbolTree = NO;
 	}
 	

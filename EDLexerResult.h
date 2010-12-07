@@ -18,6 +18,8 @@
 	NSMutableArray *tree;
 	
 	NSMutableArray *treeStack;
+	
+	EDLexicalToken *tokenAwaitingScope;
 }
 
 +(id)result;
