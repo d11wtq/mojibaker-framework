@@ -74,7 +74,7 @@
 	
 	EDLexerStatesSnapshot *snapshot = [[states snapshot] retain];
 	
-	NSUInteger editedRangeEnd = editedRange.location + editedRange.length;
+	NSUInteger editedRangeEnd = NSMaxRange(editedRange);
 	
 	NSRange nextRange = NSMakeRange(editedRange.location, 0);
 	if (nextRange.location > 0) {
