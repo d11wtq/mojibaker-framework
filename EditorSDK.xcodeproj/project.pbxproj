@@ -60,6 +60,10 @@
 		835E884C1278623500AE51E3 /* EDPatternLexRuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */; };
 		8363A53A127D4FF50087020F /* EDLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 8363A538127D4FF50087020F /* EDLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8363A53B127D4FF50087020F /* EDLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 8363A539127D4FF50087020F /* EDLexRule.m */; };
+		83B0F49212B8E19300BBD782 /* EDTrie.h in Headers */ = {isa = PBXBuildFile; fileRef = 83B0F49012B8E19300BBD782 /* EDTrie.h */; };
+		83B0F49312B8E19300BBD782 /* EDTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B0F49112B8E19300BBD782 /* EDTrie.m */; };
+		83B0F49B12B8E93E00BBD782 /* EDTrieTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B0F49A12B8E93E00BBD782 /* EDTrieTest.m */; };
+		83B0F49F12B8EA2100BBD782 /* EDTrie.m in Sources */ = {isa = PBXBuildFile; fileRef = 83B0F49112B8E19300BBD782 /* EDTrie.m */; };
 		83D66FB4127825400088AC05 /* EDEmbeddedLanguageLexRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83D66FB5127825400088AC05 /* EDEmbeddedLanguageLexRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D66FB3127825400088AC05 /* EDEmbeddedLanguageLexRule.m */; };
 		83D66FB81278270C0088AC05 /* EDLexerStates.h in Headers */ = {isa = PBXBuildFile; fileRef = 83D66FB61278270C0088AC05 /* EDLexerStates.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -152,6 +156,9 @@
 		835E884B1278623500AE51E3 /* EDPatternLexRuleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDPatternLexRuleTest.m; sourceTree = "<group>"; };
 		8363A538127D4FF50087020F /* EDLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexRule.h; sourceTree = "<group>"; };
 		8363A539127D4FF50087020F /* EDLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDLexRule.m; sourceTree = "<group>"; };
+		83B0F49012B8E19300BBD782 /* EDTrie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDTrie.h; sourceTree = "<group>"; };
+		83B0F49112B8E19300BBD782 /* EDTrie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDTrie.m; sourceTree = "<group>"; };
+		83B0F49A12B8E93E00BBD782 /* EDTrieTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDTrieTest.m; sourceTree = "<group>"; };
 		83D66FB2127825400088AC05 /* EDEmbeddedLanguageLexRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDEmbeddedLanguageLexRule.h; sourceTree = "<group>"; };
 		83D66FB3127825400088AC05 /* EDEmbeddedLanguageLexRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EDEmbeddedLanguageLexRule.m; sourceTree = "<group>"; };
 		83D66FB61278270C0088AC05 /* EDLexerStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EDLexerStates.h; sourceTree = "<group>"; };
@@ -249,6 +256,8 @@
 				8314D209128C0E6F00EDB067 /* EDLexicalScope.m */,
 				8314D354128D6FBB00EDB067 /* EDLexerBuffer.h */,
 				8314D355128D6FBB00EDB067 /* EDLexerBuffer.m */,
+				83B0F49012B8E19300BBD782 /* EDTrie.h */,
+				83B0F49112B8E19300BBD782 /* EDTrie.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -300,6 +309,7 @@
 				8314CFB712899F4200EDB067 /* EDLexerStatesSnapshotTest.m */,
 				8314CFBB1289A08200EDB067 /* EDLexicalTokenTest.m */,
 				8314D3C4128E3A6100EDB067 /* EDLexerBufferTest.m */,
+				83B0F49A12B8E93E00BBD782 /* EDTrieTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -355,6 +365,7 @@
 				8314D00B1289F28900EDB067 /* NSMutableRangeValue.h in Headers */,
 				8314D20A128C0E6F00EDB067 /* EDLexicalScope.h in Headers */,
 				8314D356128D6FBB00EDB067 /* EDLexerBuffer.h in Headers */,
+				83B0F49212B8E19300BBD782 /* EDTrie.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +474,8 @@
 				8314CFB812899F4200EDB067 /* EDLexerStatesSnapshotTest.m in Sources */,
 				8314CFBC1289A08200EDB067 /* EDLexicalTokenTest.m in Sources */,
 				8314D3C5128E3A6100EDB067 /* EDLexerBufferTest.m in Sources */,
+				83B0F49B12B8E93E00BBD782 /* EDTrieTest.m in Sources */,
+				83B0F49F12B8EA2100BBD782 /* EDTrie.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,6 +501,7 @@
 				8314D00C1289F28900EDB067 /* NSMutableRangeValue.m in Sources */,
 				8314D20B128C0E6F00EDB067 /* EDLexicalScope.m in Sources */,
 				8314D357128D6FBB00EDB067 /* EDLexerBuffer.m in Sources */,
+				83B0F49312B8E19300BBD782 /* EDTrie.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
